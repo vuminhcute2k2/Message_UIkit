@@ -16,6 +16,7 @@
 		C38623052BF474B70086FC63 /* Message_chatTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38623042BF474B70086FC63 /* Message_chatTests.swift */; };
 		C386230F2BF474B70086FC63 /* Message_chatUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C386230E2BF474B70086FC63 /* Message_chatUITests.swift */; };
 		C38623112BF474B70086FC63 /* Message_chatUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38623102BF474B70086FC63 /* Message_chatUITestsLaunchTests.swift */; };
+		C386231E2BF49F520086FC63 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C386231D2BF49F520086FC63 /* LoginViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		C386230A2BF474B70086FC63 /* Message_chatUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Message_chatUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C386230E2BF474B70086FC63 /* Message_chatUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message_chatUITests.swift; sourceTree = "<group>"; };
 		C38623102BF474B70086FC63 /* Message_chatUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message_chatUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		C386231D2BF49F520086FC63 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +108,7 @@
 				C38622F62BF474B60086FC63 /* Assets.xcassets */,
 				C38622F82BF474B60086FC63 /* LaunchScreen.storyboard */,
 				C38622FB2BF474B60086FC63 /* Info.plist */,
+				C386231D2BF49F520086FC63 /* LoginViewController.swift */,
 			);
 			path = Message_chat;
 			sourceTree = "<group>";
@@ -258,6 +261,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C386231E2BF49F520086FC63 /* LoginViewController.swift in Sources */,
 				C38622F22BF474B60086FC63 /* ViewController.swift in Sources */,
 				C38622EE2BF474B60086FC63 /* AppDelegate.swift in Sources */,
 				C38622F02BF474B60086FC63 /* SceneDelegate.swift in Sources */,
