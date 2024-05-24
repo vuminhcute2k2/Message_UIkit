@@ -46,7 +46,7 @@ class LoginViewController: UIViewController {
             addRightIcon(to: textFieldEmail, icon: emailIcon)
             addRightIcon(to: textFieldPassworld, icon: passwordIcon)
         } else {
-            print("Failed to load images")
+            print("Failed images")
         }
 //        textFieldEmail.setUpRightSideImage(ImageViewNamed: "icon_email")
 //        textFieldPassworld.setUpRightSideImage(ImageViewNamed: "icon_key")
@@ -75,13 +75,13 @@ class LoginViewController: UIViewController {
     private func addRightIcon(to textField: UITextField, icon: UIImage) {
         let iconView = UIImageView(image: icon)
         iconView.contentMode = .scaleAspectFit
-        iconView.frame = CGRect(x: 0, y: 0, width: 24, height: 24) // Điều chỉnh kích thước icon lớn hơn
+        iconView.frame = CGRect(x: 0, y: 0, width: 24, height: 14) // Điều chỉnh kích thước icon lớn hơn
 
-        let containerView = UIView(frame: CGRect(x: 0, y: 0, width: 30, height: 24))
-        containerView.addSubview(iconView)
-        iconView.center = containerView.center
+//        let containerView = UIView(frame: CGRect(x: 0, y: 0, width: 30, height: 14))
+//        containerView.addSubview(iconView)
+//        iconView.center = containerView.center
 
-        textField.rightView = containerView
+        textField.rightView = iconView
         textField.rightViewMode = .always
     }
 }
