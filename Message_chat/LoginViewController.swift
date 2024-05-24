@@ -7,7 +7,7 @@
 
 import UIKit
 
-class LoginViewController: UIViewController {
+final class LoginViewController: UIViewController {
     
     
     @IBOutlet weak var labelDangNhap: UILabel!
@@ -77,21 +77,16 @@ class LoginViewController: UIViewController {
         iconView.contentMode = .scaleAspectFit
         iconView.frame = CGRect(x: 0, y: 0, width: 24, height: 14) // Điều chỉnh kích thước icon lớn hơn
 
-//        let containerView = UIView(frame: CGRect(x: 0, y: 0, width: 30, height: 14))
-//        containerView.addSubview(iconView)
-//        iconView.center = containerView.center
-
         textField.rightView = iconView
         textField.rightViewMode = .always
     }
+    
+    @IBAction private func navigationButtonLogin(_ sender: Any) {
+//        let registerController = RegisterViewController()
+//        self.present(registerController, animated: true,completion: nil)
+                let registerController = RegisterViewController(nibName: "RegisterViewController", bundle: nil)
+                self.navigationController?.pushViewController(registerController, animated: true)
+        print("error")
+        
+    }
 }
-//extension UITextField{
-//    func setUpRightSideImage(ImageViewNamed: String){
-//        let imageView = UIImageView(frame: CGRect(x: 10, y: 10, width: 20, height: 20))
-//        imageView.image = UIImage(named: ImageViewNamed)
-//        let imageViewContainerView = UIView(frame: CGRect(x: 0, y: 0, width: 50, height: 40))
-//        rightView = imageViewContainerView
-//        rightViewMode = .always
-//        self.tintColor = .lightGray
-//    }
-//}
