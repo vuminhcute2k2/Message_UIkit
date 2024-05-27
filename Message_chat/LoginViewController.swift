@@ -17,6 +17,8 @@ final class LoginViewController: UIViewController {
     @IBOutlet weak var textFieldPassworld: UITextField!
 
     
+    @IBOutlet weak var labelRegister: UILabel!
+    
     @IBOutlet weak var buttonLogin: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,6 +49,10 @@ final class LoginViewController: UIViewController {
         } else {
             print("Failed images")
         }
+        // Thêm gesture recognizer cho labelDangKy
+               let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(navigateToRegister))
+               labelRegister.isUserInteractionEnabled = true
+               labelRegister.addGestureRecognizer(tapGestureRecognizer)
 
     }
     
@@ -81,11 +87,16 @@ final class LoginViewController: UIViewController {
 
 
     @IBAction func navigationButtonLogin(_ sender: Any) {
-        let registerController = RegisterAccountViewController(nibName: "RegisterAccountViewController", bundle: nil)
-                registerController.modalPresentationStyle = .fullScreen // Hoặc kiểu trình bày khác mà bạn muốn
-                self.present(registerController, animated: true, completion: nil)
+        let homeController = HomeViewController(nibName: "HomeViewController", bundle: nil)
+                homeController.modalPresentationStyle = .fullScreen // Hoặc kiểu trình bày khác mà bạn muốn
+                self.present(homeController, animated: true, completion: nil)
        
     }
+    @objc private func navigateToRegister() {
+            let registerController = RegisterAccountViewController(nibName: "RegisterAccountViewController", bundle: nil)
+            registerController.modalPresentationStyle = .fullScreen // Hoặc kiểu trình bày khác mà bạn muốn
+            self.present(registerController, animated: true, completion: nil)
+        }
     
 
 }

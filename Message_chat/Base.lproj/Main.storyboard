@@ -261,6 +261,7 @@
                     <connections>
                         <outlet property="buttonLogin" destination="6gy-52-rXX" id="AOO-xQ-r8e"/>
                         <outlet property="labelDangNhap" destination="QSu-m5-73Z" id="KKO-u5-PEa"/>
+                        <outlet property="labelRegister" destination="xnC-yt-cLH" id="2em-Q5-bTe"/>
                         <outlet property="textFieldEmail" destination="CEj-xJ-Efe" id="40V-Be-F3K"/>
                         <outlet property="textFieldPassworld" destination="8Pd-dm-yV4" id="he3-jL-sXq"/>
                     </connections>

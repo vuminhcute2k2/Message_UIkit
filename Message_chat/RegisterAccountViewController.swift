@@ -31,6 +31,9 @@ class RegisterAccountViewController: UIViewController {
     
     @IBOutlet weak var labelDangNhap: UILabel!
     
+    
+    @IBOutlet weak var buttonBackLogin: UIImageView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -71,12 +74,19 @@ class RegisterAccountViewController: UIViewController {
         setUpButtonRegister(button: ButtonRegister)
         
         labelDangNhap.setDangNhapText("Đã có tài khoản? Đăng nhập ngay")
-       
+        
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(backToLogin))
+               buttonBackLogin.isUserInteractionEnabled = true
+               buttonBackLogin.addGestureRecognizer(tapGestureRecognizer)
     }
  
     @IBAction func checkBoxTapper(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
     }
+    @objc private func backToLogin() {
+            self.dismiss(animated: true, completion: nil)
+        }
+
     private func setUpButtonRegister(button: UIButton) {
         button.layer.backgroundColor = UIColor(red: 0.26, green: 0.34, blue: 0.71, alpha: 1.00).cgColor
         button.layer.cornerRadius = 30
@@ -103,7 +113,8 @@ class RegisterAccountViewController: UIViewController {
         textField.rightView = iconView
         textField.rightViewMode = .always
     }
-
+    
+    
     
 }
 extension UILabel {

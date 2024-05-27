@@ -11,6 +11,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RegisterAccountViewController" customModule="Message_chat" customModuleProvider="target">
             <connections>
                 <outlet property="ButtonRegister" destination="lS6-J8-aob" id="bPm-Nh-2eJ"/>
+                <outlet property="buttonBackLogin" destination="YjR-Xp-Bsn" id="Kua-Dg-Z6W"/>
                 <outlet property="checkBox" destination="zoY-ZZ-Zw8" id="oBg-N1-Eh8"/>
                 <outlet property="labelCheckBox" destination="aco-af-dTc" id="FoT-Cl-eVM"/>
                 <outlet property="labelDangKy" destination="YQB-TO-gIg" id="OUc-NZ-agB"/>
