@@ -11,45 +11,43 @@ final class LoginViewController: UIViewController {
     
     
     @IBOutlet weak var labelDangNhap: UILabel!
-    
+
     @IBOutlet weak var textFieldEmail: UITextField!
-    
+
     @IBOutlet weak var textFieldPassworld: UITextField!
-    
+
     
     @IBOutlet weak var buttonLogin: UIButton!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Thiết lập màu cho text
         labelDangNhap.textColor = UIColor(red: 0.26, green: 0.34, blue: 0.71, alpha: 1.00)
-        
+
         // Thiết lập placeholder cho textFieldEmail và textFieldPassword
         textFieldEmail.placeholder = "yourname@gmail.com"
         textFieldPassworld.placeholder = "Password"
-        
+
         // Xóa viền cho textField
         textFieldEmail.borderStyle = .none
             textFieldPassworld.borderStyle = .none
-        
+
         // Thêm đường kẻ bên dưới textFieldEmail và textFieldPassword
         addBottomLine(to: textFieldEmail)
         addBottomLine(to: textFieldPassworld)
-        
+
         // Thiết lập button login
         setUpButtonLogin(button: buttonLogin)
-        
+
         // Thêm icon vào bên phải của textFieldEmail và textFieldPassword
-        
+
         if let emailIcon = UIImage(named: "icon_email"), let passwordIcon = UIImage(named: "icon_key") {
             addRightIcon(to: textFieldEmail, icon: emailIcon)
             addRightIcon(to: textFieldPassworld, icon: passwordIcon)
         } else {
             print("Failed images")
         }
-//        textFieldEmail.setUpRightSideImage(ImageViewNamed: "icon_email")
-//        textFieldPassworld.setUpRightSideImage(ImageViewNamed: "icon_key")
+
     }
     
     private func addBottomLine(to textField: UITextField) {
@@ -57,7 +55,7 @@ final class LoginViewController: UIViewController {
         bottomLineView.translatesAutoresizingMaskIntoConstraints = false
         bottomLineView.backgroundColor = UIColor.gray
         textField.addSubview(bottomLineView)
-        
+
         NSLayoutConstraint.activate([
             bottomLineView.leadingAnchor.constraint(equalTo: textField.leadingAnchor),
             bottomLineView.trailingAnchor.constraint(equalTo: textField.trailingAnchor),
@@ -65,13 +63,13 @@ final class LoginViewController: UIViewController {
             bottomLineView.heightAnchor.constraint(equalToConstant: 1.0)
         ])
     }
-    
+
     private func setUpButtonLogin(button: UIButton) {
         button.layer.backgroundColor = UIColor(red: 0.26, green: 0.34, blue: 0.71, alpha: 1.00).cgColor
         button.layer.cornerRadius = 30
         button.layer.masksToBounds = true // Đảm bảo rằng các góc của button bị cắt đi theo cornerRadius
     }
-    
+
     private func addRightIcon(to textField: UITextField, icon: UIImage) {
         let iconView = UIImageView(image: icon)
         iconView.contentMode = .scaleAspectFit
@@ -80,13 +78,14 @@ final class LoginViewController: UIViewController {
         textField.rightView = iconView
         textField.rightViewMode = .always
     }
-    
-    @IBAction private func navigationButtonLogin(_ sender: Any) {
-//        let registerController = RegisterViewController()
-//        self.present(registerController, animated: true,completion: nil)
-                let registerController = RegisterViewController(nibName: "RegisterViewController", bundle: nil)
-                self.navigationController?.pushViewController(registerController, animated: true)
-        print("error")
-        
+
+
+    @IBAction func navigationButtonLogin(_ sender: Any) {
+        let registerController = RegisterAccountViewController(nibName: "RegisterAccountViewController", bundle: nil)
+                registerController.modalPresentationStyle = .fullScreen // Hoặc kiểu trình bày khác mà bạn muốn
+                self.present(registerController, animated: true, completion: nil)
+       
     }
+    
+
 }

@@ -1,5 +1,5 @@
 //
-//  RegisterViewController.swift
+//  DangKiViewController.swift
 //  Message_chat
 //
 //  Created by Minh Vũ on 26/05/2024.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class RegisterViewController: UIViewController {
+class DangKiViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
