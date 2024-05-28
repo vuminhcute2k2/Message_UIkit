@@ -7,38 +7,25 @@
 
 import UIKit
 class RegisterAccountViewController: UIViewController {
-
     @IBOutlet weak var labelDangKy: UILabel!
-    
     @IBOutlet weak var textFieldName: UITextField!
-    
     @IBOutlet weak var textFieldEmail: UITextField!
-    
     @IBOutlet weak var labelCheckBox: UILabel!
-    
     @IBOutlet weak var textFieldPassworld: UITextField!
-    
     @IBOutlet weak var checkBox: UIButton!
-    
     @IBOutlet weak var ButtonRegister: UIButton!
-    
     @IBOutlet weak var labelDangNhap: UILabel!
-    
     @IBOutlet weak var buttonBackLogin: UIImageView!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         labelDangKy.textColor = UIColor(red: 0.26, green: 0.34, blue: 0.71, alpha: 1.00)
-        // Thiết lập placeholder cho textFieldEmail và textFieldPassword
         textFieldEmail.placeholder = "yourname@gmail.com"
         textFieldPassworld.placeholder = "*******"
         textFieldName.placeholder = "Họ và tên"
-        // Xóa viền cho textField
         textFieldName.borderStyle = .none
         textFieldEmail.borderStyle = .none
         textFieldPassworld.borderStyle = .none
-        // Thêm đường kẻ bên dưới textField
+        // bottomline textField
         addBottomLine(to: textFieldName)
         addBottomLine(to: textFieldEmail)
         addBottomLine(to: textFieldPassworld)
@@ -50,11 +37,11 @@ class RegisterAccountViewController: UIViewController {
         } else {
             print("Failed images")
         }
-        // Thiết lập hình ảnh cho trạng thái không chọn và chọn của checkbox
+        // imageCheckbox
         checkBox.setImage(UIImage(systemName: "checkmark.circle"), for: .normal)
         checkBox.setImage(UIImage(systemName: "checkmark.circle.fill"), for: .selected)
         checkBox.tintColor = .systemBlue
-        // Loại bỏ nền và viền của UIButton
+        // delete background and border UIButton
         checkBox.setTitle("", for: .normal)
         checkBox.backgroundColor = UIColor.white
         checkBox.layer.borderWidth = 0
@@ -70,12 +57,12 @@ class RegisterAccountViewController: UIViewController {
         sender.isSelected = !sender.isSelected
     }
     @objc private func backToLogin() {
-            self.dismiss(animated: true, completion: nil)
-        }
+        self.dismiss(animated: true, completion: nil)
+    }
     private func setUpButtonRegister(button: UIButton) {
         button.layer.backgroundColor = UIColor(red: 0.26, green: 0.34, blue: 0.71, alpha: 1.00).cgColor
         button.layer.cornerRadius = 30
-        button.layer.masksToBounds = true // Đảm bảo rằng các góc của button bị cắt đi theo cornerRadius
+        button.layer.masksToBounds = true
     }
     private func addBottomLine(to textField: UITextField) {
         let bottomLineView = UIView()
@@ -83,16 +70,16 @@ class RegisterAccountViewController: UIViewController {
         bottomLineView.backgroundColor = UIColor.gray
         textField.addSubview(bottomLineView)
         NSLayoutConstraint.activate([
-            bottomLineView.leadingAnchor.constraint(equalTo: textField.leadingAnchor),
-            bottomLineView.trailingAnchor.constraint(equalTo: textField.trailingAnchor),
-            bottomLineView.bottomAnchor.constraint(equalTo: textField.bottomAnchor),
-            bottomLineView.heightAnchor.constraint(equalToConstant: 1.0)
+        bottomLineView.leadingAnchor.constraint(equalTo: textField.leadingAnchor),
+        bottomLineView.trailingAnchor.constraint(equalTo: textField.trailingAnchor),
+        bottomLineView.bottomAnchor.constraint(equalTo: textField.bottomAnchor),
+        bottomLineView.heightAnchor.constraint(equalToConstant: 1.0)
         ])
     }
     private func addRightIcon(to textField: UITextField, icon: UIImage) {
         let iconView = UIImageView(image: icon)
         iconView.contentMode = .scaleAspectFit
-        iconView.frame = CGRect(x: 0, y: 0, width: 24, height: 14) // Điều chỉnh kích thước icon lớn hơn
+        iconView.frame = CGRect(x: 0, y: 0, width: 24, height: 14)
         textField.rightView = iconView
         textField.rightViewMode = .always
     }
@@ -100,16 +87,16 @@ class RegisterAccountViewController: UIViewController {
 extension UILabel {
     func setCheckBoxText(_ text: String) {
             let attributedString = NSMutableAttributedString(string: text)
-            // Đặt phông chữ và màu xám cho toàn bộ chuỗi
+            //custom font text
             attributedString.addAttribute(.foregroundColor, value: UIColor.gray, range: NSRange(location: 0, length: text.count))
             attributedString.addAttribute(.font, value: UIFont.systemFont(ofSize: self.font.pointSize), range: NSRange(location: 0, length: text.count))
-            // Tìm và đặt màu xanh cho từ "chính sách"
+            // custom color text blue
             if let range = text.range(of: "chính sách") {
                 let nsRange = NSRange(range, in: text)
                 attributedString.addAttribute(.foregroundColor, value: UIColor.blue, range: nsRange)
                 attributedString.addAttribute(.font, value: UIFont.systemFont(ofSize: self.font.pointSize, weight: .bold), range: nsRange)
             }
-            // Tìm và đặt màu xanh cho từ "điều khoản"
+            // custom color text blue
             if let range = text.range(of: "điều khoản") {
                 let nsRange = NSRange(range, in: text)
                 attributedString.addAttribute(.foregroundColor, value: UIColor.blue, range: nsRange)
@@ -120,10 +107,8 @@ extension UILabel {
     
     func setDangNhapText(_ text: String){
         let attributedString = NSMutableAttributedString(string: text)
-        // Đặt phông chữ và màu xám cho toàn bộ chuỗi
         attributedString.addAttribute(.foregroundColor, value: UIColor.gray, range: NSRange(location: 0, length: text.count))
         attributedString.addAttribute(.font, value: UIFont.systemFont(ofSize: self.font.pointSize), range: NSRange(location: 0, length: text.count))
-        // tìm và đặt màu xanh cho từ "chính sách"
         if let range = text.range(of: "Đăng nhập ngay") {
             let nsRange = NSRange(range, in: text)
             attributedString.addAttribute(.foregroundColor, value: UIColor.blue, range: nsRange)
