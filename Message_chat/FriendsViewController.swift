@@ -1,13 +1,13 @@
 //
-//  RegisterViewController.swift
+//  FriendsViewController.swift
 //  Message_chat
 //
-//  Created by Minh Vũ on 26/05/2024.
+//  Created by Minh Vũ on 28/05/2024.
 //
 
 import UIKit
 
-class RegisterViewController: UIViewController {
+class FriendsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

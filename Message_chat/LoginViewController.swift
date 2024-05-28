@@ -32,7 +32,7 @@ final class LoginViewController: UIViewController {
 
         // Xóa viền cho textField
         textFieldEmail.borderStyle = .none
-            textFieldPassworld.borderStyle = .none
+        textFieldPassworld.borderStyle = .none
 
         // Thêm đường kẻ bên dưới textFieldEmail và textFieldPassword
         addBottomLine(to: textFieldEmail)
@@ -43,7 +43,8 @@ final class LoginViewController: UIViewController {
 
         // Thêm icon vào bên phải của textFieldEmail và textFieldPassword
 
-        if let emailIcon = UIImage(named: "icon_email"), let passwordIcon = UIImage(named: "icon_key") {
+        if let emailIcon = UIImage(named: "icon_email"),
+           let passwordIcon = UIImage(named: "icon_key") {
             addRightIcon(to: textFieldEmail, icon: emailIcon)
             addRightIcon(to: textFieldPassworld, icon: passwordIcon)
         } else {
@@ -80,16 +81,15 @@ final class LoginViewController: UIViewController {
         let iconView = UIImageView(image: icon)
         iconView.contentMode = .scaleAspectFit
         iconView.frame = CGRect(x: 0, y: 0, width: 24, height: 14) // Điều chỉnh kích thước icon lớn hơn
-
         textField.rightView = iconView
         textField.rightViewMode = .always
     }
 
 
     @IBAction func navigationButtonLogin(_ sender: Any) {
-        let homeController = HomeViewController(nibName: "HomeViewController", bundle: nil)
-                homeController.modalPresentationStyle = .fullScreen // Hoặc kiểu trình bày khác mà bạn muốn
-                self.present(homeController, animated: true, completion: nil)
+        let tabBarController = HomeTabBarController(nibName: "HomeTabBarController", bundle: nil)
+        tabBarController.modalPresentationStyle = .fullScreen // Hoặc kiểu trình bày khác mà bạn muốn
+        self.present(tabBarController, animated: true, completion: nil)
        
     }
     @objc private func navigateToRegister() {

@@ -10,8 +10,14 @@
 		012FCFC7712234E315C6C847 /* Pods_Message_chatTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 045C53833A57CB4E0B5AC49A /* Pods_Message_chatTests.framework */; };
 		0DE11C6023561A55863B6EE1 /* Pods_Message_chat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0EC636E2F33238693357720 /* Pods_Message_chat.framework */; };
 		196A9352036D9F0CBC722E87 /* Pods_Message_chat_Message_chatUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9DDB73E4D041F6BAE7F0AC5 /* Pods_Message_chat_Message_chatUITests.framework */; };
-		C33DF5782C051B07007C654E /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C33DF5762C051B07007C654E /* HomeViewController.swift */; };
-		C33DF5792C051B07007C654E /* HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C33DF5772C051B07007C654E /* HomeViewController.xib */; };
+		C33DF57C2C053291007C654E /* HomeTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C33DF57A2C053291007C654E /* HomeTabBarController.swift */; };
+		C33DF57D2C053291007C654E /* HomeTabBarController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C33DF57B2C053291007C654E /* HomeTabBarController.xib */; };
+		C33DF5822C053929007C654E /* HomeMessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C33DF5802C053929007C654E /* HomeMessageViewController.swift */; };
+		C33DF5832C053929007C654E /* HomeMessageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C33DF5812C053929007C654E /* HomeMessageViewController.xib */; };
+		C33DF5862C053AD7007C654E /* FriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C33DF5842C053AD7007C654E /* FriendsViewController.swift */; };
+		C33DF5872C053AD7007C654E /* FriendsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C33DF5852C053AD7007C654E /* FriendsViewController.xib */; };
+		C33DF58A2C053AEC007C654E /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C33DF5882C053AEC007C654E /* ProfileViewController.swift */; };
+		C33DF58B2C053AEC007C654E /* ProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C33DF5892C053AEC007C654E /* ProfileViewController.xib */; };
 		C37F47C42C02ECF5008EDD7F /* RegisterAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C37F47C22C02ECF5008EDD7F /* RegisterAccountViewController.swift */; };
 		C37F47C52C02ECF5008EDD7F /* RegisterAccountViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C37F47C32C02ECF5008EDD7F /* RegisterAccountViewController.xib */; };
 		C38622EE2BF474B60086FC63 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38622ED2BF474B60086FC63 /* AppDelegate.swift */; };
@@ -50,8 +56,14 @@
 		5855F0814C80A0949EE4680E /* Pods-Message_chat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Message_chat.release.xcconfig"; path = "Target Support Files/Pods-Message_chat/Pods-Message_chat.release.xcconfig"; sourceTree = "<group>"; };
 		8FF7FF37BD09A9AF7B0C719D /* Pods-Message_chatTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Message_chatTests.debug.xcconfig"; path = "Target Support Files/Pods-Message_chatTests/Pods-Message_chatTests.debug.xcconfig"; sourceTree = "<group>"; };
 		91822CB66D4A70E5971DC01D /* Pods-Message_chat-Message_chatUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Message_chat-Message_chatUITests.debug.xcconfig"; path = "Target Support Files/Pods-Message_chat-Message_chatUITests/Pods-Message_chat-Message_chatUITests.debug.xcconfig"; sourceTree = "<group>"; };
-		C33DF5762C051B07007C654E /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
-		C33DF5772C051B07007C654E /* HomeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeViewController.xib; sourceTree = "<group>"; };
+		C33DF57A2C053291007C654E /* HomeTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTabBarController.swift; sourceTree = "<group>"; };
+		C33DF57B2C053291007C654E /* HomeTabBarController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeTabBarController.xib; sourceTree = "<group>"; };
+		C33DF5802C053929007C654E /* HomeMessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeMessageViewController.swift; sourceTree = "<group>"; };
+		C33DF5812C053929007C654E /* HomeMessageViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeMessageViewController.xib; sourceTree = "<group>"; };
+		C33DF5842C053AD7007C654E /* FriendsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsViewController.swift; sourceTree = "<group>"; };
+		C33DF5852C053AD7007C654E /* FriendsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FriendsViewController.xib; sourceTree = "<group>"; };
+		C33DF5882C053AEC007C654E /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		C33DF5892C053AEC007C654E /* ProfileViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileViewController.xib; sourceTree = "<group>"; };
 		C37F47C22C02ECF5008EDD7F /* RegisterAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterAccountViewController.swift; sourceTree = "<group>"; };
 		C37F47C32C02ECF5008EDD7F /* RegisterAccountViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RegisterAccountViewController.xib; sourceTree = "<group>"; };
 		C38622EA2BF474B60086FC63 /* Message_chat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Message_chat.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -149,8 +161,14 @@
 				C386231D2BF49F520086FC63 /* LoginViewController.swift */,
 				C37F47C22C02ECF5008EDD7F /* RegisterAccountViewController.swift */,
 				C37F47C32C02ECF5008EDD7F /* RegisterAccountViewController.xib */,
-				C33DF5762C051B07007C654E /* HomeViewController.swift */,
-				C33DF5772C051B07007C654E /* HomeViewController.xib */,
+				C33DF57A2C053291007C654E /* HomeTabBarController.swift */,
+				C33DF57B2C053291007C654E /* HomeTabBarController.xib */,
+				C33DF5802C053929007C654E /* HomeMessageViewController.swift */,
+				C33DF5812C053929007C654E /* HomeMessageViewController.xib */,
+				C33DF5842C053AD7007C654E /* FriendsViewController.swift */,
+				C33DF5852C053AD7007C654E /* FriendsViewController.xib */,
+				C33DF5882C053AEC007C654E /* ProfileViewController.swift */,
+				C33DF5892C053AEC007C654E /* ProfileViewController.xib */,
 			);
 			path = Message_chat;
 			sourceTree = "<group>";
@@ -291,9 +309,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C33DF57D2C053291007C654E /* HomeTabBarController.xib in Resources */,
+				C33DF5832C053929007C654E /* HomeMessageViewController.xib in Resources */,
+				C33DF58B2C053AEC007C654E /* ProfileViewController.xib in Resources */,
 				C38622FA2BF474B60086FC63 /* LaunchScreen.storyboard in Resources */,
 				C37F47C52C02ECF5008EDD7F /* RegisterAccountViewController.xib in Resources */,
-				C33DF5792C051B07007C654E /* HomeViewController.xib in Resources */,
+				C33DF5872C053AD7007C654E /* FriendsViewController.xib in Resources */,
 				C38622F72BF474B60086FC63 /* Assets.xcassets in Resources */,
 				C38622F52BF474B60086FC63 /* Main.storyboard in Resources */,
 			);
@@ -423,12 +444,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C33DF5862C053AD7007C654E /* FriendsViewController.swift in Sources */,
 				C37F47C42C02ECF5008EDD7F /* RegisterAccountViewController.swift in Sources */,
 				C386231E2BF49F520086FC63 /* LoginViewController.swift in Sources */,
+				C33DF5822C053929007C654E /* HomeMessageViewController.swift in Sources */,
+				C33DF57C2C053291007C654E /* HomeTabBarController.swift in Sources */,
 				C38622F22BF474B60086FC63 /* ViewController.swift in Sources */,
+				C33DF58A2C053AEC007C654E /* ProfileViewController.swift in Sources */,
 				C38622EE2BF474B60086FC63 /* AppDelegate.swift in Sources */,
 				C38622F02BF474B60086FC63 /* SceneDelegate.swift in Sources */,
-				C33DF5782C051B07007C654E /* HomeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

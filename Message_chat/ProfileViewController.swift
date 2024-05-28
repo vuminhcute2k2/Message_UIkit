@@ -1,13 +1,13 @@
 //
-//  DangKiViewController.swift
+//  ProfileViewController.swift
 //  Message_chat
 //
-//  Created by Minh Vũ on 26/05/2024.
+//  Created by Minh Vũ on 28/05/2024.
 //
 
 import UIKit
 
-class DangKiViewController: UIViewController {
+class ProfileViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
