@@ -67,7 +67,7 @@ final class LoginViewController: UIViewController {
     }
     @objc private func navigateToRegister() {
         let registerController = RegisterAccountViewController(nibName: "RegisterAccountViewController", bundle: nil)
-        egisterController.modalPresentationStyle = .fullScreen
+        registerController.modalPresentationStyle = .fullScreen
         self.present(registerController, animated: true, completion: nil)
     }
     

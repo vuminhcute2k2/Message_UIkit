@@ -13,6 +13,7 @@ class HomeMessageViewController: UIViewController {
     @IBOutlet weak var textFieldSearch: UITextField!
     @IBOutlet weak var boderViewSearch: UIView!
     @IBOutlet weak var buttonSearchMessage: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 //        backgroundColorHome.applyGradiend1()
