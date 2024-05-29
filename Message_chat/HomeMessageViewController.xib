@@ -19,8 +19,10 @@
                 <outlet property="boderViewSearch" destination="q2c-Ia-OYc" id="VGb-0n-Jis"/>
                 <outlet property="buttonSearchMessage" destination="tfA-M1-zAt" id="0dG-Pl-2xR"/>
                 <outlet property="labelTinNhan" destination="LHC-gq-wPC" id="ShM-Jy-uJX"/>
+                <outlet property="tableMessage" destination="M79-TH-Opx" id="hsl-0W-Rf3"/>
                 <outlet property="textFieldSearch" destination="tna-Wh-uY4" id="OGo-Hn-HRo"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outlet property="viewTableMessage" destination="aWs-jo-YQk" id="Ti5-Q3-hNk"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -29,7 +31,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ASZ-HS-3Vc">
-                    <rect key="frame" x="0.0" y="59" width="393" height="759"/>
+                    <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mAE-Zo-6Ih">
                             <rect key="frame" x="12" y="43" width="369" height="127"/>
@@ -41,7 +43,7 @@
                                     <color key="highlightedColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tfA-M1-zAt">
-                                    <rect key="frame" x="269" y="19.333333333333329" width="75" height="35"/>
+                                    <rect key="frame" x="269" y="19.333333333333336" width="75" height="35"/>
                                     <state key="normal" title="Button"/>
                                     <buttonConfiguration key="configuration" style="plain" title="Button"/>
                                 </button>
@@ -62,7 +64,6 @@
                                     </constraints>
                                 </view>
                             </subviews>
-                            <color key="backgroundColor" systemColor="systemTealColor"/>
                             <constraints>
                                 <constraint firstItem="q2c-Ia-OYc" firstAttribute="leading" secondItem="mAE-Zo-6Ih" secondAttribute="leading" constant="25" id="6aZ-im-otC"/>
                                 <constraint firstItem="LHC-gq-wPC" firstAttribute="leading" secondItem="mAE-Zo-6Ih" secondAttribute="leading" constant="25" id="VTV-dp-A6q"/>
@@ -75,23 +76,29 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aWs-jo-YQk">
-                            <rect key="frame" x="12" y="200" width="369" height="547"/>
+                            <rect key="frame" x="12" y="200" width="369" height="652"/>
                             <subviews>
-                                <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="539" translatesAutoresizingMaskIntoConstraints="NO" id="EzR-yN-0bU">
-                                    <rect key="frame" x="8" y="0.0" width="353" height="539"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="EzR-yN-0bU" id="r6o-7X-KtF">
-                                        <rect key="frame" x="0.0" y="0.0" width="353" height="539"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                    </tableViewCellContentView>
-                                </tableViewCell>
+                                <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="M79-TH-Opx">
+                                    <rect key="frame" x="0.0" y="8" width="369" height="547"/>
+                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    <connections>
+                                        <outlet property="dataSource" destination="aWs-jo-YQk" id="b3P-o1-HB8"/>
+                                        <outlet property="delegate" destination="aWs-jo-YQk" id="Jla-oO-1oL"/>
+                                    </connections>
+                                </tableView>
                             </subviews>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <constraints>
+                                <constraint firstAttribute="trailing" secondItem="M79-TH-Opx" secondAttribute="trailing" id="9TE-Vm-hf5"/>
+                                <constraint firstItem="M79-TH-Opx" firstAttribute="leading" secondItem="aWs-jo-YQk" secondAttribute="leading" id="COd-OG-5zn"/>
+                                <constraint firstItem="M79-TH-Opx" firstAttribute="top" secondItem="aWs-jo-YQk" secondAttribute="top" id="E4e-O6-Cmb"/>
+                                <constraint firstAttribute="bottom" secondItem="M79-TH-Opx" secondAttribute="bottom" id="ZZ6-l9-W2I"/>
+                            </constraints>
                         </view>
                     </subviews>
                     <color key="backgroundColor" systemColor="systemGreenColor"/>
                     <constraints>
-                        <constraint firstAttribute="bottom" secondItem="aWs-jo-YQk" secondAttribute="bottom" constant="12" id="8Wt-xo-pvL"/>
+                        <constraint firstAttribute="bottom" secondItem="aWs-jo-YQk" secondAttribute="bottom" id="8Wt-xo-pvL"/>
                         <constraint firstItem="aWs-jo-YQk" firstAttribute="leading" secondItem="ASZ-HS-3Vc" secondAttribute="leading" constant="12" id="8wO-Ds-MPi"/>
                         <constraint firstItem="mAE-Zo-6Ih" firstAttribute="leading" secondItem="ASZ-HS-3Vc" secondAttribute="leading" constant="12" id="Xpe-1q-RSF"/>
                         <constraint firstAttribute="trailing" secondItem="mAE-Zo-6Ih" secondAttribute="trailing" constant="12" id="ZWS-qh-eH2"/>
@@ -119,9 +126,6 @@
         </systemColor>
         <systemColor name="systemGreenColor">
             <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="systemTealColor">
-            <color red="0.18823529411764706" green="0.69019607843137254" blue="0.7803921568627451" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

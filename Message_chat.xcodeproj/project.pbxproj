@@ -30,6 +30,8 @@
 		C386230F2BF474B70086FC63 /* Message_chatUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C386230E2BF474B70086FC63 /* Message_chatUITests.swift */; };
 		C38623112BF474B70086FC63 /* Message_chatUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38623102BF474B70086FC63 /* Message_chatUITestsLaunchTests.swift */; };
 		C386231E2BF49F520086FC63 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C386231D2BF49F520086FC63 /* LoginViewController.swift */; };
+		C3B0D5302C070192000A980B /* MessagesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B0D52E2C070192000A980B /* MessagesTableViewCell.swift */; };
+		C3B0D5312C070192000A980B /* MessagesTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3B0D52F2C070192000A980B /* MessagesTableViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,6 +82,8 @@
 		C386230E2BF474B70086FC63 /* Message_chatUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message_chatUITests.swift; sourceTree = "<group>"; };
 		C38623102BF474B70086FC63 /* Message_chatUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message_chatUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		C386231D2BF49F520086FC63 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		C3B0D52E2C070192000A980B /* MessagesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesTableViewCell.swift; sourceTree = "<group>"; };
+		C3B0D52F2C070192000A980B /* MessagesTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MessagesTableViewCell.xib; sourceTree = "<group>"; };
 		D0858881C3CF3BD57E6F1BA1 /* Pods-Message_chat-Message_chatUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Message_chat-Message_chatUITests.release.xcconfig"; path = "Target Support Files/Pods-Message_chat-Message_chatUITests/Pods-Message_chat-Message_chatUITests.release.xcconfig"; sourceTree = "<group>"; };
 		D9DDB73E4D041F6BAE7F0AC5 /* Pods_Message_chat_Message_chatUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Message_chat_Message_chatUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F0EC636E2F33238693357720 /* Pods_Message_chat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Message_chat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -169,6 +173,8 @@
 				C33DF5852C053AD7007C654E /* FriendsViewController.xib */,
 				C33DF5882C053AEC007C654E /* ProfileViewController.swift */,
 				C33DF5892C053AEC007C654E /* ProfileViewController.xib */,
+				C3B0D52E2C070192000A980B /* MessagesTableViewCell.swift */,
+				C3B0D52F2C070192000A980B /* MessagesTableViewCell.xib */,
 			);
 			path = Message_chat;
 			sourceTree = "<group>";
@@ -317,6 +323,7 @@
 				C33DF5872C053AD7007C654E /* FriendsViewController.xib in Resources */,
 				C38622F72BF474B60086FC63 /* Assets.xcassets in Resources */,
 				C38622F52BF474B60086FC63 /* Main.storyboard in Resources */,
+				C3B0D5312C070192000A980B /* MessagesTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -451,6 +458,7 @@
 				C33DF57C2C053291007C654E /* HomeTabBarController.swift in Sources */,
 				C38622F22BF474B60086FC63 /* ViewController.swift in Sources */,
 				C33DF58A2C053AEC007C654E /* ProfileViewController.swift in Sources */,
+				C3B0D5302C070192000A980B /* MessagesTableViewCell.swift in Sources */,
 				C38622EE2BF474B60086FC63 /* AppDelegate.swift in Sources */,
 				C38622F02BF474B60086FC63 /* SceneDelegate.swift in Sources */,
 			);

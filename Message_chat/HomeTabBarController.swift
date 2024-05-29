@@ -21,5 +21,6 @@ class HomeTabBarController: UITabBarController {
         self.viewControllers = [homeMessage,friends,profile]
         // Thiết lập màu nền cho UITabBar
         self.tabBar.barTintColor = .black
+        self.tabBar.backgroundColor = .white
     }
 }
