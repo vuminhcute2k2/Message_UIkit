@@ -70,6 +70,4 @@ final class LoginViewController: UIViewController {
         registerController.modalPresentationStyle = .fullScreen
         self.present(registerController, animated: true, completion: nil)
     }
-    
-
 }

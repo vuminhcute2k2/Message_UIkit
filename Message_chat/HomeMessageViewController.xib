@@ -15,10 +15,9 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HomeMessageViewController" customModule="Message_chat" customModuleProvider="target">
             <connections>
-                <outlet property="backgroundColorHome" destination="ASZ-HS-3Vc" id="kuz-4l-a6n"/>
                 <outlet property="boderViewSearch" destination="q2c-Ia-OYc" id="VGb-0n-Jis"/>
                 <outlet property="buttonSearchMessage" destination="tfA-M1-zAt" id="0dG-Pl-2xR"/>
-                <outlet property="labelTinNhan" destination="LHC-gq-wPC" id="ShM-Jy-uJX"/>
+                <outlet property="homeBackgroundView" destination="ASZ-HS-3Vc" id="buh-J2-kL3"/>
                 <outlet property="tableMessage" destination="M79-TH-Opx" id="hsl-0W-Rf3"/>
                 <outlet property="textFieldSearch" destination="tna-Wh-uY4" id="OGo-Hn-HRo"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -31,7 +30,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ASZ-HS-3Vc">
-                    <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                    <rect key="frame" x="0.0" y="0.0" width="393" height="818"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mAE-Zo-6Ih">
                             <rect key="frame" x="12" y="43" width="369" height="127"/>
@@ -50,8 +49,8 @@
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="q2c-Ia-OYc">
                                     <rect key="frame" x="25" y="60" width="319" height="36"/>
                                     <subviews>
-                                        <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tna-Wh-uY4">
-                                            <rect key="frame" x="8" y="1" width="303" height="34"/>
+                                        <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Tìm kiếm tin nhắn..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tna-Wh-uY4">
+                                            <rect key="frame" x="8" y="8.6666666666666732" width="303" height="18.666666666666671"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <textInputTraits key="textInputTraits"/>
                                         </textField>
@@ -76,10 +75,10 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aWs-jo-YQk">
-                            <rect key="frame" x="12" y="200" width="369" height="652"/>
+                            <rect key="frame" x="0.0" y="200" width="393" height="618"/>
                             <subviews>
-                                <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="M79-TH-Opx">
-                                    <rect key="frame" x="0.0" y="8" width="369" height="547"/>
+                                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="M79-TH-Opx">
+                                    <rect key="frame" x="0.0" y="0.0" width="393" height="618"/>
                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     <connections>
                                         <outlet property="dataSource" destination="aWs-jo-YQk" id="b3P-o1-HB8"/>
@@ -99,11 +98,11 @@
                     <color key="backgroundColor" systemColor="systemGreenColor"/>
                     <constraints>
                         <constraint firstAttribute="bottom" secondItem="aWs-jo-YQk" secondAttribute="bottom" id="8Wt-xo-pvL"/>
-                        <constraint firstItem="aWs-jo-YQk" firstAttribute="leading" secondItem="ASZ-HS-3Vc" secondAttribute="leading" constant="12" id="8wO-Ds-MPi"/>
+                        <constraint firstItem="aWs-jo-YQk" firstAttribute="leading" secondItem="ASZ-HS-3Vc" secondAttribute="leading" id="8wO-Ds-MPi"/>
                         <constraint firstItem="mAE-Zo-6Ih" firstAttribute="leading" secondItem="ASZ-HS-3Vc" secondAttribute="leading" constant="12" id="Xpe-1q-RSF"/>
                         <constraint firstAttribute="trailing" secondItem="mAE-Zo-6Ih" secondAttribute="trailing" constant="12" id="ZWS-qh-eH2"/>
                         <constraint firstItem="mAE-Zo-6Ih" firstAttribute="top" secondItem="ASZ-HS-3Vc" secondAttribute="top" constant="43" id="kRb-Ry-cgP"/>
-                        <constraint firstAttribute="trailing" secondItem="aWs-jo-YQk" secondAttribute="trailing" constant="12" id="p8q-Xd-A7N"/>
+                        <constraint firstAttribute="trailing" secondItem="aWs-jo-YQk" secondAttribute="trailing" id="p8q-Xd-A7N"/>
                         <constraint firstItem="aWs-jo-YQk" firstAttribute="top" secondItem="ASZ-HS-3Vc" secondAttribute="top" constant="200" id="xEq-Pc-a6V"/>
                         <constraint firstItem="aWs-jo-YQk" firstAttribute="top" secondItem="mAE-Zo-6Ih" secondAttribute="bottom" constant="30" id="yYj-Pp-sRz"/>
                     </constraints>
@@ -113,9 +112,12 @@
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="ASZ-HS-3Vc" secondAttribute="bottom" id="0qA-e7-PWf"/>
+                <constraint firstAttribute="trailing" secondItem="ASZ-HS-3Vc" secondAttribute="trailing" id="T3h-87-XYD"/>
+                <constraint firstAttribute="bottom" secondItem="ASZ-HS-3Vc" secondAttribute="bottom" constant="34" id="YQ0-OA-frk"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="ASZ-HS-3Vc" secondAttribute="trailing" id="cvH-qm-pA1"/>
-                <constraint firstItem="ASZ-HS-3Vc" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="jAU-Ac-wLa"/>
+                <constraint firstItem="ASZ-HS-3Vc" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="kvz-hp-92H"/>
                 <constraint firstItem="ASZ-HS-3Vc" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="oxE-Vg-UNs"/>
+                <constraint firstItem="ASZ-HS-3Vc" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="yF6-90-0Va"/>
             </constraints>
             <point key="canvasLocation" x="28.244274809160306" y="-11.267605633802818"/>
         </view>

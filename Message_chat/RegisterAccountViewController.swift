@@ -84,36 +84,3 @@ class RegisterAccountViewController: UIViewController {
         textField.rightViewMode = .always
     }
 }
-extension UILabel {
-    func setCheckBoxText(_ text: String) {
-            let attributedString = NSMutableAttributedString(string: text)
-            //custom font text
-            attributedString.addAttribute(.foregroundColor, value: UIColor.gray, range: NSRange(location: 0, length: text.count))
-            attributedString.addAttribute(.font, value: UIFont.systemFont(ofSize: self.font.pointSize), range: NSRange(location: 0, length: text.count))
-            // custom color text blue
-            if let range = text.range(of: "chính sách") {
-                let nsRange = NSRange(range, in: text)
-                attributedString.addAttribute(.foregroundColor, value: UIColor.blue, range: nsRange)
-                attributedString.addAttribute(.font, value: UIFont.systemFont(ofSize: self.font.pointSize, weight: .bold), range: nsRange)
-            }
-            // custom color text blue
-            if let range = text.range(of: "điều khoản") {
-                let nsRange = NSRange(range, in: text)
-                attributedString.addAttribute(.foregroundColor, value: UIColor.blue, range: nsRange)
-                attributedString.addAttribute(.font, value: UIFont.systemFont(ofSize: self.font.pointSize, weight: .bold), range: nsRange)
-            }
-            self.attributedText = attributedString
-        }
-    
-    func setDangNhapText(_ text: String){
-        let attributedString = NSMutableAttributedString(string: text)
-        attributedString.addAttribute(.foregroundColor, value: UIColor.gray, range: NSRange(location: 0, length: text.count))
-        attributedString.addAttribute(.font, value: UIFont.systemFont(ofSize: self.font.pointSize), range: NSRange(location: 0, length: text.count))
-        if let range = text.range(of: "Đăng nhập ngay") {
-            let nsRange = NSRange(range, in: text)
-            attributedString.addAttribute(.foregroundColor, value: UIColor.blue, range: nsRange)
-            attributedString.addAttribute(.font, value: UIFont.systemFont(ofSize: self.font.pointSize, weight: .bold), range: nsRange)
-        }
-        self.attributedText = attributedString
-    }
-}

@@ -19,4 +19,10 @@ class MessagesTableViewCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
+    func setData(message: Message) {
+        imageAvatar.image = UIImage(named: message.avatarImageName)
+        textname.text = message.name
+        textmessage.text = message.message
+        texttime.text = message.time
+    }
 }
