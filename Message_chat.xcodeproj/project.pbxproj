@@ -18,6 +18,7 @@
 		C33DF5872C053AD7007C654E /* FriendsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C33DF5852C053AD7007C654E /* FriendsViewController.xib */; };
 		C33DF58A2C053AEC007C654E /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C33DF5882C053AEC007C654E /* ProfileViewController.swift */; };
 		C33DF58B2C053AEC007C654E /* ProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C33DF5892C053AEC007C654E /* ProfileViewController.xib */; };
+		C34D01D02C087A0A007E712E /* UIImageProfileExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34D01CF2C087A0A007E712E /* UIImageProfileExtensions.swift */; };
 		C37F47C42C02ECF5008EDD7F /* RegisterAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C37F47C22C02ECF5008EDD7F /* RegisterAccountViewController.swift */; };
 		C37F47C52C02ECF5008EDD7F /* RegisterAccountViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C37F47C32C02ECF5008EDD7F /* RegisterAccountViewController.xib */; };
 		C38622EE2BF474B60086FC63 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38622ED2BF474B60086FC63 /* AppDelegate.swift */; };
@@ -71,6 +72,7 @@
 		C33DF5852C053AD7007C654E /* FriendsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FriendsViewController.xib; sourceTree = "<group>"; };
 		C33DF5882C053AEC007C654E /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		C33DF5892C053AEC007C654E /* ProfileViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileViewController.xib; sourceTree = "<group>"; };
+		C34D01CF2C087A0A007E712E /* UIImageProfileExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageProfileExtensions.swift; sourceTree = "<group>"; };
 		C37F47C22C02ECF5008EDD7F /* RegisterAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterAccountViewController.swift; sourceTree = "<group>"; };
 		C37F47C32C02ECF5008EDD7F /* RegisterAccountViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RegisterAccountViewController.xib; sourceTree = "<group>"; };
 		C38622EA2BF474B60086FC63 /* Message_chat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Message_chat.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -190,6 +192,7 @@
 				C3B0D5362C07B14A000A980B /* CALayerExtensions.swift */,
 				C3B0D5382C07B1A9000A980B /* HomeMessageExtensions.swift */,
 				C3B0D53A2C083EBD000A980B /* ModelMessages.swift */,
+				C34D01CF2C087A0A007E712E /* UIImageProfileExtensions.swift */,
 			);
 			path = Message_chat;
 			sourceTree = "<group>";
@@ -477,6 +480,7 @@
 				C38622F22BF474B60086FC63 /* ViewController.swift in Sources */,
 				C33DF58A2C053AEC007C654E /* ProfileViewController.swift in Sources */,
 				C3B0D5352C07B0E9000A980B /* UILabelExtensions.swift in Sources */,
+				C34D01D02C087A0A007E712E /* UIImageProfileExtensions.swift in Sources */,
 				C3B0D5392C07B1A9000A980B /* HomeMessageExtensions.swift in Sources */,
 				C3B0D5302C070192000A980B /* MessagesTableViewCell.swift in Sources */,
 				C38622EE2BF474B60086FC63 /* AppDelegate.swift in Sources */,
