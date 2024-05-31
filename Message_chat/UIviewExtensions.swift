@@ -33,4 +33,36 @@ extension UIView {
         border.frame = CGRect(x: 0, y: self.frame.size.height - width, width: self.frame.size.width, height: width)
         self.layer.addSublayer(border)
     }
+    func customizeBorder(cornerRadius: CGFloat, borderWidth: CGFloat, borderColor: UIColor) {
+        self.layer.cornerRadius = cornerRadius
+        self.layer.masksToBounds = true
+        self.layer.borderWidth = borderWidth
+        self.layer.borderColor = borderColor.cgColor
+    }
+    func updateBorderView(corners: UIRectCorner, radius: CGFloat, borderColor: UIColor, borderWidth: CGFloat) {
+        let path = UIBezierPath(
+            roundedRect: self.bounds,
+            byRoundingCorners: corners,
+            cornerRadii: CGSize(width: radius, height: radius)
+        )
+        let mask = CAShapeLayer()
+        mask.path = path.cgPath
+        self.layer.mask = mask
+        
+        // Removing existing border layers
+        if let sublayers = self.layer.sublayers {
+            for layer in sublayers {
+                if layer is CAShapeLayer {
+                    layer.removeFromSuperlayer()
+                }
+            }
+        }
+        // Adding new border layer
+        let borderLayer = CAShapeLayer()
+        borderLayer.path = path.cgPath
+        borderLayer.strokeColor = borderColor.cgColor
+        borderLayer.fillColor = UIColor.clear.cgColor
+        borderLayer.lineWidth = borderWidth
+        self.layer.addSublayer(borderLayer)
+    }
 }

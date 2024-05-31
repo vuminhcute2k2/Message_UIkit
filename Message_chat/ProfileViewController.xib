@@ -15,18 +15,18 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ProfileViewController" customModule="Message_chat" customModuleProvider="target">
             <connections>
-                <outlet property="borderTextFeildMessage" destination="xfa-VG-xfv" id="Xzm-8w-7cr"/>
-                <outlet property="buttonEditProfile" destination="G9w-5P-hw5" id="jnA-vz-oBi"/>
-                <outlet property="buttonSearch" destination="pSW-jq-S5e" id="ZeH-lo-hWL"/>
+                <outlet property="backgroundImage" destination="vPK-Rk-MGu" id="pvW-Lk-LFI"/>
+                <outlet property="borderMessageTextField" destination="xfa-VG-xfv" id="Wdp-Sy-cUv"/>
+                <outlet property="editProfileButton" destination="G9w-5P-hw5" id="jMN-Aq-uYL"/>
                 <outlet property="homeBackgroundView" destination="E6H-UG-ZWT" id="5P9-VI-8wG"/>
-                <outlet property="iconLanguage" destination="NBv-tD-Oao" id="IQg-fP-O2m"/>
-                <outlet property="imageBackground" destination="vPK-Rk-MGu" id="ZFg-Zu-Ad2"/>
-                <outlet property="imageProfile" destination="7h4-gt-ayx" id="n1O-7b-QLL"/>
+                <outlet property="languageIcon" destination="NBv-tD-Oao" id="vci-e5-aQ5"/>
                 <outlet property="languageView" destination="LM2-CE-82d" id="IUs-2W-vku"/>
                 <outlet property="notificationView" destination="FAB-Sg-uOT" id="zBc-Iv-cFc"/>
+                <outlet property="profileImage" destination="7h4-gt-ayx" id="gOh-DS-jpW"/>
                 <outlet property="profileView" destination="Mnl-g3-kTc" id="HJK-MQ-GLl"/>
                 <outlet property="reuseView" destination="uvp-jI-mc6" id="iEg-qK-O16"/>
-                <outlet property="textFieldSearch" destination="mcK-Rv-CLv" id="Ad1-6i-Pjq"/>
+                <outlet property="searchButton" destination="pSW-jq-S5e" id="g7G-dr-juQ"/>
+                <outlet property="searchTextField" destination="mcK-Rv-CLv" id="1ti-DL-925"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
