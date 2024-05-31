@@ -17,7 +17,7 @@ class HomeTabBarController: UITabBarController {
         let profile = ProfileViewController(nibName: "ProfileViewController", bundle: nil)
         profile.tabBarItem = UITabBarItem(title: "Trang cá nhân", image: UIImage(systemName: "person.crop.circle.fill") , tag: 2)
         self.viewControllers = [homeMessage,friends,profile]
-        self.tabBar.barTintColor = .black
+        self.tabBar.barTintColor = .white
         self.tabBar.backgroundColor = .white
     }
 }

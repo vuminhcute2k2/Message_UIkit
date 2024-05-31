@@ -1,2 +1,4 @@
 ${PODS_ROOT}/Target Support Files/Pods-Message_chat/Pods-Message_chat-frameworks.sh
+${BUILT_PRODUCTS_DIR}/LZViewPager/LZViewPager.framework
+${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework
 ${BUILT_PRODUCTS_DIR}/SwiftSVG/SwiftSVG.framework

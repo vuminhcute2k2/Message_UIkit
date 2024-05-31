@@ -39,6 +39,12 @@
 		C3B0D5372C07B14A000A980B /* CALayerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B0D5362C07B14A000A980B /* CALayerExtensions.swift */; };
 		C3B0D5392C07B1A9000A980B /* HomeMessageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B0D5382C07B1A9000A980B /* HomeMessageExtensions.swift */; };
 		C3B0D53B2C083EBD000A980B /* ModelMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B0D53A2C083EBD000A980B /* ModelMessages.swift */; };
+		C3E943D72C09D87A0065664D /* MyFriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E943D52C09D87A0065664D /* MyFriendsViewController.swift */; };
+		C3E943D82C09D87A0065664D /* MyFriendsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3E943D62C09D87A0065664D /* MyFriendsViewController.xib */; };
+		C3E943DB2C09D8920065664D /* AllFriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E943D92C09D8920065664D /* AllFriendsViewController.swift */; };
+		C3E943DC2C09D8920065664D /* AllFriendsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3E943DA2C09D8920065664D /* AllFriendsViewController.xib */; };
+		C3E943DF2C09DA0F0065664D /* RequestFriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E943DD2C09DA0F0065664D /* RequestFriendsViewController.swift */; };
+		C3E943E02C09DA0F0065664D /* RequestFriendsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3E943DE2C09DA0F0065664D /* RequestFriendsViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -98,6 +104,12 @@
 		C3B0D5362C07B14A000A980B /* CALayerExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CALayerExtensions.swift; sourceTree = "<group>"; };
 		C3B0D5382C07B1A9000A980B /* HomeMessageExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeMessageExtensions.swift; sourceTree = "<group>"; };
 		C3B0D53A2C083EBD000A980B /* ModelMessages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelMessages.swift; sourceTree = "<group>"; };
+		C3E943D52C09D87A0065664D /* MyFriendsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFriendsViewController.swift; sourceTree = "<group>"; };
+		C3E943D62C09D87A0065664D /* MyFriendsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MyFriendsViewController.xib; sourceTree = "<group>"; };
+		C3E943D92C09D8920065664D /* AllFriendsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllFriendsViewController.swift; sourceTree = "<group>"; };
+		C3E943DA2C09D8920065664D /* AllFriendsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AllFriendsViewController.xib; sourceTree = "<group>"; };
+		C3E943DD2C09DA0F0065664D /* RequestFriendsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestFriendsViewController.swift; sourceTree = "<group>"; };
+		C3E943DE2C09DA0F0065664D /* RequestFriendsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RequestFriendsViewController.xib; sourceTree = "<group>"; };
 		D0858881C3CF3BD57E6F1BA1 /* Pods-Message_chat-Message_chatUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Message_chat-Message_chatUITests.release.xcconfig"; path = "Target Support Files/Pods-Message_chat-Message_chatUITests/Pods-Message_chat-Message_chatUITests.release.xcconfig"; sourceTree = "<group>"; };
 		D9DDB73E4D041F6BAE7F0AC5 /* Pods_Message_chat_Message_chatUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Message_chat_Message_chatUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F0EC636E2F33238693357720 /* Pods_Message_chat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Message_chat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -196,6 +208,12 @@
 				C3B0D53A2C083EBD000A980B /* ModelMessages.swift */,
 				C306FB862C099F8A00D5E110 /* UITextFieldExtensions.swift */,
 				C306FB882C09A22A00D5E110 /* UIButtonExtensions.swift */,
+				C3E943D52C09D87A0065664D /* MyFriendsViewController.swift */,
+				C3E943D62C09D87A0065664D /* MyFriendsViewController.xib */,
+				C3E943D92C09D8920065664D /* AllFriendsViewController.swift */,
+				C3E943DA2C09D8920065664D /* AllFriendsViewController.xib */,
+				C3E943DD2C09DA0F0065664D /* RequestFriendsViewController.swift */,
+				C3E943DE2C09DA0F0065664D /* RequestFriendsViewController.xib */,
 			);
 			path = Message_chat;
 			sourceTree = "<group>";
@@ -340,11 +358,14 @@
 				C33DF5832C053929007C654E /* HomeMessageViewController.xib in Resources */,
 				C33DF58B2C053AEC007C654E /* ProfileViewController.xib in Resources */,
 				C38622FA2BF474B60086FC63 /* LaunchScreen.storyboard in Resources */,
+				C3E943E02C09DA0F0065664D /* RequestFriendsViewController.xib in Resources */,
 				C37F47C52C02ECF5008EDD7F /* RegisterAccountViewController.xib in Resources */,
 				C33DF5872C053AD7007C654E /* FriendsViewController.xib in Resources */,
 				C38622F72BF474B60086FC63 /* Assets.xcassets in Resources */,
 				C38622F52BF474B60086FC63 /* Main.storyboard in Resources */,
+				C3E943D82C09D87A0065664D /* MyFriendsViewController.xib in Resources */,
 				C3B0D5312C070192000A980B /* MessagesTableViewCell.xib in Resources */,
+				C3E943DC2C09D8920065664D /* AllFriendsViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -477,15 +498,18 @@
 				C3B0D5372C07B14A000A980B /* CALayerExtensions.swift in Sources */,
 				C37F47C42C02ECF5008EDD7F /* RegisterAccountViewController.swift in Sources */,
 				C3B0D5332C07AEEE000A980B /* UIviewExtensions.swift in Sources */,
+				C3E943DB2C09D8920065664D /* AllFriendsViewController.swift in Sources */,
 				C386231E2BF49F520086FC63 /* LoginViewController.swift in Sources */,
 				C33DF5822C053929007C654E /* HomeMessageViewController.swift in Sources */,
 				C33DF57C2C053291007C654E /* HomeTabBarController.swift in Sources */,
 				C38622F22BF474B60086FC63 /* ViewController.swift in Sources */,
 				C33DF58A2C053AEC007C654E /* ProfileViewController.swift in Sources */,
 				C3B0D5352C07B0E9000A980B /* UILabelExtensions.swift in Sources */,
+				C3E943DF2C09DA0F0065664D /* RequestFriendsViewController.swift in Sources */,
 				C3B0D5392C07B1A9000A980B /* HomeMessageExtensions.swift in Sources */,
 				C3B0D5302C070192000A980B /* MessagesTableViewCell.swift in Sources */,
 				C38622EE2BF474B60086FC63 /* AppDelegate.swift in Sources */,
+				C3E943D72C09D87A0065664D /* MyFriendsViewController.swift in Sources */,
 				C306FB892C09A22A00D5E110 /* UIButtonExtensions.swift in Sources */,
 				C306FB872C099F8A00D5E110 /* UITextFieldExtensions.swift in Sources */,
 				C38622F02BF474B60086FC63 /* SceneDelegate.swift in Sources */,

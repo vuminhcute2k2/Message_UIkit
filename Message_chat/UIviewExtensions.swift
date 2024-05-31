@@ -21,7 +21,6 @@ extension UIView {
         self.layer.insertSublayer(gradientLayer, at: 0)
         self.layer.gradientLayer = gradientLayer
     }
-    
     func updateGradientFrame() {
         if let gradientLayer = self.layer.gradientLayer {
             gradientLayer.frame = self.bounds
@@ -48,7 +47,7 @@ extension UIView {
         let mask = CAShapeLayer()
         mask.path = path.cgPath
         self.layer.mask = mask
-        
+
         // Removing existing border layers
         if let sublayers = self.layer.sublayers {
             for layer in sublayers {
@@ -64,5 +63,9 @@ extension UIView {
         borderLayer.fillColor = UIColor.clear.cgColor
         borderLayer.lineWidth = borderWidth
         self.layer.addSublayer(borderLayer)
+//        self.layer.cornerRadius = radius
+//        self.layer.maskedCorners = CACornerMask(rawValue: corners.rawValue)
+//        self.layer.borderColor = borderColor.cgColor
+//        self.layer.borderWidth = borderWidth
     }
 }
