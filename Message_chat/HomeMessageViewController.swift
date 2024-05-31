@@ -70,7 +70,7 @@ class HomeMessageViewController: UIViewController {
         buttonSearchMessage.layer.masksToBounds = true
     }
     private func updateBoderViewMessage() {
-        let radius: CGFloat = 18
+        let radius: CGFloat = 20
         let path = UIBezierPath(
             roundedRect: viewTableMessage.bounds,
             byRoundingCorners: [.topLeft, .topRight],

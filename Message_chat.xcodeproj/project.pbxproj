@@ -10,6 +10,8 @@
 		012FCFC7712234E315C6C847 /* Pods_Message_chatTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 045C53833A57CB4E0B5AC49A /* Pods_Message_chatTests.framework */; };
 		0DE11C6023561A55863B6EE1 /* Pods_Message_chat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0EC636E2F33238693357720 /* Pods_Message_chat.framework */; };
 		196A9352036D9F0CBC722E87 /* Pods_Message_chat_Message_chatUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9DDB73E4D041F6BAE7F0AC5 /* Pods_Message_chat_Message_chatUITests.framework */; };
+		C306FB872C099F8A00D5E110 /* UITextFieldExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C306FB862C099F8A00D5E110 /* UITextFieldExtensions.swift */; };
+		C306FB892C09A22A00D5E110 /* UIButtonExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C306FB882C09A22A00D5E110 /* UIButtonExtensions.swift */; };
 		C33DF57C2C053291007C654E /* HomeTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C33DF57A2C053291007C654E /* HomeTabBarController.swift */; };
 		C33DF57D2C053291007C654E /* HomeTabBarController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C33DF57B2C053291007C654E /* HomeTabBarController.xib */; };
 		C33DF5822C053929007C654E /* HomeMessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C33DF5802C053929007C654E /* HomeMessageViewController.swift */; };
@@ -63,6 +65,8 @@
 		5855F0814C80A0949EE4680E /* Pods-Message_chat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Message_chat.release.xcconfig"; path = "Target Support Files/Pods-Message_chat/Pods-Message_chat.release.xcconfig"; sourceTree = "<group>"; };
 		8FF7FF37BD09A9AF7B0C719D /* Pods-Message_chatTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Message_chatTests.debug.xcconfig"; path = "Target Support Files/Pods-Message_chatTests/Pods-Message_chatTests.debug.xcconfig"; sourceTree = "<group>"; };
 		91822CB66D4A70E5971DC01D /* Pods-Message_chat-Message_chatUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Message_chat-Message_chatUITests.debug.xcconfig"; path = "Target Support Files/Pods-Message_chat-Message_chatUITests/Pods-Message_chat-Message_chatUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		C306FB862C099F8A00D5E110 /* UITextFieldExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldExtensions.swift; sourceTree = "<group>"; };
+		C306FB882C09A22A00D5E110 /* UIButtonExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButtonExtensions.swift; sourceTree = "<group>"; };
 		C33DF57A2C053291007C654E /* HomeTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTabBarController.swift; sourceTree = "<group>"; };
 		C33DF57B2C053291007C654E /* HomeTabBarController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeTabBarController.xib; sourceTree = "<group>"; };
 		C33DF5802C053929007C654E /* HomeMessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeMessageViewController.swift; sourceTree = "<group>"; };
@@ -190,6 +194,8 @@
 				C3B0D5362C07B14A000A980B /* CALayerExtensions.swift */,
 				C3B0D5382C07B1A9000A980B /* HomeMessageExtensions.swift */,
 				C3B0D53A2C083EBD000A980B /* ModelMessages.swift */,
+				C306FB862C099F8A00D5E110 /* UITextFieldExtensions.swift */,
+				C306FB882C09A22A00D5E110 /* UIButtonExtensions.swift */,
 			);
 			path = Message_chat;
 			sourceTree = "<group>";
@@ -480,6 +486,8 @@
 				C3B0D5392C07B1A9000A980B /* HomeMessageExtensions.swift in Sources */,
 				C3B0D5302C070192000A980B /* MessagesTableViewCell.swift in Sources */,
 				C38622EE2BF474B60086FC63 /* AppDelegate.swift in Sources */,
+				C306FB892C09A22A00D5E110 /* UIButtonExtensions.swift in Sources */,
+				C306FB872C099F8A00D5E110 /* UITextFieldExtensions.swift in Sources */,
 				C38622F02BF474B60086FC63 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
