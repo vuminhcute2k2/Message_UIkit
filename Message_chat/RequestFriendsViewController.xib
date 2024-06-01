@@ -10,6 +10,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RequestFriendsViewController" customModule="Message_chat" customModuleProvider="target">
             <connections>
+                <outlet property="acceptFriendsTable" destination="Akp-jn-une" id="80O-Gs-vJ9"/>
+                <outlet property="cancelFriendsTable" destination="a7u-aI-3Cp" id="Bdw-Mh-x5m"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -35,10 +37,26 @@
                                 </label>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yTS-gF-3FC">
                                     <rect key="frame" x="0.0" y="50" width="393" height="329.66666666666669"/>
+                                    <subviews>
+                                        <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Akp-jn-une">
+                                            <rect key="frame" x="0.0" y="0.0" width="393" height="329.66666666666669"/>
+                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                            <connections>
+                                                <outlet property="dataSource" destination="yTS-gF-3FC" id="ejj-5Y-Pfl"/>
+                                                <outlet property="delegate" destination="yTS-gF-3FC" id="yLa-rW-cuL"/>
+                                            </connections>
+                                        </tableView>
+                                    </subviews>
                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    <constraints>
+                                        <constraint firstAttribute="bottom" secondItem="Akp-jn-une" secondAttribute="bottom" id="VAo-RS-abA"/>
+                                        <constraint firstItem="Akp-jn-une" firstAttribute="top" secondItem="yTS-gF-3FC" secondAttribute="top" id="hYa-QC-DFs"/>
+                                        <constraint firstAttribute="trailing" secondItem="Akp-jn-une" secondAttribute="trailing" id="l5T-Cl-fal"/>
+                                        <constraint firstItem="Akp-jn-une" firstAttribute="leading" secondItem="yTS-gF-3FC" secondAttribute="leading" id="q5T-kS-SCs"/>
+                                    </constraints>
                                 </view>
                             </subviews>
-                            <color key="backgroundColor" systemColor="systemGreenColor"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstItem="yTS-gF-3FC" firstAttribute="leading" secondItem="QjA-xb-gJD" secondAttribute="leading" id="2Kz-hh-jDQ"/>
                                 <constraint firstAttribute="trailing" secondItem="yTS-gF-3FC" secondAttribute="trailing" id="Ec9-3v-cRz"/>
@@ -51,7 +69,7 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ub9-Ns-MPb">
                             <rect key="frame" x="0.0" y="379.66666666666674" width="393" height="379.33333333333326"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LỜI MỜI KẾT BẠN" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nfy-pc-aeZ">
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ĐÃ GỬI KẾT BẠN" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nfy-pc-aeZ">
                                     <rect key="frame" x="25" y="18" width="119" height="17"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="119" id="wIj-Pz-f9o"/>
@@ -62,10 +80,26 @@
                                 </label>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5S3-LN-f6V">
                                     <rect key="frame" x="0.0" y="50" width="393" height="329.33333333333331"/>
+                                    <subviews>
+                                        <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="a7u-aI-3Cp">
+                                            <rect key="frame" x="0.0" y="0.0" width="393" height="329.33333333333331"/>
+                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                            <connections>
+                                                <outlet property="dataSource" destination="5S3-LN-f6V" id="3fG-Hi-OJN"/>
+                                                <outlet property="delegate" destination="5S3-LN-f6V" id="b6Z-4R-kPZ"/>
+                                            </connections>
+                                        </tableView>
+                                    </subviews>
                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    <constraints>
+                                        <constraint firstAttribute="bottom" secondItem="a7u-aI-3Cp" secondAttribute="bottom" id="8vC-Zc-Z5j"/>
+                                        <constraint firstAttribute="trailing" secondItem="a7u-aI-3Cp" secondAttribute="trailing" id="Boq-ux-aGn"/>
+                                        <constraint firstItem="a7u-aI-3Cp" firstAttribute="leading" secondItem="5S3-LN-f6V" secondAttribute="leading" id="FMJ-qY-6yq"/>
+                                        <constraint firstItem="a7u-aI-3Cp" firstAttribute="top" secondItem="5S3-LN-f6V" secondAttribute="top" id="vNJ-U8-giz"/>
+                                    </constraints>
                                 </view>
                             </subviews>
-                            <color key="backgroundColor" systemColor="systemYellowColor"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstItem="nfy-pc-aeZ" firstAttribute="leading" secondItem="Ub9-Ns-MPb" secondAttribute="leading" constant="25" id="Bva-ZQ-UOg"/>
                                 <constraint firstItem="5S3-LN-f6V" firstAttribute="leading" secondItem="Ub9-Ns-MPb" secondAttribute="leading" id="Jyf-ne-WEB"/>
@@ -107,14 +141,8 @@
         <systemColor name="systemGray3Color">
             <color red="0.7803921568627451" green="0.7803921568627451" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
-        <systemColor name="systemGreenColor">
-            <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
         <systemColor name="systemRedColor">
             <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="systemYellowColor">
-            <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

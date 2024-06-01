@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="86" id="KGk-i7-Jjw" customClass="AcceptFriendsTableViewCell" customModule="Message_chat" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="437" height="86"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="437" height="86"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="image_avatar" translatesAutoresizingMaskIntoConstraints="NO" id="ZkK-Iq-DjF">
+                        <rect key="frame" x="25" y="15" width="55" height="50"/>
+                    </imageView>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EIB-fS-W6G">
+                        <rect key="frame" x="344" y="26.666666666666671" width="73" height="27"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="73" id="gX7-K1-Axu"/>
+                            <constraint firstAttribute="height" constant="27" id="yem-5V-ShD"/>
+                        </constraints>
+                        <state key="normal" title="Button"/>
+                        <buttonConfiguration key="configuration" style="filled" title="Đồng ý">
+                            <fontDescription key="titleFontDescription" name="Palatino-Roman" family="Palatino" pointSize="15"/>
+                        </buttonConfiguration>
+                    </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="caH-7F-EnA">
+                        <rect key="frame" x="113" y="29.666666666666671" width="42" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="caH-7F-EnA" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="113" id="2mC-rE-McI"/>
+                    <constraint firstAttribute="bottom" secondItem="ZkK-Iq-DjF" secondAttribute="bottom" constant="15" id="EPD-Si-RuZ"/>
+                    <constraint firstAttribute="trailing" secondItem="EIB-fS-W6G" secondAttribute="trailing" constant="20" symbolic="YES" id="TV7-q1-eMm"/>
+                    <constraint firstItem="ZkK-Iq-DjF" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="UzN-bj-4Hy"/>
+                    <constraint firstItem="ZkK-Iq-DjF" firstAttribute="centerY" secondItem="caH-7F-EnA" secondAttribute="centerY" id="XVg-LL-JUK"/>
+                    <constraint firstItem="EIB-fS-W6G" firstAttribute="centerY" secondItem="caH-7F-EnA" secondAttribute="centerY" id="fI3-kq-16J"/>
+                    <constraint firstItem="ZkK-Iq-DjF" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="25" id="mEi-I4-uXJ"/>
+                    <constraint firstItem="caH-7F-EnA" firstAttribute="leading" secondItem="ZkK-Iq-DjF" secondAttribute="trailing" constant="33" id="vOt-v2-NEH"/>
+                    <constraint firstAttribute="bottom" secondItem="EIB-fS-W6G" secondAttribute="bottom" constant="26" id="zmf-Cy-BY9"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="acceptButton" destination="EIB-fS-W6G" id="kgv-N1-OMy"/>
+                <outlet property="avatarImage" destination="ZkK-Iq-DjF" id="zfR-mM-6Mf"/>
+                <outlet property="nameLabel" destination="caH-7F-EnA" id="YNi-Uz-JTB"/>
+            </connections>
+            <point key="canvasLocation" x="100" y="3.5211267605633805"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="image_avatar" width="50" height="50"/>
+    </resources>
+</document>

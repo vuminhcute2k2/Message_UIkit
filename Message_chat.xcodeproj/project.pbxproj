@@ -20,6 +20,12 @@
 		C33DF5872C053AD7007C654E /* FriendsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C33DF5852C053AD7007C654E /* FriendsViewController.xib */; };
 		C33DF58A2C053AEC007C654E /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C33DF5882C053AEC007C654E /* ProfileViewController.swift */; };
 		C33DF58B2C053AEC007C654E /* ProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C33DF5892C053AEC007C654E /* ProfileViewController.xib */; };
+		C33EA4162C0B0E6200733FA5 /* AcceptFriendsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C33EA4142C0B0E6200733FA5 /* AcceptFriendsTableViewCell.swift */; };
+		C33EA4172C0B0E6200733FA5 /* AcceptFriendsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C33EA4152C0B0E6200733FA5 /* AcceptFriendsTableViewCell.xib */; };
+		C35C910B2C0B2BB30003D73F /* CancelFriendsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C35C91092C0B2BB30003D73F /* CancelFriendsTableViewCell.swift */; };
+		C35C910C2C0B2BB30003D73F /* CancelFriendsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C35C910A2C0B2BB30003D73F /* CancelFriendsTableViewCell.xib */; };
+		C36EDC702C0B178900958658 /* ModelRequestFriends.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36EDC6F2C0B178900958658 /* ModelRequestFriends.swift */; };
+		C36EDC722C0B198900958658 /* RequestFriendsExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36EDC712C0B198900958658 /* RequestFriendsExtensions.swift */; };
 		C37F47C42C02ECF5008EDD7F /* RegisterAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C37F47C22C02ECF5008EDD7F /* RegisterAccountViewController.swift */; };
 		C37F47C52C02ECF5008EDD7F /* RegisterAccountViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C37F47C32C02ECF5008EDD7F /* RegisterAccountViewController.xib */; };
 		C38622EE2BF474B60086FC63 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38622ED2BF474B60086FC63 /* AppDelegate.swift */; };
@@ -81,6 +87,12 @@
 		C33DF5852C053AD7007C654E /* FriendsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FriendsViewController.xib; sourceTree = "<group>"; };
 		C33DF5882C053AEC007C654E /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		C33DF5892C053AEC007C654E /* ProfileViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileViewController.xib; sourceTree = "<group>"; };
+		C33EA4142C0B0E6200733FA5 /* AcceptFriendsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcceptFriendsTableViewCell.swift; sourceTree = "<group>"; };
+		C33EA4152C0B0E6200733FA5 /* AcceptFriendsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AcceptFriendsTableViewCell.xib; sourceTree = "<group>"; };
+		C35C91092C0B2BB30003D73F /* CancelFriendsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancelFriendsTableViewCell.swift; sourceTree = "<group>"; };
+		C35C910A2C0B2BB30003D73F /* CancelFriendsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CancelFriendsTableViewCell.xib; sourceTree = "<group>"; };
+		C36EDC6F2C0B178900958658 /* ModelRequestFriends.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelRequestFriends.swift; sourceTree = "<group>"; };
+		C36EDC712C0B198900958658 /* RequestFriendsExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestFriendsExtensions.swift; sourceTree = "<group>"; };
 		C37F47C22C02ECF5008EDD7F /* RegisterAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterAccountViewController.swift; sourceTree = "<group>"; };
 		C37F47C32C02ECF5008EDD7F /* RegisterAccountViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RegisterAccountViewController.xib; sourceTree = "<group>"; };
 		C38622EA2BF474B60086FC63 /* Message_chat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Message_chat.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -205,7 +217,9 @@
 				C3B0D5342C07B0E9000A980B /* UILabelExtensions.swift */,
 				C3B0D5362C07B14A000A980B /* CALayerExtensions.swift */,
 				C3B0D5382C07B1A9000A980B /* HomeMessageExtensions.swift */,
+				C36EDC712C0B198900958658 /* RequestFriendsExtensions.swift */,
 				C3B0D53A2C083EBD000A980B /* ModelMessages.swift */,
+				C36EDC6F2C0B178900958658 /* ModelRequestFriends.swift */,
 				C306FB862C099F8A00D5E110 /* UITextFieldExtensions.swift */,
 				C306FB882C09A22A00D5E110 /* UIButtonExtensions.swift */,
 				C3E943D52C09D87A0065664D /* MyFriendsViewController.swift */,
@@ -214,6 +228,10 @@
 				C3E943DA2C09D8920065664D /* AllFriendsViewController.xib */,
 				C3E943DD2C09DA0F0065664D /* RequestFriendsViewController.swift */,
 				C3E943DE2C09DA0F0065664D /* RequestFriendsViewController.xib */,
+				C33EA4142C0B0E6200733FA5 /* AcceptFriendsTableViewCell.swift */,
+				C33EA4152C0B0E6200733FA5 /* AcceptFriendsTableViewCell.xib */,
+				C35C91092C0B2BB30003D73F /* CancelFriendsTableViewCell.swift */,
+				C35C910A2C0B2BB30003D73F /* CancelFriendsTableViewCell.xib */,
 			);
 			path = Message_chat;
 			sourceTree = "<group>";
@@ -355,7 +373,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				C33DF57D2C053291007C654E /* HomeTabBarController.xib in Resources */,
+				C35C910C2C0B2BB30003D73F /* CancelFriendsTableViewCell.xib in Resources */,
 				C33DF5832C053929007C654E /* HomeMessageViewController.xib in Resources */,
+				C33EA4172C0B0E6200733FA5 /* AcceptFriendsTableViewCell.xib in Resources */,
 				C33DF58B2C053AEC007C654E /* ProfileViewController.xib in Resources */,
 				C38622FA2BF474B60086FC63 /* LaunchScreen.storyboard in Resources */,
 				C3E943E02C09DA0F0065664D /* RequestFriendsViewController.xib in Resources */,
@@ -494,12 +514,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				C33DF5862C053AD7007C654E /* FriendsViewController.swift in Sources */,
+				C33EA4162C0B0E6200733FA5 /* AcceptFriendsTableViewCell.swift in Sources */,
 				C3B0D53B2C083EBD000A980B /* ModelMessages.swift in Sources */,
 				C3B0D5372C07B14A000A980B /* CALayerExtensions.swift in Sources */,
 				C37F47C42C02ECF5008EDD7F /* RegisterAccountViewController.swift in Sources */,
+				C36EDC722C0B198900958658 /* RequestFriendsExtensions.swift in Sources */,
 				C3B0D5332C07AEEE000A980B /* UIviewExtensions.swift in Sources */,
 				C3E943DB2C09D8920065664D /* AllFriendsViewController.swift in Sources */,
 				C386231E2BF49F520086FC63 /* LoginViewController.swift in Sources */,
+				C36EDC702C0B178900958658 /* ModelRequestFriends.swift in Sources */,
 				C33DF5822C053929007C654E /* HomeMessageViewController.swift in Sources */,
 				C33DF57C2C053291007C654E /* HomeTabBarController.swift in Sources */,
 				C38622F22BF474B60086FC63 /* ViewController.swift in Sources */,
@@ -512,6 +535,7 @@
 				C3E943D72C09D87A0065664D /* MyFriendsViewController.swift in Sources */,
 				C306FB892C09A22A00D5E110 /* UIButtonExtensions.swift in Sources */,
 				C306FB872C099F8A00D5E110 /* UITextFieldExtensions.swift in Sources */,
+				C35C910B2C0B2BB30003D73F /* CancelFriendsTableViewCell.swift in Sources */,
 				C38622F02BF474B60086FC63 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

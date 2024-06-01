@@ -7,23 +7,22 @@
 
 import UIKit
 
-class RequestFriendsViewController: UIViewController {
+class RequestFriendsViewController: UIViewController{
 
+    @IBOutlet weak var acceptFriendsTable: UITableView!
+    @IBOutlet weak var cancelFriendsTable: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        setupTableView()
     }
-
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    private func setupTableView() {
+        let nib = UINib(nibName: "AcceptFriendsTableViewCell", bundle: nil)
+        acceptFriendsTable.register(nib, forCellReuseIdentifier: "AcceptFriendsTableViewCell")
+        let add = UINib(nibName: "CancelFriendsTableViewCell", bundle: nil)
+        cancelFriendsTable.register(add, forCellReuseIdentifier: "CancelFriendsTableViewCell")
+        acceptFriendsTable.delegate = self
+        acceptFriendsTable.dataSource = self
+        cancelFriendsTable.delegate = self
+        cancelFriendsTable.dataSource = self
     }
-    */
-
 }
