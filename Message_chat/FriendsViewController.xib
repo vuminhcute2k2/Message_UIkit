@@ -15,8 +15,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FriendsViewController" customModule="Message_chat" customModuleProvider="target">
             <connections>
+                <outlet property="addFriendsButton" destination="k3o-GJ-OLE" id="msB-LB-nRL"/>
                 <outlet property="borderSearchView" destination="3Sw-7t-5Lm" id="LgQ-46-pyD"/>
-                <outlet property="friendAddButton" destination="k3o-GJ-OLE" id="p9H-xi-8wc"/>
                 <outlet property="homeBackgroundView" destination="DH2-Qg-Isj" id="Ls2-Zv-dtk"/>
                 <outlet property="searchTextField" destination="ece-aP-XAs" id="gae-ik-n6b"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>

@@ -193,6 +193,8 @@
 		C38622EC2BF474B60086FC63 /* Message_chat */ = {
 			isa = PBXGroup;
 			children = (
+				C3FF822F2C0DFF36005B2496 /* Extensions */,
+				C3FF822E2C0DFECD005B2496 /* Models */,
 				C38622ED2BF474B60086FC63 /* AppDelegate.swift */,
 				C38622EF2BF474B60086FC63 /* SceneDelegate.swift */,
 				C38622F12BF474B60086FC63 /* ViewController.swift */,
@@ -213,15 +215,6 @@
 				C33DF5892C053AEC007C654E /* ProfileViewController.xib */,
 				C3B0D52E2C070192000A980B /* MessagesTableViewCell.swift */,
 				C3B0D52F2C070192000A980B /* MessagesTableViewCell.xib */,
-				C3B0D5322C07AEEE000A980B /* UIviewExtensions.swift */,
-				C3B0D5342C07B0E9000A980B /* UILabelExtensions.swift */,
-				C3B0D5362C07B14A000A980B /* CALayerExtensions.swift */,
-				C3B0D5382C07B1A9000A980B /* HomeMessageExtensions.swift */,
-				C3B0D53A2C083EBD000A980B /* ModelMessages.swift */,
-				C36EDC6F2C0B178900958658 /* ModelRequestFriends.swift */,
-				C306FB862C099F8A00D5E110 /* UITextFieldExtensions.swift */,
-				C306FB882C09A22A00D5E110 /* UIButtonExtensions.swift */,
-				C3FF822B2C0D91BC005B2496 /* UITableExtensions.swift */,
 				C3E943D52C09D87A0065664D /* MyFriendsViewController.swift */,
 				C3E943D62C09D87A0065664D /* MyFriendsViewController.xib */,
 				C3E943D92C09D8920065664D /* AllFriendsViewController.swift */,
@@ -251,6 +244,29 @@
 				C38623102BF474B70086FC63 /* Message_chatUITestsLaunchTests.swift */,
 			);
 			path = Message_chatUITests;
+			sourceTree = "<group>";
+		};
+		C3FF822E2C0DFECD005B2496 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				C36EDC6F2C0B178900958658 /* ModelRequestFriends.swift */,
+				C3B0D53A2C083EBD000A980B /* ModelMessages.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		C3FF822F2C0DFF36005B2496 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				C3FF822B2C0D91BC005B2496 /* UITableExtensions.swift */,
+				C306FB882C09A22A00D5E110 /* UIButtonExtensions.swift */,
+				C3B0D5362C07B14A000A980B /* CALayerExtensions.swift */,
+				C3B0D5322C07AEEE000A980B /* UIviewExtensions.swift */,
+				C3B0D5342C07B0E9000A980B /* UILabelExtensions.swift */,
+				C306FB862C099F8A00D5E110 /* UITextFieldExtensions.swift */,
+				C3B0D5382C07B1A9000A980B /* HomeMessageExtensions.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		EABFD019ED17999A103FA980 /* Frameworks */ = {
