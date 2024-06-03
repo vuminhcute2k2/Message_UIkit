@@ -63,9 +63,5 @@ extension UIView {
         borderLayer.fillColor = UIColor.clear.cgColor
         borderLayer.lineWidth = borderWidth
         self.layer.addSublayer(borderLayer)
-//        self.layer.cornerRadius = radius
-//        self.layer.maskedCorners = CACornerMask(rawValue: corners.rawValue)
-//        self.layer.borderColor = borderColor.cgColor
-//        self.layer.borderWidth = borderWidth
     }
 }
