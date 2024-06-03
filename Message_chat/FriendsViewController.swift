@@ -11,10 +11,8 @@ class FriendsViewController: UIViewController,LZViewPagerDelegate,LZViewPagerDat
     
     @IBOutlet weak var homeBackgroundView: UIView!
     @IBOutlet weak var borderSearchView: UIView!
-    @IBOutlet weak var friendAddButton: UIButton!
+    @IBOutlet weak var addFriendsButton: UIButton!
     @IBOutlet weak var searchTextField: UITextField!
-//    @IBOutlet weak var borderFriendsView: UIView!
-    
     @IBOutlet weak var viewPager: LZViewPager!
     private var subController:[UIViewController] = []
     private let tabTitles = ["BẠN BÈ", "TẤT CẢ","YÊU CẦU"]
@@ -44,7 +42,7 @@ class FriendsViewController: UIViewController,LZViewPagerDelegate,LZViewPagerDat
             print("Failed images")
         }
         borderSearchView.customizeBorder(cornerRadius: 18, borderWidth: 1, borderColor: .white)
-        friendAddButton.customizeButton(withImage: "icon_addFriends", backgroundColor: .white, cornerRadius: 20)
+        addFriendsButton.customizeButton(withImage: "icon_addFriends", backgroundColor: .white, cornerRadius: 20)
     }
     func viewPagerProperties(){
         viewPager.delegate = self

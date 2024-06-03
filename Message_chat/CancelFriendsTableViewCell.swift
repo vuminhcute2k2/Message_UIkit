@@ -8,7 +8,7 @@
 import UIKit
 
 class CancelFriendsTableViewCell: UITableViewCell {
-
+    
     @IBOutlet weak var avatarImage: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var cancelButton: UIButton!
@@ -20,7 +20,7 @@ class CancelFriendsTableViewCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
-    func setData(cancel:CancelFriends) {
+    func setData(cancel:cancelRequest) {
         avatarImage.image = UIImage(named: cancel.avatarImageName)
         nameLabel.text = cancel.name
     }

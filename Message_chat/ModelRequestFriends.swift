@@ -6,35 +6,35 @@
 //
 
 import Foundation
-struct Request {
+struct acceptRequest {
     let avatarImageName: String
     let name: String
     
 }
-var request: [Request] = [
-    Request(avatarImageName: "image_avatar", name: "Vũ Minh"),
-    Request(avatarImageName: "image_avatar", name: "Hoàng"),
-    Request(avatarImageName: "image_avatar", name: "DeCao"),
-    Request(avatarImageName: "image_avatar", name: "Vũ Minh"),
-    Request(avatarImageName: "image_avatar", name: "Hoàng"),
-    Request(avatarImageName: "image_avatar", name: "DeCao"),
-    Request(avatarImageName: "image_avatar", name: "Vũ Minh"),
-    Request(avatarImageName: "image_avatar", name: "Hoàng"),
-    Request(avatarImageName: "image_avatar", name: "DeCao"),
+var request: [acceptRequest] = [
+    acceptRequest(avatarImageName: "image_avatar", name: "Vũ Minh"),
+    acceptRequest(avatarImageName: "image_avatar", name: "Hoàng"),
+    acceptRequest(avatarImageName: "image_avatar", name: "DeCao"),
+    acceptRequest(avatarImageName: "image_avatar", name: "Vũ Minh"),
+    acceptRequest(avatarImageName: "image_avatar", name: "Hoàng"),
+    acceptRequest(avatarImageName: "image_avatar", name: "DeCao"),
+    acceptRequest(avatarImageName: "image_avatar", name: "Vũ Minh"),
+    acceptRequest(avatarImageName: "image_avatar", name: "Hoàng"),
+    acceptRequest(avatarImageName: "image_avatar", name: "DeCao"),
 ]
-struct CancelFriends {
+struct cancelRequest {
     let avatarImageName: String
     let name: String
     
 }
-var cancel: [CancelFriends] = [
-    CancelFriends(avatarImageName: "image_avatar", name: "Vũ Minh"),
-    CancelFriends(avatarImageName: "image_avatar", name: "Hoàng"),
-    CancelFriends(avatarImageName: "image_avatar", name: "DeCao"),
-    CancelFriends(avatarImageName: "image_avatar", name: "Vũ Minh"),
-    CancelFriends(avatarImageName: "image_avatar", name: "Hoàng"),
-    CancelFriends(avatarImageName: "image_avatar", name: "DeCao"),
-    CancelFriends(avatarImageName: "image_avatar", name: "Vũ Minh"),
-    CancelFriends(avatarImageName: "image_avatar", name: "Hoàng"),
-    CancelFriends(avatarImageName: "image_avatar", name: "DeCao"),
+var cancel: [cancelRequest] = [
+    cancelRequest(avatarImageName: "image_avatar", name: "Vũ Minh"),
+    cancelRequest(avatarImageName: "image_avatar", name: "Hoàng"),
+    cancelRequest(avatarImageName: "image_avatar", name: "DeCao"),
+    cancelRequest(avatarImageName: "image_avatar", name: "Vũ Minh"),
+    cancelRequest(avatarImageName: "image_avatar", name: "Hoàng"),
+    cancelRequest(avatarImageName: "image_avatar", name: "DeCao"),
+    cancelRequest(avatarImageName: "image_avatar", name: "Vũ Minh"),
+    cancelRequest(avatarImageName: "image_avatar", name: "Hoàng"),
+    cancelRequest(avatarImageName: "image_avatar", name: "DeCao"),
 ]

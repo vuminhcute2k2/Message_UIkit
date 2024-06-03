@@ -19,7 +19,7 @@ class AcceptFriendsTableViewCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
-    func setData(request:Request) {
+    func setData(request:acceptRequest) {
         avatarImage.image = UIImage(named: request.avatarImageName)
         nameLabel.text = request.name
     }
