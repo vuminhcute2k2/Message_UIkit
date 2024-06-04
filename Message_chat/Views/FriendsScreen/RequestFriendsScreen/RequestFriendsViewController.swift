@@ -11,6 +11,8 @@ class RequestFriendsViewController: UIViewController{
 
     @IBOutlet weak var acceptFriendsTable: UITableView!
     @IBOutlet weak var cancelFriendsTable: UITableView!
+    var acceptFriendRequests: [FriendRequest] = []
+    var cancelFriendRequests: [FriendRequest] = []
     enum FriendRequestType: Int {
         case acceptFriend = 0
         case cancelFriend = 1
@@ -19,6 +21,8 @@ class RequestFriendsViewController: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTableView()
+        acceptFriendRequests = friendRequests.filter { $0.type == .accept }
+        cancelFriendRequests = friendRequests.filter { $0.type == .cancel }
     }
     private func setupTableView() {
         let nib = UINib(nibName: "AcceptFriendsTableViewCell", bundle: nil)
@@ -39,10 +43,10 @@ extension RequestFriendsViewController: UITableViewDelegate, UITableViewDataSour
         }
         
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if tableView == acceptFriendsTable {
-            return request.count
-        } else if tableView == cancelFriendsTable {
-            return cancel.count
+        if tableView.tag == FriendRequestType.acceptFriend.rawValue {
+            return acceptFriendRequests.count
+        } else if tableView.tag == FriendRequestType.cancelFriend.rawValue {
+            return cancelFriendRequests.count
         } else {
             return 0
         }
@@ -50,13 +54,13 @@ extension RequestFriendsViewController: UITableViewDelegate, UITableViewDataSour
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if tableView.tag == FriendRequestType.acceptFriend.rawValue {
             let cell: AcceptFriendsTableViewCell = tableView.dequeueReusableCell(for: indexPath)
-            let requestRow = request[indexPath.row]
-            cell.setData(request: requestRow)
+            let requestRow = acceptFriendRequests[indexPath.row]
+            cell.setData(friendsrequest: requestRow)
             return cell
         } else if tableView.tag == FriendRequestType.cancelFriend.rawValue {
             let cell: CancelFriendsTableViewCell = tableView.dequeueReusableCell(for: indexPath)
-            let cancelRow = cancel[indexPath.row]
-            cell.setData(cancel: cancelRow)
+            let cancelRow = cancelFriendRequests[indexPath.row]
+            cell.setData(friendsRequest: cancelRow)
             return cell
         } else {
             return UITableViewCell()

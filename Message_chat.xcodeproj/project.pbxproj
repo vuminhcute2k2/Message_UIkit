@@ -168,6 +168,108 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		C3034CB22C0EB8740070BCCC /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				C3034CBD2C0EBA430070BCCC /* LoginScreen */,
+				C3034CBC2C0EBA0B0070BCCC /* ProfileScreen */,
+				C3034CB82C0EB9360070BCCC /* FriendsScreen */,
+				C3034CB62C0EB9000070BCCC /* HomeTabBar */,
+				C3034CB42C0EB8C80070BCCC /* RegisterScreen */,
+				C3034CB32C0EB8880070BCCC /* HomeScreen */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		C3034CB32C0EB8880070BCCC /* HomeScreen */ = {
+			isa = PBXGroup;
+			children = (
+				C3B0D52E2C070192000A980B /* MessagesTableViewCell.swift */,
+				C3B0D52F2C070192000A980B /* MessagesTableViewCell.xib */,
+				C33DF5802C053929007C654E /* HomeMessageViewController.swift */,
+				C33DF5812C053929007C654E /* HomeMessageViewController.xib */,
+			);
+			path = HomeScreen;
+			sourceTree = "<group>";
+		};
+		C3034CB42C0EB8C80070BCCC /* RegisterScreen */ = {
+			isa = PBXGroup;
+			children = (
+				C37F47C22C02ECF5008EDD7F /* RegisterAccountViewController.swift */,
+				C37F47C32C02ECF5008EDD7F /* RegisterAccountViewController.xib */,
+			);
+			path = RegisterScreen;
+			sourceTree = "<group>";
+		};
+		C3034CB62C0EB9000070BCCC /* HomeTabBar */ = {
+			isa = PBXGroup;
+			children = (
+				C33DF57A2C053291007C654E /* HomeTabBarController.swift */,
+				C33DF57B2C053291007C654E /* HomeTabBarController.xib */,
+			);
+			path = HomeTabBar;
+			sourceTree = "<group>";
+		};
+		C3034CB82C0EB9360070BCCC /* FriendsScreen */ = {
+			isa = PBXGroup;
+			children = (
+				C33DF5842C053AD7007C654E /* FriendsViewController.swift */,
+				C33DF5852C053AD7007C654E /* FriendsViewController.xib */,
+				C3034CBB2C0EB9AC0070BCCC /* MyFriendsScreen */,
+				C3034CBA2C0EB9710070BCCC /* AllFriendsScreen */,
+				C3034CB92C0EB9410070BCCC /* RequestFriendsScreen */,
+			);
+			path = FriendsScreen;
+			sourceTree = "<group>";
+		};
+		C3034CB92C0EB9410070BCCC /* RequestFriendsScreen */ = {
+			isa = PBXGroup;
+			children = (
+				C3E943DD2C09DA0F0065664D /* RequestFriendsViewController.swift */,
+				C3E943DE2C09DA0F0065664D /* RequestFriendsViewController.xib */,
+				C33EA4142C0B0E6200733FA5 /* AcceptFriendsTableViewCell.swift */,
+				C33EA4152C0B0E6200733FA5 /* AcceptFriendsTableViewCell.xib */,
+				C35C91092C0B2BB30003D73F /* CancelFriendsTableViewCell.swift */,
+				C35C910A2C0B2BB30003D73F /* CancelFriendsTableViewCell.xib */,
+			);
+			path = RequestFriendsScreen;
+			sourceTree = "<group>";
+		};
+		C3034CBA2C0EB9710070BCCC /* AllFriendsScreen */ = {
+			isa = PBXGroup;
+			children = (
+				C3E943D92C09D8920065664D /* AllFriendsViewController.swift */,
+				C3E943DA2C09D8920065664D /* AllFriendsViewController.xib */,
+			);
+			path = AllFriendsScreen;
+			sourceTree = "<group>";
+		};
+		C3034CBB2C0EB9AC0070BCCC /* MyFriendsScreen */ = {
+			isa = PBXGroup;
+			children = (
+				C3E943D52C09D87A0065664D /* MyFriendsViewController.swift */,
+				C3E943D62C09D87A0065664D /* MyFriendsViewController.xib */,
+			);
+			path = MyFriendsScreen;
+			sourceTree = "<group>";
+		};
+		C3034CBC2C0EBA0B0070BCCC /* ProfileScreen */ = {
+			isa = PBXGroup;
+			children = (
+				C33DF5882C053AEC007C654E /* ProfileViewController.swift */,
+				C33DF5892C053AEC007C654E /* ProfileViewController.xib */,
+			);
+			path = ProfileScreen;
+			sourceTree = "<group>";
+		};
+		C3034CBD2C0EBA430070BCCC /* LoginScreen */ = {
+			isa = PBXGroup;
+			children = (
+				C386231D2BF49F520086FC63 /* LoginViewController.swift */,
+			);
+			path = LoginScreen;
+			sourceTree = "<group>";
+		};
 		C38622E12BF474B60086FC63 = {
 			isa = PBXGroup;
 			children = (
@@ -202,29 +304,7 @@
 				C38622F62BF474B60086FC63 /* Assets.xcassets */,
 				C38622F82BF474B60086FC63 /* LaunchScreen.storyboard */,
 				C38622FB2BF474B60086FC63 /* Info.plist */,
-				C386231D2BF49F520086FC63 /* LoginViewController.swift */,
-				C37F47C22C02ECF5008EDD7F /* RegisterAccountViewController.swift */,
-				C37F47C32C02ECF5008EDD7F /* RegisterAccountViewController.xib */,
-				C33DF57A2C053291007C654E /* HomeTabBarController.swift */,
-				C33DF57B2C053291007C654E /* HomeTabBarController.xib */,
-				C33DF5802C053929007C654E /* HomeMessageViewController.swift */,
-				C33DF5812C053929007C654E /* HomeMessageViewController.xib */,
-				C33DF5842C053AD7007C654E /* FriendsViewController.swift */,
-				C33DF5852C053AD7007C654E /* FriendsViewController.xib */,
-				C33DF5882C053AEC007C654E /* ProfileViewController.swift */,
-				C33DF5892C053AEC007C654E /* ProfileViewController.xib */,
-				C3B0D52E2C070192000A980B /* MessagesTableViewCell.swift */,
-				C3B0D52F2C070192000A980B /* MessagesTableViewCell.xib */,
-				C3E943D52C09D87A0065664D /* MyFriendsViewController.swift */,
-				C3E943D62C09D87A0065664D /* MyFriendsViewController.xib */,
-				C3E943D92C09D8920065664D /* AllFriendsViewController.swift */,
-				C3E943DA2C09D8920065664D /* AllFriendsViewController.xib */,
-				C3E943DD2C09DA0F0065664D /* RequestFriendsViewController.swift */,
-				C3E943DE2C09DA0F0065664D /* RequestFriendsViewController.xib */,
-				C33EA4142C0B0E6200733FA5 /* AcceptFriendsTableViewCell.swift */,
-				C33EA4152C0B0E6200733FA5 /* AcceptFriendsTableViewCell.xib */,
-				C35C91092C0B2BB30003D73F /* CancelFriendsTableViewCell.swift */,
-				C35C910A2C0B2BB30003D73F /* CancelFriendsTableViewCell.xib */,
+				C3034CB22C0EB8740070BCCC /* Views */,
 			);
 			path = Message_chat;
 			sourceTree = "<group>";

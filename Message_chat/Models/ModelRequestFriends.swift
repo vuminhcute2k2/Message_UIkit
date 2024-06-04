@@ -6,35 +6,20 @@
 //
 
 import Foundation
-struct acceptRequest {
+struct FriendRequest {
+    enum RequestType {
+        case accept
+        case cancel
+    }
     let avatarImageName: String
     let name: String
-    
+    let type: RequestType
 }
-var request: [acceptRequest] = [
-    acceptRequest(avatarImageName: "image_avatar", name: "Vũ Minh"),
-    acceptRequest(avatarImageName: "image_avatar", name: "Hoàng"),
-    acceptRequest(avatarImageName: "image_avatar", name: "DeCao"),
-    acceptRequest(avatarImageName: "image_avatar", name: "Vũ Minh"),
-    acceptRequest(avatarImageName: "image_avatar", name: "Hoàng"),
-    acceptRequest(avatarImageName: "image_avatar", name: "DeCao"),
-    acceptRequest(avatarImageName: "image_avatar", name: "Vũ Minh"),
-    acceptRequest(avatarImageName: "image_avatar", name: "Hoàng"),
-    acceptRequest(avatarImageName: "image_avatar", name: "DeCao"),
-]
-struct cancelRequest {
-    let avatarImageName: String
-    let name: String
-    
-}
-var cancel: [cancelRequest] = [
-    cancelRequest(avatarImageName: "image_avatar", name: "Vũ Minh"),
-    cancelRequest(avatarImageName: "image_avatar", name: "Hoàng"),
-    cancelRequest(avatarImageName: "image_avatar", name: "DeCao"),
-    cancelRequest(avatarImageName: "image_avatar", name: "Vũ Minh"),
-    cancelRequest(avatarImageName: "image_avatar", name: "Hoàng"),
-    cancelRequest(avatarImageName: "image_avatar", name: "DeCao"),
-    cancelRequest(avatarImageName: "image_avatar", name: "Vũ Minh"),
-    cancelRequest(avatarImageName: "image_avatar", name: "Hoàng"),
-    cancelRequest(avatarImageName: "image_avatar", name: "DeCao"),
+var friendRequests: [FriendRequest] = [
+    FriendRequest(avatarImageName: "image_avatar", name: "Vũ Minh", type: .accept),
+    FriendRequest(avatarImageName: "image_avatar", name: "Hoàng", type: .accept),
+    FriendRequest(avatarImageName: "image_avatar", name: "DeCao", type: .accept),
+    FriendRequest(avatarImageName: "image_avatar", name: "Vũ Minh", type: .cancel),
+    FriendRequest(avatarImageName: "image_avatar", name: "Hoàng", type: .cancel),
+    FriendRequest(avatarImageName: "image_avatar", name: "DeCao", type: .cancel)
 ]
