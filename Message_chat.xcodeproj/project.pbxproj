@@ -24,6 +24,9 @@
 		C33EA4172C0B0E6200733FA5 /* AcceptFriendsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C33EA4152C0B0E6200733FA5 /* AcceptFriendsTableViewCell.xib */; };
 		C35C910B2C0B2BB30003D73F /* CancelFriendsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C35C91092C0B2BB30003D73F /* CancelFriendsTableViewCell.swift */; };
 		C35C910C2C0B2BB30003D73F /* CancelFriendsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C35C910A2C0B2BB30003D73F /* CancelFriendsTableViewCell.xib */; };
+		C368C61E2C10DCE700322B82 /* AllFriendsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C368C61C2C10DCE700322B82 /* AllFriendsTableViewCell.swift */; };
+		C368C61F2C10DCE700322B82 /* AllFriendsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C368C61D2C10DCE700322B82 /* AllFriendsTableViewCell.xib */; };
+		C368C6212C10DFB800322B82 /* ModelAllFriends.swift in Sources */ = {isa = PBXBuildFile; fileRef = C368C6202C10DFB800322B82 /* ModelAllFriends.swift */; };
 		C36EDC702C0B178900958658 /* ModelRequestFriends.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36EDC6F2C0B178900958658 /* ModelRequestFriends.swift */; };
 		C37F47C42C02ECF5008EDD7F /* RegisterAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C37F47C22C02ECF5008EDD7F /* RegisterAccountViewController.swift */; };
 		C37F47C52C02ECF5008EDD7F /* RegisterAccountViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C37F47C32C02ECF5008EDD7F /* RegisterAccountViewController.xib */; };
@@ -95,6 +98,9 @@
 		C35C91092C0B2BB30003D73F /* CancelFriendsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancelFriendsTableViewCell.swift; sourceTree = "<group>"; };
 		C35C910A2C0B2BB30003D73F /* CancelFriendsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CancelFriendsTableViewCell.xib; sourceTree = "<group>"; };
 		C361A29883CA540824301378 /* Pods-Message_chat-Message_chatUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Message_chat-Message_chatUITests.release.xcconfig"; path = "Target Support Files/Pods-Message_chat-Message_chatUITests/Pods-Message_chat-Message_chatUITests.release.xcconfig"; sourceTree = "<group>"; };
+		C368C61C2C10DCE700322B82 /* AllFriendsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllFriendsTableViewCell.swift; sourceTree = "<group>"; };
+		C368C61D2C10DCE700322B82 /* AllFriendsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AllFriendsTableViewCell.xib; sourceTree = "<group>"; };
+		C368C6202C10DFB800322B82 /* ModelAllFriends.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelAllFriends.swift; sourceTree = "<group>"; };
 		C36EDC6F2C0B178900958658 /* ModelRequestFriends.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelRequestFriends.swift; sourceTree = "<group>"; };
 		C37F47C22C02ECF5008EDD7F /* RegisterAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterAccountViewController.swift; sourceTree = "<group>"; };
 		C37F47C32C02ECF5008EDD7F /* RegisterAccountViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RegisterAccountViewController.xib; sourceTree = "<group>"; };
@@ -246,6 +252,8 @@
 			children = (
 				C3E943D92C09D8920065664D /* AllFriendsViewController.swift */,
 				C3E943DA2C09D8920065664D /* AllFriendsViewController.xib */,
+				C368C61C2C10DCE700322B82 /* AllFriendsTableViewCell.swift */,
+				C368C61D2C10DCE700322B82 /* AllFriendsTableViewCell.xib */,
 			);
 			path = AllFriendsScreen;
 			sourceTree = "<group>";
@@ -340,6 +348,7 @@
 				C36EDC6F2C0B178900958658 /* ModelRequestFriends.swift */,
 				C3B0D53A2C083EBD000A980B /* ModelMessages.swift */,
 				C38436422C0EF18800AB5B2E /* ModelFriends.swift */,
+				C368C6202C10DFB800322B82 /* ModelAllFriends.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -480,6 +489,7 @@
 				C33DF57D2C053291007C654E /* HomeTabBarController.xib in Resources */,
 				C35C910C2C0B2BB30003D73F /* CancelFriendsTableViewCell.xib in Resources */,
 				C33DF5832C053929007C654E /* HomeMessageViewController.xib in Resources */,
+				C368C61F2C10DCE700322B82 /* AllFriendsTableViewCell.xib in Resources */,
 				C33EA4172C0B0E6200733FA5 /* AcceptFriendsTableViewCell.xib in Resources */,
 				C33DF58B2C053AEC007C654E /* ProfileViewController.xib in Resources */,
 				C3F8C4D92C0EF08B00730097 /* MyFriendsTableViewCell.xib in Resources */,
@@ -624,6 +634,7 @@
 				C3B0D53B2C083EBD000A980B /* ModelMessages.swift in Sources */,
 				C3B0D5372C07B14A000A980B /* CALayerExtensions.swift in Sources */,
 				C37F47C42C02ECF5008EDD7F /* RegisterAccountViewController.swift in Sources */,
+				C368C6212C10DFB800322B82 /* ModelAllFriends.swift in Sources */,
 				C3B0D5332C07AEEE000A980B /* UIviewExtensions.swift in Sources */,
 				C3E943DB2C09D8920065664D /* AllFriendsViewController.swift in Sources */,
 				C386231E2BF49F520086FC63 /* LoginViewController.swift in Sources */,
@@ -637,6 +648,7 @@
 				C3E943DF2C09DA0F0065664D /* RequestFriendsViewController.swift in Sources */,
 				C3B0D5392C07B1A9000A980B /* HomeMessageExtensions.swift in Sources */,
 				C3FF822C2C0D91BC005B2496 /* UITableExtensions.swift in Sources */,
+				C368C61E2C10DCE700322B82 /* AllFriendsTableViewCell.swift in Sources */,
 				C3B0D5302C070192000A980B /* MessagesTableViewCell.swift in Sources */,
 				C38622EE2BF474B60086FC63 /* AppDelegate.swift in Sources */,
 				C3E943D72C09D87A0065664D /* MyFriendsViewController.swift in Sources */,

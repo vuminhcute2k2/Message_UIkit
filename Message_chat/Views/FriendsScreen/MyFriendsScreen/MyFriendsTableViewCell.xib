@@ -17,7 +17,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" verticalHuggingPriority="251" image="image_avatar" translatesAutoresizingMaskIntoConstraints="NO" id="1BT-aW-Xmj">
-                        <rect key="frame" x="20" y="5" width="57" height="50"/>
+                        <rect key="frame" x="20" y="6" width="57" height="50"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="57" id="Fpq-tD-T83"/>
                             <constraint firstAttribute="height" constant="50" id="asq-Sz-dRb"/>
@@ -38,7 +38,7 @@
                     <constraint firstAttribute="trailing" secondItem="jge-2m-mB2" secondAttribute="trailing" constant="20" id="aSg-wT-78j"/>
                     <constraint firstItem="1BT-aW-Xmj" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" symbolic="YES" id="apG-tH-mnG"/>
                     <constraint firstItem="jge-2m-mB2" firstAttribute="leading" secondItem="1BT-aW-Xmj" secondAttribute="trailing" constant="35" id="omG-mg-XqB"/>
-                    <constraint firstItem="1BT-aW-Xmj" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="rt4-kJ-oyo"/>
+                    <constraint firstItem="1BT-aW-Xmj" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="6" id="rt4-kJ-oyo"/>
                     <constraint firstAttribute="bottom" secondItem="1BT-aW-Xmj" secondAttribute="bottom" constant="6" id="tEl-97-MrC"/>
                 </constraints>
             </tableViewCellContentView>
