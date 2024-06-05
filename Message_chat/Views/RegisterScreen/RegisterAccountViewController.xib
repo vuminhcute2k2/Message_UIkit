@@ -28,7 +28,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gcQ-kF-EPm">
-                    <rect key="frame" x="0.0" y="59" width="369.66666666666669" height="759"/>
+                    <rect key="frame" x="0.0" y="0.0" width="369.66666666666669" height="852"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zsU-c9-AeQ" customClass="ContentView">
                             <rect key="frame" x="0.0" y="0.0" width="369.66666666666669" height="1200"/>
@@ -117,6 +117,9 @@
                                             </constraints>
                                             <state key="normal" title="Button"/>
                                             <buttonConfiguration key="configuration" style="filled" title="Đăng ký"/>
+                                            <connections>
+                                                <action selector="registerTapped:" destination="-1" eventType="touchUpInside" id="GKh-wl-fwV"/>
+                                            </connections>
                                         </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nS6-zm-eG8">
                                             <rect key="frame" x="49.999999999999986" y="547.66666666666663" width="245.66666666666663" height="21"/>

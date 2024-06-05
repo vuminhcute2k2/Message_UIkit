@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import FirebaseAuth
+import FirebaseFirestore
 class RegisterAccountViewController: UIViewController {
     @IBOutlet weak var labelDangKy: UILabel!
     @IBOutlet weak var textFieldName: UITextField!
@@ -52,7 +54,34 @@ class RegisterAccountViewController: UIViewController {
         buttonBackLogin.isUserInteractionEnabled = true
         buttonBackLogin.addGestureRecognizer(tapGestureRecognizer)
     }
- 
+    @IBAction func registerTapped(_ sender: UIButton) {
+        guard let email = textFieldEmail.text, !email.isEmpty,
+              let password = textFieldPassworld.text, !password.isEmpty,
+              let name = textFieldName.text, !name.isEmpty else {
+            // Hiển thị một cảnh báo hoặc thông báo cho người dùng
+            print("Vui lòng điền đầy đủ thông tin")
+            return
+        }
+        Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
+            if let error = error {
+                print("Lỗi khi tạo tài khoản: \(error.localizedDescription)")
+                return
+            }
+            guard let user = authResult?.user else { return }
+
+            let newUser = User(email: email, numberPhone: "", uid: user.uid, image: "", birthday: "", fullName: name, password: password, followers: [], following: [])
+            let db = Firestore.firestore()
+            db.collection("users").document(user.uid).setData(newUser.toJson()) { error in
+                if let error = error {
+                    print("Lỗi khi lưu thông tin người dùng: \(error.localizedDescription)")
+                } else {
+                    let homeTabBarController = HomeTabBarController(nibName: "HomeTabBarController", bundle: nil)
+                    homeTabBarController.modalPresentationStyle = .fullScreen
+                    self.present(homeTabBarController, animated: true, completion: nil)
+                }
+            }
+        }
+    }
     @IBAction func checkBoxTapper(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
     }
