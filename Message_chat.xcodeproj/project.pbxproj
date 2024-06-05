@@ -27,6 +27,7 @@
 		C36EDC702C0B178900958658 /* ModelRequestFriends.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36EDC6F2C0B178900958658 /* ModelRequestFriends.swift */; };
 		C37F47C42C02ECF5008EDD7F /* RegisterAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C37F47C22C02ECF5008EDD7F /* RegisterAccountViewController.swift */; };
 		C37F47C52C02ECF5008EDD7F /* RegisterAccountViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C37F47C32C02ECF5008EDD7F /* RegisterAccountViewController.xib */; };
+		C38436432C0EF18800AB5B2E /* ModelFriends.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38436422C0EF18800AB5B2E /* ModelFriends.swift */; };
 		C38622EE2BF474B60086FC63 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38622ED2BF474B60086FC63 /* AppDelegate.swift */; };
 		C38622F02BF474B60086FC63 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38622EF2BF474B60086FC63 /* SceneDelegate.swift */; };
 		C38622F22BF474B60086FC63 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38622F12BF474B60086FC63 /* ViewController.swift */; };
@@ -50,6 +51,8 @@
 		C3E943DC2C09D8920065664D /* AllFriendsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3E943DA2C09D8920065664D /* AllFriendsViewController.xib */; };
 		C3E943DF2C09DA0F0065664D /* RequestFriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E943DD2C09DA0F0065664D /* RequestFriendsViewController.swift */; };
 		C3E943E02C09DA0F0065664D /* RequestFriendsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3E943DE2C09DA0F0065664D /* RequestFriendsViewController.xib */; };
+		C3F8C4D82C0EF08B00730097 /* MyFriendsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F8C4D62C0EF08B00730097 /* MyFriendsTableViewCell.swift */; };
+		C3F8C4D92C0EF08B00730097 /* MyFriendsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3F8C4D72C0EF08B00730097 /* MyFriendsTableViewCell.xib */; };
 		C3FF822C2C0D91BC005B2496 /* UITableExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3FF822B2C0D91BC005B2496 /* UITableExtensions.swift */; };
 /* End PBXBuildFile section */
 
@@ -95,6 +98,7 @@
 		C36EDC6F2C0B178900958658 /* ModelRequestFriends.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelRequestFriends.swift; sourceTree = "<group>"; };
 		C37F47C22C02ECF5008EDD7F /* RegisterAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterAccountViewController.swift; sourceTree = "<group>"; };
 		C37F47C32C02ECF5008EDD7F /* RegisterAccountViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RegisterAccountViewController.xib; sourceTree = "<group>"; };
+		C38436422C0EF18800AB5B2E /* ModelFriends.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelFriends.swift; sourceTree = "<group>"; };
 		C38622EA2BF474B60086FC63 /* Message_chat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Message_chat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C38622ED2BF474B60086FC63 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C38622EF2BF474B60086FC63 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -122,6 +126,8 @@
 		C3E943DA2C09D8920065664D /* AllFriendsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AllFriendsViewController.xib; sourceTree = "<group>"; };
 		C3E943DD2C09DA0F0065664D /* RequestFriendsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestFriendsViewController.swift; sourceTree = "<group>"; };
 		C3E943DE2C09DA0F0065664D /* RequestFriendsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RequestFriendsViewController.xib; sourceTree = "<group>"; };
+		C3F8C4D62C0EF08B00730097 /* MyFriendsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFriendsTableViewCell.swift; sourceTree = "<group>"; };
+		C3F8C4D72C0EF08B00730097 /* MyFriendsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MyFriendsTableViewCell.xib; sourceTree = "<group>"; };
 		C3FF822B2C0D91BC005B2496 /* UITableExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableExtensions.swift; sourceTree = "<group>"; };
 		DFBD7B54CF29DCB05AECE0D0 /* Pods_Message_chatTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Message_chatTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB495A93255600C915C51B5F /* Pods_Message_chat_Message_chatUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Message_chat_Message_chatUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -249,6 +255,8 @@
 			children = (
 				C3E943D52C09D87A0065664D /* MyFriendsViewController.swift */,
 				C3E943D62C09D87A0065664D /* MyFriendsViewController.xib */,
+				C3F8C4D62C0EF08B00730097 /* MyFriendsTableViewCell.swift */,
+				C3F8C4D72C0EF08B00730097 /* MyFriendsTableViewCell.xib */,
 			);
 			path = MyFriendsScreen;
 			sourceTree = "<group>";
@@ -331,6 +339,7 @@
 			children = (
 				C36EDC6F2C0B178900958658 /* ModelRequestFriends.swift */,
 				C3B0D53A2C083EBD000A980B /* ModelMessages.swift */,
+				C38436422C0EF18800AB5B2E /* ModelFriends.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -473,6 +482,7 @@
 				C33DF5832C053929007C654E /* HomeMessageViewController.xib in Resources */,
 				C33EA4172C0B0E6200733FA5 /* AcceptFriendsTableViewCell.xib in Resources */,
 				C33DF58B2C053AEC007C654E /* ProfileViewController.xib in Resources */,
+				C3F8C4D92C0EF08B00730097 /* MyFriendsTableViewCell.xib in Resources */,
 				C38622FA2BF474B60086FC63 /* LaunchScreen.storyboard in Resources */,
 				C3E943E02C09DA0F0065664D /* RequestFriendsViewController.xib in Resources */,
 				C37F47C52C02ECF5008EDD7F /* RegisterAccountViewController.xib in Resources */,
@@ -619,6 +629,7 @@
 				C386231E2BF49F520086FC63 /* LoginViewController.swift in Sources */,
 				C36EDC702C0B178900958658 /* ModelRequestFriends.swift in Sources */,
 				C33DF5822C053929007C654E /* HomeMessageViewController.swift in Sources */,
+				C3F8C4D82C0EF08B00730097 /* MyFriendsTableViewCell.swift in Sources */,
 				C33DF57C2C053291007C654E /* HomeTabBarController.swift in Sources */,
 				C38622F22BF474B60086FC63 /* ViewController.swift in Sources */,
 				C33DF58A2C053AEC007C654E /* ProfileViewController.swift in Sources */,
@@ -629,6 +640,7 @@
 				C3B0D5302C070192000A980B /* MessagesTableViewCell.swift in Sources */,
 				C38622EE2BF474B60086FC63 /* AppDelegate.swift in Sources */,
 				C3E943D72C09D87A0065664D /* MyFriendsViewController.swift in Sources */,
+				C38436432C0EF18800AB5B2E /* ModelFriends.swift in Sources */,
 				C306FB892C09A22A00D5E110 /* UIButtonExtensions.swift in Sources */,
 				C306FB872C099F8A00D5E110 /* UITextFieldExtensions.swift in Sources */,
 				C35C910B2C0B2BB30003D73F /* CancelFriendsTableViewCell.swift in Sources */,
