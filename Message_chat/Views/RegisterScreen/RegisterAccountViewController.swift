@@ -27,11 +27,9 @@ class RegisterAccountViewController: UIViewController {
         textFieldName.borderStyle = .none
         textFieldEmail.borderStyle = .none
         textFieldPassworld.borderStyle = .none
-        // bottomline textField
         addBottomLine(to: textFieldName)
         addBottomLine(to: textFieldEmail)
         addBottomLine(to: textFieldPassworld)
-        // Thêm icon vào bên phải của textFieldEmail và textFieldPassword
         if let userIcon = UIImage(named: "icon_user"), let emailIcon = UIImage(named: "icon_email"), let passwordIcon = UIImage(named: "icon_key") {
             addRightIcon(to: textFieldEmail, icon: emailIcon)
             addRightIcon(to: textFieldPassworld, icon: passwordIcon)
@@ -43,7 +41,6 @@ class RegisterAccountViewController: UIViewController {
         checkBox.setImage(UIImage(systemName: "checkmark.circle"), for: .normal)
         checkBox.setImage(UIImage(systemName: "checkmark.circle.fill"), for: .selected)
         checkBox.tintColor = .systemBlue
-        // delete background and border UIButton
         checkBox.setTitle("", for: .normal)
         checkBox.backgroundColor = UIColor.white
         checkBox.layer.borderWidth = 0
@@ -58,7 +55,6 @@ class RegisterAccountViewController: UIViewController {
         guard let email = textFieldEmail.text, !email.isEmpty,
               let password = textFieldPassworld.text, !password.isEmpty,
               let name = textFieldName.text, !name.isEmpty else {
-            // Hiển thị một cảnh báo hoặc thông báo cho người dùng
             print("Vui lòng điền đầy đủ thông tin")
             return
         }
@@ -68,7 +64,6 @@ class RegisterAccountViewController: UIViewController {
                 return
             }
             guard let user = authResult?.user else { return }
-
             let newUser = User(email: email, numberPhone: "", uid: user.uid, image: "", birthday: "", fullName: name, password: password, followers: [], following: [])
             let db = Firestore.firestore()
             db.collection("users").document(user.uid).setData(newUser.toJson()) { error in
