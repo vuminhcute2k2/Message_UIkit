@@ -27,6 +27,7 @@ class RegisterAccountViewController: UIViewController {
         textFieldName.borderStyle = .none
         textFieldEmail.borderStyle = .none
         textFieldPassworld.borderStyle = .none
+        textFieldPassworld.isSecureTextEntry = true
         addBottomLine(to: textFieldName)
         addBottomLine(to: textFieldEmail)
         addBottomLine(to: textFieldPassworld)
@@ -55,25 +56,14 @@ class RegisterAccountViewController: UIViewController {
         guard let email = textFieldEmail.text, !email.isEmpty,
               let password = textFieldPassworld.text, !password.isEmpty,
               let name = textFieldName.text, !name.isEmpty else {
-            print("Vui lòng điền đầy đủ thông tin")
+            showAlert(message: "Vui lòng điền đầy đủ thông tin")
             return
         }
-        Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
-            if let error = error {
-                print("Lỗi khi tạo tài khoản: \(error.localizedDescription)")
-                return
-            }
-            guard let user = authResult?.user else { return }
-            let newUser = User(email: email, numberPhone: "", uid: user.uid, image: "", birthday: "", fullName: name, password: password, followers: [], following: [])
-            let db = Firestore.firestore()
-            db.collection("users").document(user.uid).setData(newUser.toJson()) { error in
-                if let error = error {
-                    print("Lỗi khi lưu thông tin người dùng: \(error.localizedDescription)")
-                } else {
-                    let homeTabBarController = HomeTabBarController(nibName: "HomeTabBarController", bundle: nil)
-                    homeTabBarController.modalPresentationStyle = .fullScreen
-                    self.present(homeTabBarController, animated: true, completion: nil)
-                }
+        FirebaseService.shared.registerUser(email: email, password: password, name: name) { result in switch result {
+            case .success:
+                AppRouters.homeTabBar.navigate(from: self)
+            case .failure(let error):
+                self.showAlert(message: "Lỗi khi tạo tài khoản: \(error.localizedDescription)")
             }
         }
     }
@@ -106,5 +96,10 @@ class RegisterAccountViewController: UIViewController {
         iconView.frame = CGRect(x: 0, y: 0, width: 24, height: 14)
         textField.rightView = iconView
         textField.rightViewMode = .always
+    }
+    private func showAlert(message: String) {
+        let alertController = UIAlertController(title: "Thông báo", message: message, preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "OK", style: .default))
+        present(alertController, animated: true, completion: nil)
     }
 }

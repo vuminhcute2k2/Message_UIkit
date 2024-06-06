@@ -17,8 +17,15 @@ struct User {
     var password: String
     var followers: [String]
     var following: [String]
-    
-    init(email: String, numberPhone: String, uid: String, image: String, birthday: String, fullName: String, password: String, followers: [String], following: [String]) {
+    init(email: String,
+         numberPhone: String,
+         uid: String,
+         image: String,
+         birthday: String,
+         fullName: String,
+         password: String,
+         followers: [String],
+         following: [String]) {
         self.email = email
         self.numberPhone = numberPhone
         self.uid = uid
@@ -29,7 +36,6 @@ struct User {
         self.followers = followers
         self.following = following
     }
-    
     func toJson() -> [String: Any] {
         return [
             "email": email,
