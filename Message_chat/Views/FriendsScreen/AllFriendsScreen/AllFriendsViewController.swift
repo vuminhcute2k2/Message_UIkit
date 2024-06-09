@@ -25,46 +25,50 @@ class AllFriendsViewController: UIViewController {
         allFriendsTableView.delegate = self
     }
     private func loadAllUsers() {
-        let db = Firestore.firestore()
-        db.collection("users").getDocuments { [weak self] (snapshot, error) in
+        FirebaseService.shared.fetchAllUsers { [weak self] result in
             guard let self = self else { return }
-            if let error = error {
-                print("Error users: \(error.localizedDescription)")
-                return
+            switch result {
+            case .success(let users):
+                self.sortedFriends = users
+                self.sortFriends()
+                self.allFriendsTableView.reloadData()
+            case .failure(let error):
+                print("Error fetching users: \(error.localizedDescription)")
             }
-            guard let snapshot = snapshot else { return }
-            self.sortedFriends = snapshot.documents.compactMap { document -> User? in
-                let data = document.data()
-                return User(email: data["email"] as? String ?? "",
-                            numberPhone: data["numberPhone"] as? String ?? "",
-                            uid: data["uid"] as? String ?? "",
-                            image: data["image"] as? String ?? "",
-                            birthday: data["birthday"] as? String ?? "",
-                            fullName: data["fullName"] as? String ?? "",
-                            password: data["password"] as? String ?? "",
-                            followers: data["followers"] as? [String] ?? [],
-                            following: data["following"] as? [String] ?? [])
-            }
-            self.sortFriends()
-            self.allFriendsTableView.reloadData()
         }
     }
     private func sortFriends() {
         sortedFriends.sort { $0.fullName < $1.fullName }
         var indexMap: [String: Int] = [:]
+        friendsByAlphabet.removeAll()
+        sectionTitles.removeAll()
         for friend in sortedFriends {
             let firstLetter = String(friend.fullName.prefix(1)).uppercased()
-            if indexMap[firstLetter] != nil {
-                let index = indexMap[firstLetter]!
+            if let index = indexMap[firstLetter] {
+                // Optional binding to check and add you to the correct group
                 if !friendsByAlphabet[index].contains(where: { $0.uid == friend.uid }) {
                     friendsByAlphabet[index].append(friend)
                 }
             } else {
+                // If firstLetter does not exist in indexMap, create a new group
                 sectionTitles.append(firstLetter)
                 let newIndex = sectionTitles.count - 1
                 friendsByAlphabet.append([friend])
                 indexMap[firstLetter] = newIndex
             }
+        }
+        sectionTitles.sort()
+        // Arrange the friendsByAlphabet
+        var sortedFriendsByAlphabet: [[User]] = []
+        for title in sectionTitles {
+            if let index = indexMap[title] {
+                sortedFriendsByAlphabet.append(friendsByAlphabet[index])
+            }
+        }
+        friendsByAlphabet = sortedFriendsByAlphabet
+        // Arrange friends in each group alphabetically
+        for i in 0..<friendsByAlphabet.count {
+            friendsByAlphabet[i].sort { $0.fullName < $1.fullName }
         }
     }
 }

@@ -11,8 +11,12 @@ import FirebaseFirestore
 class FirebaseService {
     static let shared = FirebaseService()
     private init() {}
-    func registerUser(email: String, password: String, name: String, completion: @escaping (Result<User, Error>) -> Void) {
-        Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
+    func registerUser(email: String,
+                      password: String,
+                      name: String,
+                      completion: @escaping (Result<User, Error>) -> Void) {
+        Auth.auth().createUser(withEmail: email, password: password) {
+            authResult, error in
             if let error = error {
                 completion(.failure(error))
                 return
@@ -44,6 +48,33 @@ class FirebaseService {
             } else {
                 completion(.success(user))
             }
+        }
+    }
+    func fetchAllUsers(completion: @escaping (Result<[User], Error>) -> Void) {
+        let db = Firestore.firestore()
+        db.collection("users").getDocuments { (snapshot, error) in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            guard let snapshot = snapshot else {
+                let error = NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "No data found"])
+                completion(.failure(error))
+                return
+            }
+            let users = snapshot.documents.compactMap { document -> User? in
+                let data = document.data()
+                return User(email: data["email"] as? String ?? "",
+                            numberPhone: data["numberPhone"] as? String ?? "",
+                            uid: data["uid"] as? String ?? "",
+                            image: data["image"] as? String ?? "",
+                            birthday: data["birthday"] as? String ?? "",
+                            fullName: data["fullName"] as? String ?? "",
+                            password: data["password"] as? String ?? "",
+                            followers: data["followers"] as? [String] ?? [],
+                            following: data["following"] as? [String] ?? [])
+            }
+            completion(.success(users))
         }
     }
 }

@@ -59,7 +59,10 @@ class RegisterAccountViewController: UIViewController {
             showAlert(message: "Vui lòng điền đầy đủ thông tin")
             return
         }
-        FirebaseService.shared.registerUser(email: email, password: password, name: name) { result in switch result {
+        FirebaseService.shared.registerUser(email: email,
+                                            password: password,
+                                            name: name)
+        { result in switch result {
             case .success:
                 AppRouters.homeTabBar.navigate(from: self)
             case .failure(let error):
