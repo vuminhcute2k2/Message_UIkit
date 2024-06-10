@@ -21,6 +21,7 @@
                 <outlet property="homeBackgroundView" destination="E6H-UG-ZWT" id="5P9-VI-8wG"/>
                 <outlet property="languageIcon" destination="NBv-tD-Oao" id="vci-e5-aQ5"/>
                 <outlet property="languageView" destination="LM2-CE-82d" id="IUs-2W-vku"/>
+                <outlet property="logOutLabel" destination="Oja-qw-4aP" id="T49-IU-Ydb"/>
                 <outlet property="notificationView" destination="FAB-Sg-uOT" id="zBc-Iv-cFc"/>
                 <outlet property="profileImage" destination="7h4-gt-ayx" id="gOh-DS-jpW"/>
                 <outlet property="profileView" destination="Mnl-g3-kTc" id="HJK-MQ-GLl"/>

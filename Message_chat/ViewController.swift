@@ -8,7 +8,7 @@
 import UIKit
 import SwiftSVG
 import UserNotifications
-
+import FirebaseAuth
 class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,7 +23,7 @@ class ViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(handleAppStateChange), name: UIApplication.didEnterBackgroundNotification, object: nil)
         
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+2, execute: {
-            self.performSegue(withIdentifier: "goToLogin", sender: nil)
+            self.checkLoginStatus()
         })
         backgroundColor.applyGradient()
         labelName.setAwesomeText("Awesome Chat")
@@ -32,15 +32,47 @@ class ViewController: UIViewController {
     @IBOutlet var backgroundColor: UIView!
     // Hàm xử lý sự kiện khi trạng thái của ứng dụng thay đổi
     @objc func handleAppStateChange() {
-            switch UIApplication.shared.applicationState {
-            case .active:
-                print("Ứng dụng đang hoạt động trên màn hình.")
-            case .inactive:
-                print("Ứng dụng đang chuyển đổi giữa trạng thái hoạt động và không hoạt động.")
-            case .background:
-                print("Ứng dụng đang chạy ở nền.")
-            default:
-                print("Ứng dụng đã bị tạm dừng.")
-            }
+        switch UIApplication.shared.applicationState {
+        case .active:
+            print("Ứng dụng đang hoạt động trên màn hình.")
+        case .inactive:
+            print("Ứng dụng đang chuyển đổi giữa trạng thái hoạt động và không hoạt động.")
+        case .background:
+            print("Ứng dụng đang chạy ở nền.")
+        default:
+            print("Ứng dụng đã bị tạm dừng.")
         }
+    }
+    func checkLoginStatus() {
+        if let email = UserDefaults.standard.string(forKey: "email"),
+           let password = UserDefaults.standard.string(forKey: "password") {
+            // Auto logIn data
+            Auth.auth().signIn(withEmail: email, password: password) { [weak self] authResult, error in
+                guard let self = self else { return }
+                if let error = error {
+                    print("Auto login error: \(error.localizedDescription)")
+                    self.showLoginScreen()
+                } else {
+                    // save UID for UserDefaults
+                    if let uid = authResult?.user.uid {
+                        UserDefaults.standard.set(uid, forKey: "uid")
+                    }
+                    self.showHomeScreen()
+                }
+            }
+        } else {
+            showLoginScreen()
+        }
+
+    }
+    func showLoginScreen() {
+        let loginVC = AppRouters.login.viewController
+        loginVC.modalPresentationStyle = .fullScreen
+        present(loginVC, animated: true, completion: nil)
+    }
+    func showHomeScreen() {
+        let homeTabBarVC = AppRouters.homeTabBar.viewController
+        homeTabBarVC.modalPresentationStyle = .fullScreen
+        present(homeTabBarVC, animated: true, completion: nil)
+    }
 }

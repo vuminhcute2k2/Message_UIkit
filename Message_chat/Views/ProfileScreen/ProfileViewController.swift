@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+import FirebaseAuth
 class ProfileViewController: UIViewController {
     
     @IBOutlet weak var homeBackgroundView: UIView!
@@ -21,9 +21,13 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var notificationView: UIView!
     @IBOutlet weak var reuseView: UIView!
     @IBOutlet weak var profileView: UIView!
+    @IBOutlet weak var logOutLabel: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleLogout))
+        logOutLabel.isUserInteractionEnabled = true
+        logOutLabel.addGestureRecognizer(tapGestureRecognizer)
     }
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -67,5 +71,16 @@ class ProfileViewController: UIViewController {
         profileImage.layer.borderWidth = 2.0
         profileImage.layer.borderColor = UIColor.blue.cgColor
         profileImage.contentMode = .scaleToFill
+    }
+    @objc private func handleLogout() {
+        do {
+            try Auth.auth().signOut()
+            UserDefaults.standard.removeObject(forKey: "uid")
+            UserDefaults.standard.removeObject(forKey: "email")
+            UserDefaults.standard.removeObject(forKey: "password")
+            AppRouters.login.navigate(from: self)
+        } catch let signOutError as NSError {
+            print("Error signing out: %@", signOutError)
+        }
     }
 }

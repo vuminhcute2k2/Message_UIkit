@@ -10,12 +10,15 @@ import UIKit
 enum AppRouters {
     case homeTabBar
     case register
+    case login
     var viewController: UIViewController {
         switch self {
         case .homeTabBar:
             return createHomeTabBarController()
         case .register:
             return createRegisterViewController()
+        case .login:
+            return createlogInViewController()
         }
     }
     private func createHomeTabBarController() -> UIViewController {
@@ -28,6 +31,13 @@ enum AppRouters {
         registerAccountViewController.modalPresentationStyle = .fullScreen
         return registerAccountViewController
     }
+    private func createlogInViewController() -> UIViewController {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let loginViewController = storyboard.instantiateViewController(withIdentifier: "LoginViewController")
+        loginViewController.modalPresentationStyle = .fullScreen
+        return loginViewController
+    }
+
     func navigate(from viewController: UIViewController) {
         viewController.present(self.viewController, animated: true, completion: nil)
     }
