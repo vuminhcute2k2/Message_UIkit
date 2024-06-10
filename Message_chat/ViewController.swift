@@ -44,26 +44,17 @@ class ViewController: UIViewController {
         }
     }
     func checkLoginStatus() {
-        if let email = UserDefaults.standard.string(forKey: "email"),
-           let password = UserDefaults.standard.string(forKey: "password") {
-            // Auto logIn data
-            Auth.auth().signIn(withEmail: email, password: password) { [weak self] authResult, error in
-                guard let self = self else { return }
-                if let error = error {
-                    print("Auto login error: \(error.localizedDescription)")
-                    self.showLoginScreen()
-                } else {
-                    // save UID for UserDefaults
-                    if let uid = authResult?.user.uid {
-                        UserDefaults.standard.set(uid, forKey: "uid")
-                    }
-                    self.showHomeScreen()
-                }
+        FirebaseService.shared.autoSignIn { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let user):
+                print("User auto logged in with UID: \(user.uid)")
+                self.showHomeScreen()
+            case .failure(let error):
+                print("Auto login error: \(error.localizedDescription)")
+                self.showLoginScreen()
             }
-        } else {
-            showLoginScreen()
         }
-
     }
     func showLoginScreen() {
         let loginVC = AppRouters.login.viewController

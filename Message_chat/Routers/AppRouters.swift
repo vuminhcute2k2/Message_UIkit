@@ -32,10 +32,7 @@ enum AppRouters {
         return registerAccountViewController
     }
     private func createlogInViewController() -> UIViewController {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let loginViewController = storyboard.instantiateViewController(withIdentifier: "LoginViewController")
-        loginViewController.modalPresentationStyle = .fullScreen
-        return loginViewController
+        return UIStoryboard.instantiateViewController(storyboardName: "Main", viewControllerIdentifier: "LoginViewController")
     }
 
     func navigate(from viewController: UIViewController) {

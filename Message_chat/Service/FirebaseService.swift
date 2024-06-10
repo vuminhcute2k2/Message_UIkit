@@ -66,7 +66,10 @@ class FirebaseService {
                 return
             }
             guard let userAuth = authResult?.user else {
-                completion(.failure(NSError(domain: "AuthService", code: -1, userInfo: [NSLocalizedDescriptionKey: "User not found"])))
+                completion(.failure(
+                    NSError(domain: "AuthService",
+                            code: -1,
+                            userInfo: [NSLocalizedDescriptionKey: "User not found"])))
                 return
             }
             let user = User(email: email,
@@ -85,7 +88,35 @@ class FirebaseService {
             completion(.success(user))
         }
     }
-    // All friends 
+    //Auto SignIn
+    func autoSignIn(completion: @escaping (Result<User, Error>) -> Void) {
+        if let email = UserDefaults.standard.string(forKey: "email"),
+           let password = UserDefaults.standard.string(forKey: "password") {
+            Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
+                if let error = error {
+                    completion(.failure(error))
+                } else if let userAuth = authResult?.user {
+                    let user = User(email: email,
+                                    numberPhone: "",
+                                    uid: userAuth.uid,
+                                    image: "",
+                                    birthday: "",
+                                    fullName: "",
+                                    password: password,
+                                    followers: [],
+                                    following: [])
+                    // Save UID to UserDefaults
+                    UserDefaults.standard.set(userAuth.uid, forKey: "uid")
+                    completion(.success(user))
+                }
+            }
+        } else {
+            completion(.failure(NSError(domain: "AuthService",
+                                         code: 404,
+                                         userInfo: [NSLocalizedDescriptionKey: "Email or password not found in UserDefaults."])))
+        }
+    }
+    // All friends
     func fetchAllUsers(completion: @escaping (Result<[User], Error>) -> Void) {
         let db = Firestore.firestore()
         db.collection("users").getDocuments { (snapshot, error) in
