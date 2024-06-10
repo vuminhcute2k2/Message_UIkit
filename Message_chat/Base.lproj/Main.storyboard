@@ -59,8 +59,8 @@
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ikH-pO-svo">
                                 <rect key="frame" x="0.0" y="59" width="393" height="759"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EYJ-GI-fRe">
-                                        <rect key="frame" x="0.0" y="0.0" width="393" height="1165"/>
+                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EYJ-GI-fRe">
+                                        <rect key="frame" x="0.0" y="-140" width="393" height="1165"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Xo-qM-aSU">
                                                 <rect key="frame" x="175.66666666666666" y="113" width="42" height="21"/>
@@ -118,10 +118,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="na3-y1-l0G">
-                                <rect key="frame" x="0.0" y="59" width="404" height="780.33333333333337"/>
+                                <rect key="frame" x="0.0" y="59" width="393" height="759"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s0s-cC-5dM">
-                                        <rect key="frame" x="0.0" y="0.0" width="404" height="223"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="393" height="217"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Trải nghiệm Awesome Chat" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jsf-aC-ffm">
                                                 <rect key="frame" x="8" y="142" width="291" height="32"/>
@@ -130,13 +130,13 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Đăng nhập" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QSu-m5-73Z">
-                                                <rect key="frame" x="8" y="186" width="216" height="48"/>
+                                                <rect key="frame" x="8" y="186" width="205" height="48"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="40"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo_mail" translatesAutoresizingMaskIntoConstraints="NO" id="iJW-9F-K3w">
-                                                <rect key="frame" x="30" y="30" width="124" height="124"/>
+                                                <rect key="frame" x="30" y="30" width="113" height="124"/>
                                             </imageView>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -153,7 +153,7 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tsy-Yc-nMu">
-                                        <rect key="frame" x="0.0" y="289" width="404" height="234"/>
+                                        <rect key="frame" x="0.0" y="289" width="393" height="228"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="EMAIL" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Rl-5o-c3P">
                                                 <rect key="frame" x="34" y="68" width="49" height="20.333333333333329"/>
@@ -162,7 +162,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="CEj-xJ-Efe">
-                                                <rect key="frame" x="34" y="94.333333333333314" width="336" height="34"/>
+                                                <rect key="frame" x="34" y="94.333333333333314" width="325" height="34"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="34" id="QUl-Dg-EUy"/>
                                                 </constraints>
@@ -176,7 +176,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8Pd-dm-yV4">
-                                                <rect key="frame" x="34" y="174.33333333333337" width="336" height="34"/>
+                                                <rect key="frame" x="34" y="174.33333333333337" width="325" height="34"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="34" id="5fI-6d-J0R"/>
                                                 </constraints>
@@ -184,7 +184,7 @@
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Quên mật khẩu?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yvt-Gh-GJf">
-                                                <rect key="frame" x="246" y="213" width="124" height="20.333333333333343"/>
+                                                <rect key="frame" x="235" y="213" width="124" height="20.333333333333343"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -210,7 +210,7 @@
                                         </constraints>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6gy-52-rXX">
-                                        <rect key="frame" x="34" y="563" width="336" height="60"/>
+                                        <rect key="frame" x="34" y="557" width="325" height="60"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="60" id="soQ-yX-GCb"/>
                                         </constraints>
@@ -221,7 +221,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Chưa có tài khoản? Đăng kí ngay" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xnC-yt-cLH">
-                                        <rect key="frame" x="78.000000000000014" y="651" width="248.33333333333337" height="21"/>
+                                        <rect key="frame" x="78.000000000000014" y="645" width="237.33333333333337" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>

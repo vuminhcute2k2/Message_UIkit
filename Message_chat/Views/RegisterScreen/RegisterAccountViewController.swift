@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import FirebaseAuth
+import FirebaseFirestore
 class RegisterAccountViewController: UIViewController {
     @IBOutlet weak var labelDangKy: UILabel!
     @IBOutlet weak var textFieldName: UITextField!
@@ -25,11 +27,10 @@ class RegisterAccountViewController: UIViewController {
         textFieldName.borderStyle = .none
         textFieldEmail.borderStyle = .none
         textFieldPassworld.borderStyle = .none
-        // bottomline textField
+        textFieldPassworld.isSecureTextEntry = true
         addBottomLine(to: textFieldName)
         addBottomLine(to: textFieldEmail)
         addBottomLine(to: textFieldPassworld)
-        // Thêm icon vào bên phải của textFieldEmail và textFieldPassword
         if let userIcon = UIImage(named: "icon_user"), let emailIcon = UIImage(named: "icon_email"), let passwordIcon = UIImage(named: "icon_key") {
             addRightIcon(to: textFieldEmail, icon: emailIcon)
             addRightIcon(to: textFieldPassworld, icon: passwordIcon)
@@ -41,7 +42,6 @@ class RegisterAccountViewController: UIViewController {
         checkBox.setImage(UIImage(systemName: "checkmark.circle"), for: .normal)
         checkBox.setImage(UIImage(systemName: "checkmark.circle.fill"), for: .selected)
         checkBox.tintColor = .systemBlue
-        // delete background and border UIButton
         checkBox.setTitle("", for: .normal)
         checkBox.backgroundColor = UIColor.white
         checkBox.layer.borderWidth = 0
@@ -52,7 +52,24 @@ class RegisterAccountViewController: UIViewController {
         buttonBackLogin.isUserInteractionEnabled = true
         buttonBackLogin.addGestureRecognizer(tapGestureRecognizer)
     }
- 
+    @IBAction func registerTapped(_ sender: UIButton) {
+        guard let email = textFieldEmail.text, !email.isEmpty,
+              let password = textFieldPassworld.text, !password.isEmpty,
+              let name = textFieldName.text, !name.isEmpty else {
+            showAlert(message: "Vui lòng điền đầy đủ thông tin")
+            return
+        }
+        FirebaseService.shared.registerUser(email: email,
+                                            password: password,
+                                            name: name)
+        { result in switch result {
+            case .success:
+                AppRouters.homeTabBar.navigate(from: self)
+            case .failure(let error):
+                self.showAlert(message: "Lỗi khi tạo tài khoản: \(error.localizedDescription)")
+            }
+        }
+    }
     @IBAction func checkBoxTapper(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
     }
@@ -82,5 +99,10 @@ class RegisterAccountViewController: UIViewController {
         iconView.frame = CGRect(x: 0, y: 0, width: 24, height: 14)
         textField.rightView = iconView
         textField.rightViewMode = .always
+    }
+    private func showAlert(message: String) {
+        let alertController = UIAlertController(title: "Thông báo", message: message, preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "OK", style: .default))
+        present(alertController, animated: true, completion: nil)
     }
 }

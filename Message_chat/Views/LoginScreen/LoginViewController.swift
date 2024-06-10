@@ -61,9 +61,7 @@ final class LoginViewController: UIViewController {
         textField.rightViewMode = .always
     }
     @IBAction func navigationButtonLogin(_ sender: Any) {
-        let tabBarController = HomeTabBarController(nibName: "HomeTabBarController", bundle: nil)
-        tabBarController.modalPresentationStyle = .fullScreen
-        self.present(tabBarController, animated: true, completion: nil)
+        AppRouters.homeTabBar.navigate(from: self)
     }
     @objc private func navigateToRegister() {
         let registerController = RegisterAccountViewController(nibName: "RegisterAccountViewController", bundle: nil)

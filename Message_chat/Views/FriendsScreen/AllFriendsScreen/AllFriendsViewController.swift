@@ -6,24 +6,95 @@
 //
 
 import UIKit
-
+import FirebaseFirestore
 class AllFriendsViewController: UIViewController {
-
+    
+    @IBOutlet weak var allFriendsTableView: UITableView!
+    var sortedFriends: [User] = []
+    var friendsByAlphabet: [[User]] = []
+    var sectionTitles: [String] = []
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        setupTableView()
+        loadAllUsers()
     }
-
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    private func setupTableView() {
+        let nib = UINib(nibName: "AllFriendsTableViewCell", bundle: nil)
+        allFriendsTableView.register(nib, forCellReuseIdentifier: "AllFriendsTableViewCell")
+        allFriendsTableView.dataSource = self
+        allFriendsTableView.delegate = self
     }
-    */
-
+    private func loadAllUsers() {
+        FirebaseService.shared.fetchAllUsers { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let users):
+                self.sortedFriends = users
+                self.sortFriends()
+                self.allFriendsTableView.reloadData()
+            case .failure(let error):
+                print("Error fetching users: \(error.localizedDescription)")
+            }
+        }
+    }
+    private func sortFriends() {
+        sortedFriends.sort { $0.fullName < $1.fullName }
+        var indexMap: [String: Int] = [:]
+        friendsByAlphabet.removeAll()
+        sectionTitles.removeAll()
+        for friend in sortedFriends {
+            let firstLetter = String(friend.fullName.prefix(1)).uppercased()
+            if let index = indexMap[firstLetter] {
+                // Optional binding to check and add you to the correct group
+                if !friendsByAlphabet[index].contains(where: { $0.uid == friend.uid }) {
+                    friendsByAlphabet[index].append(friend)
+                }
+            } else {
+                // If firstLetter does not exist in indexMap, create a new group
+                sectionTitles.append(firstLetter)
+                let newIndex = sectionTitles.count - 1
+                friendsByAlphabet.append([friend])
+                indexMap[firstLetter] = newIndex
+            }
+        }
+        sectionTitles.sort()
+        // Arrange the friendsByAlphabet
+        var sortedFriendsByAlphabet: [[User]] = []
+        for title in sectionTitles {
+            if let index = indexMap[title] {
+                sortedFriendsByAlphabet.append(friendsByAlphabet[index])
+            }
+        }
+        friendsByAlphabet = sortedFriendsByAlphabet
+        // Arrange friends in each group alphabetically
+        for i in 0..<friendsByAlphabet.count {
+            friendsByAlphabet[i].sort { $0.fullName < $1.fullName }
+        }
+    }
 }
+extension AllFriendsViewController: UITableViewDelegate, UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return sectionTitles.count
+    }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return friendsByAlphabet[section].count
+    }
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return sectionTitles[section]
+    }
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "AllFriendsTableViewCell", for: indexPath) as? AllFriendsTableViewCell else {
+            return UITableViewCell()
+        }
+        let friend = friendsByAlphabet[indexPath.section][indexPath.row]
+        cell.setData(user: friend)
+        return cell
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        let friend = friendsByAlphabet[indexPath.section][indexPath.row]
+        print("Selected friend: \(friend.fullName)")
+    }
+}
+
+
