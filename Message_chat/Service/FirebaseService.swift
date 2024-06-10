@@ -14,7 +14,8 @@ class FirebaseService {
     func registerUser(email: String,
                       password: String,
                       name: String,
-                      completion: @escaping (Result<User, Error>) -> Void) {
+                      completion: @escaping (Result<User, Error>)
+                      -> Void) {
         Auth.auth().createUser(withEmail: email, password: password) {
             authResult, error in
             if let error = error {
@@ -22,7 +23,9 @@ class FirebaseService {
                 return
             }
             guard let user = authResult?.user else {
-                let error = NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey : "User creation failed"])
+                let error = NSError(domain: "", code: -1,
+                                    userInfo: [NSLocalizedDescriptionKey
+                                               : "User creation failed"])
                 completion(.failure(error))
                 return
             }
@@ -40,7 +43,9 @@ class FirebaseService {
             }
         }
     }
-    private func saveUserInfo(user: User, completion: @escaping (Result<User, Error>) -> Void) {
+    private func saveUserInfo(user: User,
+                              completion: @escaping (Result<User, Error>)
+                              -> Void) {
         let db = Firestore.firestore()
         db.collection("users").document(user.uid).setData(user.toJson()) { error in
             if let error = error {
@@ -58,7 +63,8 @@ class FirebaseService {
                 return
             }
             guard let snapshot = snapshot else {
-                let error = NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "No data found"])
+                let error = NSError(domain: "", code: -1,
+                                    userInfo: [NSLocalizedDescriptionKey: "No data found"])
                 completion(.failure(error))
                 return
             }
