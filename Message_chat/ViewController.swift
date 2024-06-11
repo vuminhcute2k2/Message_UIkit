@@ -45,14 +45,13 @@ class ViewController: UIViewController {
     }
     func checkLoginStatus() {
         FirebaseService.shared.autoSignIn { [weak self] result in
-            guard let self = self else { return }
             switch result {
             case .success(let user):
-                print("User auto logged in with UID: \(user.uid)")
-                self.showHomeScreen()
+                print("Auto login success: \(user.email)")
+                self?.showHomeScreen()
             case .failure(let error):
                 print("Auto login error: \(error.localizedDescription)")
-                self.showLoginScreen()
+                self?.showLoginScreen()
             }
         }
     }

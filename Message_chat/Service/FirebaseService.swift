@@ -81,39 +81,26 @@ class FirebaseService {
                             password: password,
                             followers: [],
                             following: [])
-            // Save data users UserDefaults
-            UserDefaults.standard.set(userAuth.uid, forKey: "uid")
-            UserDefaults.standard.set(email, forKey: "email")
-            UserDefaults.standard.set(password, forKey: "password")
             completion(.success(user))
         }
     }
     //Auto SignIn
     func autoSignIn(completion: @escaping (Result<User, Error>) -> Void) {
-        if let email = UserDefaults.standard.string(forKey: "email"),
-           let password = UserDefaults.standard.string(forKey: "password") {
-            Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
-                if let error = error {
-                    completion(.failure(error))
-                } else if let userAuth = authResult?.user {
-                    let user = User(email: email,
-                                    numberPhone: "",
-                                    uid: userAuth.uid,
-                                    image: "",
-                                    birthday: "",
-                                    fullName: "",
-                                    password: password,
-                                    followers: [],
-                                    following: [])
-                    // Save UID to UserDefaults
-                    UserDefaults.standard.set(userAuth.uid, forKey: "uid")
-                    completion(.success(user))
-                }
-            }
+        if let userAuth = Auth.auth().currentUser {
+            let user = User(email: userAuth.email ?? "",
+                            numberPhone: "",
+                            uid: userAuth.uid,
+                            image: "",
+                            birthday: "",
+                            fullName: "",
+                            password: "",
+                            followers: [],
+                            following: [])
+            completion(.success(user))
         } else {
             completion(.failure(NSError(domain: "AuthService",
-                                         code: 404,
-                                         userInfo: [NSLocalizedDescriptionKey: "Email or password not found in UserDefaults."])))
+                                        code: 401,
+                                        userInfo: [NSLocalizedDescriptionKey: "User is not logged in"])))
         }
     }
     // All friends

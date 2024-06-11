@@ -25,9 +25,6 @@ class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleLogout))
-        logOutLabel.isUserInteractionEnabled = true
-        logOutLabel.addGestureRecognizer(tapGestureRecognizer)
     }
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -72,12 +69,9 @@ class ProfileViewController: UIViewController {
         profileImage.layer.borderColor = UIColor.blue.cgColor
         profileImage.contentMode = .scaleToFill
     }
-    @objc private func handleLogout() {
+    @IBAction func logOutButton(_ sender: Any) {
         do {
             try Auth.auth().signOut()
-            UserDefaults.standard.removeObject(forKey: "uid")
-            UserDefaults.standard.removeObject(forKey: "email")
-            UserDefaults.standard.removeObject(forKey: "password")
             AppRouters.login.navigate(from: self)
         } catch let signOutError as NSError {
             print("Error signing out: %@", signOutError)

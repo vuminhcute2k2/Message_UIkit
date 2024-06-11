@@ -21,7 +21,6 @@
                 <outlet property="homeBackgroundView" destination="E6H-UG-ZWT" id="5P9-VI-8wG"/>
                 <outlet property="languageIcon" destination="NBv-tD-Oao" id="vci-e5-aQ5"/>
                 <outlet property="languageView" destination="LM2-CE-82d" id="IUs-2W-vku"/>
-                <outlet property="logOutLabel" destination="Oja-qw-4aP" id="T49-IU-Ydb"/>
                 <outlet property="notificationView" destination="FAB-Sg-uOT" id="zBc-Iv-cFc"/>
                 <outlet property="profileImage" destination="7h4-gt-ayx" id="gOh-DS-jpW"/>
                 <outlet property="profileView" destination="Mnl-g3-kTc" id="HJK-MQ-GLl"/>
@@ -284,24 +283,26 @@
                                                     <rect key="frame" x="49" y="34" width="24" height="24"/>
                                                     <color key="tintColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="752" text="Đăng xuất" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oja-qw-4aP">
-                                                    <rect key="frame" x="92" y="34" width="89" height="21"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="89" id="1IU-7h-lpw"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
-                                                    <color key="textColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yry-ZG-hEO">
+                                                    <rect key="frame" x="78" y="28.666666666666625" width="102" height="34.666666666666657"/>
+                                                    <state key="normal" title="Button"/>
+                                                    <buttonConfiguration key="configuration" style="plain" title="Đăng xuất">
+                                                        <color key="baseForegroundColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    </buttonConfiguration>
+                                                    <connections>
+                                                        <action selector="logOutButton:" destination="-1" eventType="touchUpInside" id="hMd-ff-oaX"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                             <constraints>
-                                                <constraint firstItem="Oja-qw-4aP" firstAttribute="leading" secondItem="kDT-Mp-qie" secondAttribute="trailing" constant="19" id="I9e-Ws-Xe6"/>
                                                 <constraint firstAttribute="width" secondItem="sEv-NI-5Lj" secondAttribute="height" multiplier="405:92" id="Y0A-s4-50V"/>
                                                 <constraint firstItem="kDT-Mp-qie" firstAttribute="top" secondItem="sEv-NI-5Lj" secondAttribute="top" constant="34" id="anI-Kk-Rg1"/>
-                                                <constraint firstItem="Oja-qw-4aP" firstAttribute="top" secondItem="kDT-Mp-qie" secondAttribute="top" id="c1O-zo-yot"/>
                                                 <constraint firstItem="kDT-Mp-qie" firstAttribute="leading" secondItem="sEv-NI-5Lj" secondAttribute="leading" constant="49" id="c6F-b9-RA7"/>
+                                                <constraint firstItem="Yry-ZG-hEO" firstAttribute="top" secondItem="kDT-Mp-qie" secondAttribute="bottom" constant="-29.333333333333371" id="fDb-bC-XT3"/>
                                                 <constraint firstAttribute="bottom" secondItem="kDT-Mp-qie" secondAttribute="bottom" constant="34" id="iwD-wP-dFi"/>
+                                                <constraint firstItem="kDT-Mp-qie" firstAttribute="centerY" secondItem="Yry-ZG-hEO" secondAttribute="centerY" id="vj5-vl-fG8"/>
+                                                <constraint firstAttribute="trailing" secondItem="Yry-ZG-hEO" secondAttribute="trailing" constant="225" id="y2p-oY-Cad"/>
                                             </constraints>
                                         </view>
                                     </subviews>

@@ -14,12 +14,13 @@ final class LoginViewController: UIViewController {
     @IBOutlet weak var textFieldPassworld: UITextField!
     @IBOutlet weak var labelRegister: UILabel!
     @IBOutlet weak var buttonLogin: UIButton!
-    let MINIMUM_PASSWORD_CHARACTERS = 8
+    @IBOutlet weak var registerButton: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
         labelDangNhap.textColor = UIColor(red: 0.26, green: 0.34, blue: 0.71, alpha: 1.00)
         textFieldEmail.placeholder = "yourname@gmail.com"
         textFieldPassworld.placeholder = "Password"
+        textFieldPassworld.isSecureTextEntry = true
         textFieldEmail.borderStyle = .none
         textFieldPassworld.borderStyle = .none
         addBottomLine(to: textFieldEmail)
@@ -33,10 +34,6 @@ final class LoginViewController: UIViewController {
         } else {
             print("Failed images")
         }
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(navigateToRegister))
-        labelRegister.isUserInteractionEnabled = true
-        labelRegister.addGestureRecognizer(tapGestureRecognizer)
-
     }
     private func addBottomLine(to textField: UITextField) {
         let bottomLineView = UIView()
@@ -68,8 +65,8 @@ final class LoginViewController: UIViewController {
             showAlert(message: "Vui lòng nhập đầy đủ email và password.")
             return
         }
-        guard password.count >= MINIMUM_PASSWORD_CHARACTERS else {
-            showAlert(message: "Mật khẩu phải có ít nhất \(MINIMUM_PASSWORD_CHARACTERS) ký tự.")
+        guard password.count >= Constants.MINIMUM_PASSWORD_CHARACTERS else {
+            showAlert(message: "Mật khẩu phải có ít nhất \(Constants.MINIMUM_PASSWORD_CHARACTERS) ký tự.")
             return
         }
         FirebaseService.shared.login(email: email, password: password) { [weak self] result in
@@ -95,7 +92,7 @@ final class LoginViewController: UIViewController {
             }
         }
     }
-    @objc private func navigateToRegister() {
+    @IBAction func navigateToRegisters(_ sender: Any) {
         AppRouters.register.navigate(from: self)
     }
     private func showAlert(message: String) {

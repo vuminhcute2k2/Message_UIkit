@@ -12,10 +12,12 @@ extension UIStoryboard {
     static func instantiateViewController<T: UIViewController>(
         storyboardName: String,
         viewControllerIdentifier: String,
-        bundle: Bundle? = nil) -> T {
+        bundle: Bundle? = nil,
+        errorHandler: ((String) -> Void)? = nil) -> T? {
         let storyboard = UIStoryboard(name: storyboardName, bundle: bundle)
         guard let viewController = storyboard.instantiateViewController(withIdentifier: viewControllerIdentifier) as? T else {
-            fatalError("Không thể khởi tạo view controller với identifier \(viewControllerIdentifier) từ storyboard \(storyboardName)")
+            errorHandler?("Could not instantiate view controller with identifier \(viewControllerIdentifier) from storyboard \(storyboardName)")
+            return nil
         }
         viewController.modalPresentationStyle = .fullScreen
         return viewController
