@@ -6,17 +6,21 @@
 //
 
 import UIKit
+import FirebaseAuth
+
 final class LoginViewController: UIViewController {
     @IBOutlet weak var labelDangNhap: UILabel!
     @IBOutlet weak var textFieldEmail: UITextField!
     @IBOutlet weak var textFieldPassworld: UITextField!
     @IBOutlet weak var labelRegister: UILabel!
     @IBOutlet weak var buttonLogin: UIButton!
+    @IBOutlet weak var registerButton: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
         labelDangNhap.textColor = UIColor(red: 0.26, green: 0.34, blue: 0.71, alpha: 1.00)
         textFieldEmail.placeholder = "yourname@gmail.com"
         textFieldPassworld.placeholder = "Password"
+        textFieldPassworld.isSecureTextEntry = true
         textFieldEmail.borderStyle = .none
         textFieldPassworld.borderStyle = .none
         addBottomLine(to: textFieldEmail)
@@ -30,11 +34,6 @@ final class LoginViewController: UIViewController {
         } else {
             print("Failed images")
         }
-        // Thêm gesture recognizer cho labelDangKy
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(navigateToRegister))
-        labelRegister.isUserInteractionEnabled = true
-        labelRegister.addGestureRecognizer(tapGestureRecognizer)
-
     }
     private func addBottomLine(to textField: UITextField) {
         let bottomLineView = UIView()
@@ -61,11 +60,44 @@ final class LoginViewController: UIViewController {
         textField.rightViewMode = .always
     }
     @IBAction func navigationButtonLogin(_ sender: Any) {
-        AppRouters.homeTabBar.navigate(from: self)
+        guard let email = textFieldEmail.text, !email.isEmpty,
+              let password = textFieldPassworld.text, !password.isEmpty else {
+            showAlert(message: "Vui lòng nhập đầy đủ email và password.")
+            return
+        }
+        guard password.count >= Constants.MINIMUM_PASSWORD_CHARACTERS else {
+            showAlert(message: "Mật khẩu phải có ít nhất \(Constants.MINIMUM_PASSWORD_CHARACTERS) ký tự.")
+            return
+        }
+        FirebaseService.shared.login(email: email, password: password) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let user):
+                UserDefaults.standard.set(user.uid, forKey: "uid")
+                UserDefaults.standard.set(email, forKey: "email")
+                UserDefaults.standard.set(password, forKey: "password")
+                print("User logged in with UID: \(user.uid)")
+                AppRouters.homeTabBar.navigate(from: self)
+            case .failure(let error):
+                var errorMessage: String
+                let errorCode = (error as NSError).code
+                switch errorCode {
+                case AuthErrorCode.invalidEmail.rawValue:
+                    errorMessage = "Địa chỉ email không đúng định dạng."
+                default:
+                    errorMessage = "Đã xảy ra lỗi khi đăng nhập: \(error.localizedDescription)"
+                    print("Đã xảy ra lỗi khi đăng nhập: \(error.localizedDescription)")
+                }
+                self.showAlert(message: errorMessage)
+            }
+        }
     }
-    @objc private func navigateToRegister() {
-        let registerController = RegisterAccountViewController(nibName: "RegisterAccountViewController", bundle: nil)
-        registerController.modalPresentationStyle = .fullScreen
-        self.present(registerController, animated: true, completion: nil)
+    @IBAction func navigateToRegisters(_ sender: Any) {
+        AppRouters.register.navigate(from: self)
+    }
+    private func showAlert(message: String) {
+        let alertController = UIAlertController(title: "Thông báo", message: message, preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "OK", style: .default))
+        present(alertController, animated: true, completion: nil)
     }
 }

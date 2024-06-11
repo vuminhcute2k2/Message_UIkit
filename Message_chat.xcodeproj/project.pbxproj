@@ -55,6 +55,8 @@
 		C3B0D5372C07B14A000A980B /* CALayerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B0D5362C07B14A000A980B /* CALayerExtensions.swift */; };
 		C3B0D5392C07B1A9000A980B /* HomeMessageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B0D5382C07B1A9000A980B /* HomeMessageExtensions.swift */; };
 		C3B0D53B2C083EBD000A980B /* ModelMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B0D53A2C083EBD000A980B /* ModelMessages.swift */; };
+		C3D2A72B2C1785D000F31A4E /* UIStoryboardExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D2A72A2C1785D000F31A4E /* UIStoryboardExtensions.swift */; };
+		C3D2A72E2C18417800F31A4E /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D2A72D2C18417800F31A4E /* Constants.swift */; };
 		C3E943D72C09D87A0065664D /* MyFriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E943D52C09D87A0065664D /* MyFriendsViewController.swift */; };
 		C3E943D82C09D87A0065664D /* MyFriendsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3E943D62C09D87A0065664D /* MyFriendsViewController.xib */; };
 		C3E943DB2C09D8920065664D /* AllFriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E943D92C09D8920065664D /* AllFriendsViewController.swift */; };
@@ -136,6 +138,8 @@
 		C3B0D5362C07B14A000A980B /* CALayerExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CALayerExtensions.swift; sourceTree = "<group>"; };
 		C3B0D5382C07B1A9000A980B /* HomeMessageExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeMessageExtensions.swift; sourceTree = "<group>"; };
 		C3B0D53A2C083EBD000A980B /* ModelMessages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelMessages.swift; sourceTree = "<group>"; };
+		C3D2A72A2C1785D000F31A4E /* UIStoryboardExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIStoryboardExtensions.swift; sourceTree = "<group>"; };
+		C3D2A72D2C18417800F31A4E /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		C3E943D52C09D87A0065664D /* MyFriendsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFriendsViewController.swift; sourceTree = "<group>"; };
 		C3E943D62C09D87A0065664D /* MyFriendsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MyFriendsViewController.xib; sourceTree = "<group>"; };
 		C3E943D92C09D8920065664D /* AllFriendsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllFriendsViewController.swift; sourceTree = "<group>"; };
@@ -341,6 +345,7 @@
 		C38622EC2BF474B60086FC63 /* Message_chat */ = {
 			isa = PBXGroup;
 			children = (
+				C3D2A72C2C18414900F31A4E /* Constants */,
 				C3644F202C11A2BB0062B7C5 /* Routers */,
 				C3644F1D2C11A1A90062B7C5 /* Service */,
 				C3FF822F2C0DFF36005B2496 /* Extensions */,
@@ -375,6 +380,14 @@
 			path = Message_chatUITests;
 			sourceTree = "<group>";
 		};
+		C3D2A72C2C18414900F31A4E /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				C3D2A72D2C18417800F31A4E /* Constants.swift */,
+			);
+			path = Constants;
+			sourceTree = "<group>";
+		};
 		C3FF822E2C0DFECD005B2496 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -396,6 +409,7 @@
 				C3B0D5342C07B0E9000A980B /* UILabelExtensions.swift */,
 				C306FB862C099F8A00D5E110 /* UITextFieldExtensions.swift */,
 				C3B0D5382C07B1A9000A980B /* HomeMessageExtensions.swift */,
+				C3D2A72A2C1785D000F31A4E /* UIStoryboardExtensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -679,8 +693,10 @@
 				C37F47C42C02ECF5008EDD7F /* RegisterAccountViewController.swift in Sources */,
 				C3644F222C11A2DF0062B7C5 /* AppRouters.swift in Sources */,
 				C368C62E2C1105F000322B82 /* ModelUsers.swift in Sources */,
+				C3D2A72E2C18417800F31A4E /* Constants.swift in Sources */,
 				C3B0D5332C07AEEE000A980B /* UIviewExtensions.swift in Sources */,
 				C3E943DB2C09D8920065664D /* AllFriendsViewController.swift in Sources */,
+				C3D2A72B2C1785D000F31A4E /* UIStoryboardExtensions.swift in Sources */,
 				C386231E2BF49F520086FC63 /* LoginViewController.swift in Sources */,
 				C36EDC702C0B178900958658 /* ModelRequestFriends.swift in Sources */,
 				C33DF5822C053929007C654E /* HomeMessageViewController.swift in Sources */,

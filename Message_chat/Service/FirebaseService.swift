@@ -11,6 +11,7 @@ import FirebaseFirestore
 class FirebaseService {
     static let shared = FirebaseService()
     private init() {}
+    //register
     func registerUser(email: String,
                       password: String,
                       name: String,
@@ -43,6 +44,7 @@ class FirebaseService {
             }
         }
     }
+    //save register firebase collections users
     private func saveUserInfo(user: User,
                               completion: @escaping (Result<User, Error>)
                               -> Void) {
@@ -55,6 +57,53 @@ class FirebaseService {
             }
         }
     }
+    func login(email: String,
+               password: String,
+               completion: @escaping (Result<Message_chat.User, Error>) -> Void) {
+        Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            guard let userAuth = authResult?.user else {
+                completion(.failure(
+                    NSError(domain: "AuthService",
+                            code: -1,
+                            userInfo: [NSLocalizedDescriptionKey: "User not found"])))
+                return
+            }
+            let user = User(email: email,
+                            numberPhone: "",
+                            uid: userAuth.uid,
+                            image: "",
+                            birthday: "",
+                            fullName: "",
+                            password: password,
+                            followers: [],
+                            following: [])
+            completion(.success(user))
+        }
+    }
+    //Auto SignIn
+    func autoSignIn(completion: @escaping (Result<User, Error>) -> Void) {
+        if let userAuth = Auth.auth().currentUser {
+            let user = User(email: userAuth.email ?? "",
+                            numberPhone: "",
+                            uid: userAuth.uid,
+                            image: "",
+                            birthday: "",
+                            fullName: "",
+                            password: "",
+                            followers: [],
+                            following: [])
+            completion(.success(user))
+        } else {
+            completion(.failure(NSError(domain: "AuthService",
+                                        code: 401,
+                                        userInfo: [NSLocalizedDescriptionKey: "User is not logged in"])))
+        }
+    }
+    // All friends
     func fetchAllUsers(completion: @escaping (Result<[User], Error>) -> Void) {
         let db = Firestore.firestore()
         db.collection("users").getDocuments { (snapshot, error) in

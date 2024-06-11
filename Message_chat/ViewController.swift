@@ -8,7 +8,7 @@
 import UIKit
 import SwiftSVG
 import UserNotifications
-
+import FirebaseAuth
 class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,7 +23,7 @@ class ViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(handleAppStateChange), name: UIApplication.didEnterBackgroundNotification, object: nil)
         
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+2, execute: {
-            self.performSegue(withIdentifier: "goToLogin", sender: nil)
+            self.checkLoginStatus()
         })
         backgroundColor.applyGradient()
         labelName.setAwesomeText("Awesome Chat")
@@ -32,15 +32,37 @@ class ViewController: UIViewController {
     @IBOutlet var backgroundColor: UIView!
     // Hàm xử lý sự kiện khi trạng thái của ứng dụng thay đổi
     @objc func handleAppStateChange() {
-            switch UIApplication.shared.applicationState {
-            case .active:
-                print("Ứng dụng đang hoạt động trên màn hình.")
-            case .inactive:
-                print("Ứng dụng đang chuyển đổi giữa trạng thái hoạt động và không hoạt động.")
-            case .background:
-                print("Ứng dụng đang chạy ở nền.")
-            default:
-                print("Ứng dụng đã bị tạm dừng.")
+        switch UIApplication.shared.applicationState {
+        case .active:
+            print("Ứng dụng đang hoạt động trên màn hình.")
+        case .inactive:
+            print("Ứng dụng đang chuyển đổi giữa trạng thái hoạt động và không hoạt động.")
+        case .background:
+            print("Ứng dụng đang chạy ở nền.")
+        default:
+            print("Ứng dụng đã bị tạm dừng.")
+        }
+    }
+    func checkLoginStatus() {
+        FirebaseService.shared.autoSignIn { [weak self] result in
+            switch result {
+            case .success(let user):
+                print("Auto login success: \(user.email)")
+                self?.showHomeScreen()
+            case .failure(let error):
+                print("Auto login error: \(error.localizedDescription)")
+                self?.showLoginScreen()
             }
         }
+    }
+    func showLoginScreen() {
+        let loginVC = AppRouters.login.viewController
+        loginVC.modalPresentationStyle = .fullScreen
+        present(loginVC, animated: true, completion: nil)
+    }
+    func showHomeScreen() {
+        let homeTabBarVC = AppRouters.homeTabBar.viewController
+        homeTabBarVC.modalPresentationStyle = .fullScreen
+        present(homeTabBarVC, animated: true, completion: nil)
+    }
 }
