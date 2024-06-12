@@ -11,6 +11,8 @@ enum AppRouters {
     case homeTabBar
     case register
     case login
+    case account
+    case profile
     var viewController: UIViewController {
         switch self {
         case .homeTabBar:
@@ -19,6 +21,10 @@ enum AppRouters {
             return createRegisterViewController()
         case .login:
             return createlogInViewController()
+        case .account:
+            return createEditAccountController()
+        case .profile:
+            return createProfileController()
         }
     }
     private func createHomeTabBarController() -> UIViewController {
@@ -30,6 +36,16 @@ enum AppRouters {
         let registerAccountViewController = RegisterAccountViewController(nibName: "RegisterAccountViewController", bundle: nil)
         registerAccountViewController.modalPresentationStyle = .fullScreen
         return registerAccountViewController
+    }
+    private func createEditAccountController() -> UIViewController {
+        let editAccountController = EditAccountViewController(nibName: "EditAccountViewController", bundle: nil)
+        editAccountController.modalPresentationStyle = .fullScreen
+        return editAccountController
+    }
+    private func createProfileController() -> UIViewController {
+        let profileController = ProfileViewController(nibName: "ProfileViewController", bundle: nil)
+        profileController.modalPresentationStyle = .fullScreen
+        return profileController
     }
     private func createlogInViewController() -> UIViewController {
         return UIStoryboard.instantiateViewController(storyboardName: "Main", viewControllerIdentifier: "LoginViewController")!

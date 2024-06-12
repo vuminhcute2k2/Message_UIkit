@@ -118,6 +118,9 @@
                                             <rect key="frame" x="300" y="40" width="75" height="34"/>
                                             <state key="normal" title="Button"/>
                                             <buttonConfiguration key="configuration" style="gray" title="Button"/>
+                                            <connections>
+                                                <action selector="accountButton:" destination="-1" eventType="touchUpInside" id="wcR-Le-7SW"/>
+                                            </connections>
                                         </button>
                                     </subviews>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
