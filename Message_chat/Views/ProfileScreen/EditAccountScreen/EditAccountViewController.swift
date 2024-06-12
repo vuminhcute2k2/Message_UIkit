@@ -6,34 +6,29 @@
 //
 
 import UIKit
-
+import FirebaseAuth
+import FirebaseStorage
+import FirebaseFirestore
 class EditAccountViewController: UIViewController,UIImagePickerControllerDelegate,UINavigationControllerDelegate {
 
     @IBOutlet weak var backgroundColorView: UIView!
-    
     @IBOutlet weak var borderView: UIView!
-    
     @IBOutlet weak var fullnameTextField: UITextField!
-    
     @IBOutlet weak var phoneNumberTextField: UITextField!
-    
     @IBOutlet weak var dateTextField: UITextField!
-    
     @IBOutlet weak var imageAccount: UIImageView!
-    
     @IBOutlet weak var borderIconView: UIView!
-    
     @IBOutlet weak var popImage: UIImageView!
-    
     @IBOutlet weak var saveButton: UIButton!
-    
     @IBOutlet weak var cameraIconImage: UIImageView!
+    var currentUser: User?
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
         backgroundColorView.updateGradientFrame()
         setupCameraIconGesture()
         setupPopImageGesture()
+        loadCurrentUser()
         
     }
     override func viewDidLayoutSubviews() {
@@ -108,7 +103,14 @@ class EditAccountViewController: UIViewController,UIImagePickerControllerDelegat
         
         present(alertController, animated: true, completion: nil)
     }
-    
+    func loadCurrentUser() {
+        FirebaseService.shared.loadCurrentUser { [weak self] user in
+            if let user = user {
+                self?.currentUser = user
+                self?.populateUserData(user)
+            }
+        }
+    }
     private func openPhotoLibrary() {
         if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
             let imagePicker = UIImagePickerController()
@@ -141,4 +143,46 @@ class EditAccountViewController: UIViewController,UIImagePickerControllerDelegat
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true, completion: nil)
     }
+    
+    @IBAction func saveButtonTapped(_ sender: Any) {
+        guard let fullname = fullnameTextField.text,
+              let phoneNumber = phoneNumberTextField.text,
+              let birthday = dateTextField.text,
+              let image = imageAccount.image else {
+            return
+        }
+        guard var updatedUser = currentUser else {
+            print("No current user")
+            return
+        }
+        updatedUser.fullName = fullname
+        updatedUser.numberPhone = phoneNumber
+        updatedUser.birthday = birthday
+        FirebaseService.shared.uploadImageAndUpdateUser(updatedUser, image: image) { result in
+            switch result {
+            case .success:
+                print("User updated successfully")
+            case .failure(let error):
+                print("Error updating user: \(error.localizedDescription)")
+            }
+        }
+    }
+    private func populateUserData(_ user: User) {
+        fullnameTextField.text = user.fullName
+        phoneNumberTextField.text = user.numberPhone
+        dateTextField.text = user.birthday
+        // Load image User
+        if let imageURL = URL(string: user.image) {
+            DispatchQueue.global().async {
+                if let imageData = try? Data(contentsOf: imageURL) {
+                    if let image = UIImage(data: imageData) {
+                        DispatchQueue.main.async {
+                            self.imageAccount.image = image
+                        }
+                    }
+                }
+            }
+        }
+    }
+
 }
