@@ -12,21 +12,25 @@
         <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="86" id="KGk-i7-Jjw" customClass="CancelFriendsTableViewCell" customModule="Message_chat" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="437" height="86"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
                 <rect key="frame" x="0.0" y="0.0" width="437" height="86"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="image_avatar" translatesAutoresizingMaskIntoConstraints="NO" id="UgV-Us-iwl">
-                        <rect key="frame" x="20" y="15" width="80" height="56"/>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="image_avatar" translatesAutoresizingMaskIntoConstraints="NO" id="UgV-Us-iwl">
+                        <rect key="frame" x="20" y="15" width="55" height="55"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="55" id="Uro-RS-nJn"/>
+                            <constraint firstAttribute="width" constant="55" id="hcz-Nl-hdj"/>
+                        </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ccl-77-DLg">
-                        <rect key="frame" x="133" y="32.666666666666664" width="42" height="21"/>
+                        <rect key="frame" x="113" y="32" width="42" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RpU-73-NUu">
-                        <rect key="frame" x="344" y="29.666666666666671" width="73" height="27"/>
+                        <rect key="frame" x="344" y="29" width="73" height="27"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="27" id="8sf-Yy-ccu"/>
                             <constraint firstAttribute="width" constant="73" id="pr4-gx-mrO"/>
@@ -39,11 +43,10 @@
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="bottom" secondItem="UgV-Us-iwl" secondAttribute="bottom" constant="15" id="5lY-wc-oqB"/>
+                    <constraint firstItem="ccl-77-DLg" firstAttribute="leading" secondItem="UgV-Us-iwl" secondAttribute="trailing" constant="38" id="CRP-13-bJz"/>
                     <constraint firstItem="ccl-77-DLg" firstAttribute="centerY" secondItem="RpU-73-NUu" secondAttribute="centerY" id="FvL-oZ-1A7"/>
-                    <constraint firstItem="UgV-Us-iwl" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" symbolic="YES" id="SZ4-Wa-ssC"/>
                     <constraint firstAttribute="trailing" secondItem="RpU-73-NUu" secondAttribute="trailing" constant="20" symbolic="YES" id="U4R-bQ-uLo"/>
-                    <constraint firstItem="ccl-77-DLg" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="133" id="YeU-gf-Ldf"/>
-                    <constraint firstItem="ccl-77-DLg" firstAttribute="leading" secondItem="UgV-Us-iwl" secondAttribute="trailing" constant="33" id="cPt-8j-DjU"/>
+                    <constraint firstItem="UgV-Us-iwl" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" symbolic="YES" id="c9T-nP-6bO"/>
                     <constraint firstItem="UgV-Us-iwl" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="ftd-wR-oED"/>
                     <constraint firstItem="UgV-Us-iwl" firstAttribute="centerY" secondItem="ccl-77-DLg" secondAttribute="centerY" id="kNb-1e-57V"/>
                 </constraints>

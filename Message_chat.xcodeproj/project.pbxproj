@@ -59,6 +59,7 @@
 		C3B0D53B2C083EBD000A980B /* ModelMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B0D53A2C083EBD000A980B /* ModelMessages.swift */; };
 		C3D2A72B2C1785D000F31A4E /* UIStoryboardExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D2A72A2C1785D000F31A4E /* UIStoryboardExtensions.swift */; };
 		C3D2A72E2C18417800F31A4E /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D2A72D2C18417800F31A4E /* Constants.swift */; };
+		C3E2372E2C1AED7400F2D52F /* UIImageViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E2372D2C1AED7400F2D52F /* UIImageViewExtensions.swift */; };
 		C3E943D72C09D87A0065664D /* MyFriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E943D52C09D87A0065664D /* MyFriendsViewController.swift */; };
 		C3E943D82C09D87A0065664D /* MyFriendsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3E943D62C09D87A0065664D /* MyFriendsViewController.xib */; };
 		C3E943DB2C09D8920065664D /* AllFriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E943D92C09D8920065664D /* AllFriendsViewController.swift */; };
@@ -145,6 +146,7 @@
 		C3B0D53A2C083EBD000A980B /* ModelMessages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelMessages.swift; sourceTree = "<group>"; };
 		C3D2A72A2C1785D000F31A4E /* UIStoryboardExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIStoryboardExtensions.swift; sourceTree = "<group>"; };
 		C3D2A72D2C18417800F31A4E /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		C3E2372D2C1AED7400F2D52F /* UIImageViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageViewExtensions.swift; sourceTree = "<group>"; };
 		C3E943D52C09D87A0065664D /* MyFriendsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFriendsViewController.swift; sourceTree = "<group>"; };
 		C3E943D62C09D87A0065664D /* MyFriendsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MyFriendsViewController.xib; sourceTree = "<group>"; };
 		C3E943D92C09D8920065664D /* AllFriendsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllFriendsViewController.swift; sourceTree = "<group>"; };
@@ -426,6 +428,7 @@
 				C306FB862C099F8A00D5E110 /* UITextFieldExtensions.swift */,
 				C3B0D5382C07B1A9000A980B /* HomeMessageExtensions.swift */,
 				C3D2A72A2C1785D000F31A4E /* UIStoryboardExtensions.swift */,
+				C3E2372D2C1AED7400F2D52F /* UIImageViewExtensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -737,6 +740,7 @@
 				C306FB872C099F8A00D5E110 /* UITextFieldExtensions.swift in Sources */,
 				C35C910B2C0B2BB30003D73F /* CancelFriendsTableViewCell.swift in Sources */,
 				C38622F02BF474B60086FC63 /* SceneDelegate.swift in Sources */,
+				C3E2372E2C1AED7400F2D52F /* UIImageViewExtensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

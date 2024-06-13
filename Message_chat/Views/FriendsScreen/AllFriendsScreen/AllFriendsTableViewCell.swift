@@ -15,14 +15,10 @@ class AllFriendsTableViewCell: UITableViewCell {
     var addFriendAction: ((User) -> Void)?
     override func awakeFromNib() {
         super.awakeFromNib()
-        makeCircularViews()
+        avatarImage.makeCircular()
     }
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-    }
-    private func makeCircularViews() {
-        avatarImage.layer.cornerRadius = avatarImage.frame.width / 2
-        avatarImage.layer.masksToBounds = true
     }
     func setData(user: User) {
         self.user = user
@@ -42,10 +38,10 @@ class AllFriendsTableViewCell: UITableViewCell {
     
     @IBAction func addFriendsTapped(_ sender: Any) {
         if let user = user{
-            print("Nhấn kết bạn cho người dùng: \(user.fullName)")
+            print("send request for: \(user.fullName)")
             addFriendAction?(user)
         }else{
-            print("Không có gì sảy ra")
+            print("no request")
         }
     }
 }

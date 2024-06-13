@@ -77,17 +77,28 @@ class AllFriendsViewController: UIViewController {
             print("No current user ID")
             return
         }
-        print("Gửi yêu cầu kết bạn từ \(currentUserID) đến \(user.uid)")
-        let friendRequest = [
-            "from": currentUserID,
-            "to": user.uid,
-            "timestamp": FieldValue.serverTimestamp()
-        ] as [String : Any]
-        Firestore.firestore().collection("requestFriends").addDocument(data: friendRequest) { error in
-            if let error = error {
-                print("Error sending friend request: \(error.localizedDescription)")
-            } else {
-                print("Friend request sent to \(user.fullName)")
+        FirebaseService.shared.loadCurrentUser { senderUser in
+            guard let senderUser = senderUser else {
+                print("Failed to load current user")
+                return
+            }
+            let friendRequest = [
+                "from": currentUserID,
+                "to": user.uid,
+                "senderName": senderUser.fullName,
+                "senderImage": senderUser.image,
+                "friendName": user.fullName,
+                "friendImage": user.image,
+                "timestamp": FieldValue.serverTimestamp()
+            ] as [String: Any]
+            
+            // Save request friends for Firestore
+            Firestore.firestore().collection("requestFriends").addDocument(data: friendRequest) { error in
+                if let error = error {
+                    print("Error sending friend request: \(error.localizedDescription)")
+                } else {
+                    print("Friend request sent to \(user.fullName)")
+                }
             }
         }
     }

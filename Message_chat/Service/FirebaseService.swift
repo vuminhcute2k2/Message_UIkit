@@ -13,6 +13,8 @@ import UIKit
 class FirebaseService {
     static let shared = FirebaseService()
     let usersCollection = Firestore.firestore().collection("users")
+    let friendRequestsCollection = Firestore.firestore().collection("requestFriends")
+    private let db = Firestore.firestore()
     private init() {}
     //register
     func registerUser(email: String,
@@ -135,86 +137,188 @@ class FirebaseService {
             completion(.success(users))
         }
     }
-//    //Request Friends
-//    func fetchFriendRequests(for userID: String, completion: @escaping (Result<[FriendRequest], Error>) -> Void) {
-//        Firestore.firestore().collection("requestFriends")
-//            .whereField("to", isEqualTo: userID)
-//            .getDocuments { (snapshot, error) in
-//                if let error = error {
-//                    completion(.failure(error))
-//                    return
-//                }
-//                guard let snapshot = snapshot else {
-//                    let error = NSError(domain: "", code: -1,
-//                                        userInfo: [NSLocalizedDescriptionKey: "No data found"])
-//                    completion(.failure(error))
-//                    return
-//                }
-//                let friendRequests = snapshot.documents.compactMap { document -> FriendRequest? in
-//                    let data = document.data()
-//                    guard let fromUserID = data["from"] as? String,
-//                          let typeRawValue = data["type"] as? Int,
-//                          let type = FriendRequest.RequestType(rawValue: typeRawValue) else {
-//                        return nil
-//                    }
-//                    return FriendRequest(avatarImageName: "", name: "", type: type, fromUserID: fromUserID, user: nil)
-//                }
-//
-//                // Fetch corresponding user information for each friend request
-//                self.fetchUsers(for: friendRequests) { result in
-//                    switch result {
-//                    case .success(let friendRequestsWithUsers):
-//                        completion(.success(friendRequestsWithUsers))
-//                    case .failure(let error):
-//                        completion(.failure(error))
-//                    }
-//                }
-//        }
-//    }
-//    private func fetchUsers(for friendRequests: [FriendRequest], completion: @escaping (Result<[FriendRequest], Error>) -> Void) {
-//        var friendRequestsWithUsers: [FriendRequest] = []
-//        let dispatchGroup = DispatchGroup()
-//
-//        for var friendRequest in friendRequests {
-//            dispatchGroup.enter()
-//            Firestore.firestore().collection("users")
-//                .document(friendRequest.fromUserID)
-//                .getDocument { (document, error) in
-//                    defer { dispatchGroup.leave() }
-//                    if let error = error {
-//                        // Handle error appropriately
-//                        print("Error fetching user document: \(error.localizedDescription)")
-//                        return
-//                    }
-//                    guard let document = document, document.exists else {
-//                        print("User document does not exist for \(friendRequest.fromUserID)")
-//                        return
-//                    }
-//
-//                    // Print out the document data to inspect
-////                    debugPrint(document.data())
-//
-//                    let data = document.data()
-//                    let user = User(
-//                        email: data?["email"] as? String ?? "",
-//                        numberPhone: data?["numberPhone"] as? String ?? "",
-//                        uid: data?["uid"] as? String ?? "",
-//                        image: data?["image"] as? String ?? "",
-//                        birthday: data?["birthday"] as? String ?? "",
-//                        fullName: data?["fullName"] as? String ?? "",
-//                        password: data?["password"] as? String ?? "",
-//                        followers: data?["followers"] as? [String] ?? [],
-//                        following: data?["following"] as? [String] ?? []
-//                    )
-//                    friendRequest.user = user
-//                    friendRequestsWithUsers.append(friendRequest)
-//                }
-//        }
-//        
-//        dispatchGroup.notify(queue: .main) {
-//            completion(.success(friendRequestsWithUsers))
-//        }
-//    }
+    //add friends
+    func fetchFriendRequests(for currentUserID: String, completion: @escaping (Result<[User], Error>) -> Void) {
+        friendRequestsCollection.whereField("to", isEqualTo: currentUserID).getDocuments { (snapshot, error) in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            guard let snapshot = snapshot else {
+                let error = NSError(domain: "",
+                                    code: -1,
+                                    userInfo: [NSLocalizedDescriptionKey: "No data found"])
+                completion(.failure(error))
+                return
+            }
+            let userDispatchGroup = DispatchGroup()
+            var users: [User] = []
+            for document in snapshot.documents {
+                if let fromUserID = document.data()["from"] as? String {
+                    userDispatchGroup.enter()
+                    self.usersCollection.document(fromUserID).getDocument {
+                        (userDoc, error) in
+                        defer { userDispatchGroup.leave() }
+                        if let userDoc = userDoc, userDoc.exists,
+                           let userData = userDoc.data() {
+                            let user = User(
+                                email: userData["email"] as? String ?? "",
+                                numberPhone: userData["numberPhone"] as? String ?? "",
+                                uid: fromUserID,
+                                image: userData["image"] as? String ?? "",
+                                birthday: userData["birthday"] as? String ?? "",
+                                fullName: userData["fullName"] as? String ?? "",
+                                password: "",
+                                followers: userData["followers"] as? [String] ?? [],
+                                following: userData["following"] as? [String] ?? []
+                            )
+                            users.append(user)
+                        }
+                    }
+                }
+            }
+            userDispatchGroup.notify(queue: .main) {
+                completion(.success(users))
+            }
+        }
+    }
+    //cancel request friends
+    func fetchSentFriendRequests(for currentUserID: String, completion: @escaping (Result<[User], Error>) -> Void) {
+        friendRequestsCollection.whereField("from", isEqualTo: currentUserID).getDocuments { (snapshot, error) in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            guard let snapshot = snapshot else {
+                let error = NSError(domain: "",
+                                    code: -1,
+                                    userInfo: [NSLocalizedDescriptionKey: "No data found"])
+                completion(.failure(error))
+                return
+            }
+            let userDispatchGroup = DispatchGroup()
+            var users: [User] = []
+            for document in snapshot.documents {
+                if let toUserID = document.data()["to"] as? String {
+                    userDispatchGroup.enter()
+                    self.usersCollection.document(toUserID).getDocument {
+                        (userDoc, error) in
+                        defer { userDispatchGroup.leave() }
+                        if let userDoc = userDoc, userDoc.exists,
+                           let userData = userDoc.data() {
+                            let user = User(
+                                email: userData["email"] as? String ?? "",
+                                numberPhone: userData["numberPhone"] as? String ?? "",
+                                uid: toUserID,
+                                image: userData["image"] as? String ?? "",
+                                birthday: userData["birthday"] as? String ?? "",
+                                fullName: userData["fullName"] as? String ?? "",
+                                password: "",
+                                followers: userData["followers"] as? [String] ?? [],
+                                following: userData["following"] as? [String] ?? []
+                            )
+                            users.append(user)
+                        }
+                    }
+                }
+            }
+            userDispatchGroup.notify(queue: .main) {
+                completion(.success(users))
+            }
+        }
+    }
+    //track changes send request
+    func observeSentFriendRequests(for userID: String, completion: @escaping ([User]) -> Void) -> ListenerRegistration {
+        return db.collection("requestFriends")
+            .whereField("from", isEqualTo: userID)
+            .addSnapshotListener { (snapshot, error) in
+                if let error = error {
+                    print("Error fetching sent friend requests: \(error)")
+                    completion([])
+                    return
+                }
+
+                guard let snapshot = snapshot else {
+                    print("No data found for sent friend requests")
+                    completion([])
+                    return
+                }
+
+                var updatedCancelRequests: [User] = []
+                for document in snapshot.documents {
+                    if let toUserID = document.data()["to"] as? String {
+                        self.db.collection("users").document(toUserID).getDocument { (userDoc, userError) in
+                            if let userError = userError {
+                                print("Error fetching user data: \(userError)")
+                                return
+                            }
+                            guard let userDoc = userDoc, userDoc.exists, let userData = userDoc.data() else {
+                                print("User document does not exist for \(toUserID)")
+                                return
+                            }
+                            let user = User(
+                                email: userData["email"] as? String ?? "",
+                                numberPhone: userData["numberPhone"] as? String ?? "",
+                                uid: toUserID,
+                                image: userData["image"] as? String ?? "",
+                                birthday: userData["birthday"] as? String ?? "",
+                                fullName: userData["fullName"] as? String ?? "",
+                                password: "",
+                                followers: userData["followers"] as? [String] ?? [],
+                                following: userData["following"] as? [String] ?? []
+                            )
+                            updatedCancelRequests.append(user)
+                            completion(updatedCancelRequests)
+                        }
+                    }
+                }
+            }
+    }
+    //track changes received request
+    func observeReceivedFriendRequests(for userID: String, completion: @escaping ([User]) -> Void) -> ListenerRegistration {
+        return db.collection("requestFriends")
+            .whereField("to", isEqualTo: userID)
+            .addSnapshotListener { (snapshot, error) in
+                if let error = error {
+                    print("Error fetching received friend requests: \(error)")
+                    completion([])
+                    return
+                }
+                guard let snapshot = snapshot else {
+                    print("No data found for received friend requests")
+                    completion([])
+                    return
+                }
+                var updatedAcceptRequests: [User] = []
+                for document in snapshot.documents {
+                    if let fromUserID = document.data()["from"] as? String {
+                        self.db.collection("users").document(fromUserID).getDocument { (userDoc, userError) in
+                            if let userError = userError {
+                                print("Error fetching user data: \(userError)")
+                                return
+                            }
+                            guard let userDoc = userDoc, userDoc.exists, let userData = userDoc.data() else {
+                                print("User document does not exist for \(fromUserID)")
+                                return
+                            }
+                            let user = User(
+                                email: userData["email"] as? String ?? "",
+                                numberPhone: userData["numberPhone"] as? String ?? "",
+                                uid: fromUserID,
+                                image: userData["image"] as? String ?? "",
+                                birthday: userData["birthday"] as? String ?? "",
+                                fullName: userData["fullName"] as? String ?? "",
+                                password: "",
+                                followers: userData["followers"] as? [String] ?? [],
+                                following: userData["following"] as? [String] ?? []
+                            )
+                            updatedAcceptRequests.append(user)
+                            completion(updatedAcceptRequests)
+                        }
+                    }
+                }
+            }
+    }
     // Save or Update user
     func saveUserToFirestore(_ user: User, completion: @escaping (Result<Void, Error>) -> Void) {
         let db = Firestore.firestore()
@@ -252,7 +356,6 @@ class FirebaseService {
             completion(.failure(NSError(domain: "ImageError", code: -1, userInfo: [NSLocalizedDescriptionKey: "Unable to convert image to data"])))
             return
         }
-        
         let storageRef = Storage.storage().reference().child("profile_images").child(uid)
         storageRef.putData(imageData, metadata: nil) { (metadata, error) in
             if let error = error {
@@ -275,16 +378,12 @@ class FirebaseService {
         if let currentUserID = Auth.auth().currentUser?.uid {
             usersCollection.document(currentUserID).getDocument { (document, error) in
                 if let document = document, document.exists {
-                    // Lấy dữ liệu từ tài liệu Firestore
                     let data = document.data()
-                    // Kiểm tra và rút trích các trường cần thiết từ dữ liệu
                     if let email = data?["email"] as? String,
                        let numberPhone = data?["numberPhone"] as? String,
                        let image = data?["image"] as? String,
                        let birthday = data?["birthday"] as? String,
                        let fullName = data?["fullName"] as? String {
-                        
-                        // Khởi tạo đối tượng User từ dữ liệu đã rút trích được
                         let user = User(email: email,
                                         numberPhone: numberPhone,
                                         uid: currentUserID,
