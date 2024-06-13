@@ -60,6 +60,7 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="addFriendsButton" destination="rvW-Sz-GUn" id="cLu-wX-ZOz"/>
                 <outlet property="avatarImage" destination="nzQ-Y8-WWO" id="Dl4-Zh-fAd"/>
                 <outlet property="nameLabel" destination="Pej-rX-IvX" id="KUo-oV-s8h"/>
             </connections>

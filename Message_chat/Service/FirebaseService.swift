@@ -319,6 +319,28 @@ class FirebaseService {
                 }
             }
     }
+    //Allfriends check Friends request add and delete
+    func checkFriendRequestStatus(for user: User, completion: @escaping (Bool) -> Void) {
+        guard let currentUserID = Auth.auth().currentUser?.uid else {
+            completion(false)
+            return
+        }
+        friendRequestsCollection
+            .whereField("from", isEqualTo: currentUserID)
+            .whereField("to", isEqualTo: user.uid)
+            .getDocuments { querySnapshot, error in
+                if let error = error {
+                    print("Error checking friend request status: \(error.localizedDescription)")
+                    completion(false)
+                    return
+                }
+                guard let documents = querySnapshot?.documents else {
+                    completion(false)
+                    return
+                }
+                completion(!documents.isEmpty)
+            }
+    }
     // Save or Update user
     func saveUserToFirestore(_ user: User, completion: @escaping (Result<Void, Error>) -> Void) {
         let db = Firestore.firestore()

@@ -14,6 +14,7 @@ class AllFriendsViewController: UIViewController {
     var sortedFriends: [User] = []
     var friendsByAlphabet: [[User]] = []
     var sectionTitles: [String] = []
+    var isFriendRequestSentList: [[Bool]] = []
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTableView()
@@ -59,6 +60,11 @@ class AllFriendsViewController: UIViewController {
             }
         }
         sectionTitles.sort()
+        isFriendRequestSentList.removeAll()
+        for _ in sortedFriends {
+            isFriendRequestSentList.append(Array(repeating: false,
+                                                 count: friendsByAlphabet.count))
+        }
         // Arrange the friendsByAlphabet
         var sortedFriendsByAlphabet: [[User]] = []
         for title in sectionTitles {
@@ -92,15 +98,68 @@ class AllFriendsViewController: UIViewController {
                 "timestamp": FieldValue.serverTimestamp()
             ] as [String: Any]
             
-            // Save request friends for Firestore
-            Firestore.firestore().collection("requestFriends").addDocument(data: friendRequest) { error in
+            Firestore.firestore().collection("requestFriends").addDocument(data: friendRequest) { [weak self] error in
                 if let error = error {
                     print("Error sending friend request: \(error.localizedDescription)")
                 } else {
                     print("Friend request sent to \(user.fullName)")
+                    self?.updateFriendRequestStatus(for: user, isSent: true)
                 }
             }
         }
+    }
+    
+    private func cancelFriendRequest(to user: User) {
+        guard let currentUserID = Auth.auth().currentUser?.uid else {
+            print("No current user ID")
+            return
+        }
+        Firestore.firestore().collection("requestFriends")
+            .whereField("from", isEqualTo: currentUserID)
+            .whereField("to", isEqualTo: user.uid)
+            .getDocuments { [weak self] querySnapshot, error in
+                guard let self = self else { return }
+                if let error = error {
+                    print("Error fetching friend request: \(error.localizedDescription)")
+                    return
+                }
+                guard let documents = querySnapshot?.documents else {
+                    print("No friend request found")
+                    return
+                }
+                for document in documents {
+                    document.reference.delete { error in
+                        if let error = error {
+                            print("Error canceling friend request: \(error.localizedDescription)")
+                        } else {
+                            print("Friend request canceled for \(user.fullName)")
+                            // Update isFriendRequestSentList and reload table view
+                            if let indexPath = self.getIndexPath(for: user) {
+                                self.isFriendRequestSentList[indexPath.section][indexPath.row] = false
+                                DispatchQueue.main.async {
+                                    self.allFriendsTableView.reloadRows(at: [indexPath], with: .none)
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+    }
+    
+    private func updateFriendRequestStatus(for user: User, isSent: Bool) {
+        if let indexPath = getIndexPath(for: user) {
+            isFriendRequestSentList[indexPath.section][indexPath.row] = isSent
+            allFriendsTableView.reloadRows(at: [indexPath], with: .none)
+        }
+    }
+
+    private func getIndexPath(for user: User) -> IndexPath? {
+        for (sectionIndex, section) in friendsByAlphabet.enumerated() {
+            if let rowIndex = section.firstIndex(where: { $0.uid == user.uid }) {
+                return IndexPath(row: rowIndex, section: sectionIndex)
+            }
+        }
+        return nil
     }
 }
 extension AllFriendsViewController: UITableViewDelegate, UITableViewDataSource {
@@ -113,14 +172,19 @@ extension AllFriendsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return sectionTitles[section]
     }
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "AllFriendsTableViewCell", for: indexPath) as? AllFriendsTableViewCell else {
             return UITableViewCell()
         }
         let friend = friendsByAlphabet[indexPath.section][indexPath.row]
+        cell.isFriendRequestSent = isFriendRequestSentList[indexPath.section][indexPath.row]
         cell.setData(user: friend)
         cell.addFriendAction = { [weak self] user in
             self?.sendFriendRequest(to: user)
+        }
+        cell.cancelFriendAction = { [weak self] user in
+            self?.cancelFriendRequest(to: user)
         }
         return cell
     }
