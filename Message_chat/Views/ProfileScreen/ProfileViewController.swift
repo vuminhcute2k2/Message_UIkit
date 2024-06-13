@@ -77,4 +77,8 @@ class ProfileViewController: UIViewController {
             print("Error signing out: %@", signOutError)
         }
     }
+    
+    @IBAction func accountButton(_ sender: Any) {
+        AppRouters.account.navigate(from: self)
+    }
 }
