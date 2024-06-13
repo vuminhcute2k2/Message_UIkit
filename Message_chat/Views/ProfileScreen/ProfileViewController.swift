@@ -22,9 +22,15 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var reuseView: UIView!
     @IBOutlet weak var profileView: UIView!
     @IBOutlet weak var logOutLabel: UILabel!
+    
+    @IBOutlet weak var nameLabel: UILabel!
+    
+    @IBOutlet weak var emailLabel: UILabel!
+    var currentUser: User?
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        loadCurrentUser()
     }
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -80,5 +86,30 @@ class ProfileViewController: UIViewController {
     
     @IBAction func accountButton(_ sender: Any) {
         AppRouters.account.navigate(from: self)
+    }
+    func loadCurrentUser() {
+        FirebaseService.shared.loadCurrentUser { [weak self] user in
+            if let user = user {
+                self?.currentUser = user
+                self?.populateUserData(user)
+            }
+        }
+    }
+    private func populateUserData(_ user: User) {
+        nameLabel.text = user.fullName
+        emailLabel.text = user.email
+        // Load image User
+        if let imageURL = URL(string: user.image) {
+            DispatchQueue.global().async {
+                if let imageData = try? Data(contentsOf: imageURL) {
+                    if let image = UIImage(data: imageData) {
+                        DispatchQueue.main.async {
+                            self.profileImage.image = image
+                            self.backgroundImage.image = image
+                        }
+                    }
+                }
+            }
+        }
     }
 }

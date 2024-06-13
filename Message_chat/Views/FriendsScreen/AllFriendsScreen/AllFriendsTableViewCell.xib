@@ -42,6 +42,9 @@
                         <buttonConfiguration key="configuration" style="filled" title="Kết bạn">
                             <fontDescription key="titleFontDescription" name="Palatino-Roman" family="Palatino" pointSize="16"/>
                         </buttonConfiguration>
+                        <connections>
+                            <action selector="addFriendsTapped:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="A5a-Od-Pe5"/>
+                        </connections>
                     </button>
                 </subviews>
                 <constraints>

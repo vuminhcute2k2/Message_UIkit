@@ -135,6 +135,86 @@ class FirebaseService {
             completion(.success(users))
         }
     }
+//    //Request Friends
+//    func fetchFriendRequests(for userID: String, completion: @escaping (Result<[FriendRequest], Error>) -> Void) {
+//        Firestore.firestore().collection("requestFriends")
+//            .whereField("to", isEqualTo: userID)
+//            .getDocuments { (snapshot, error) in
+//                if let error = error {
+//                    completion(.failure(error))
+//                    return
+//                }
+//                guard let snapshot = snapshot else {
+//                    let error = NSError(domain: "", code: -1,
+//                                        userInfo: [NSLocalizedDescriptionKey: "No data found"])
+//                    completion(.failure(error))
+//                    return
+//                }
+//                let friendRequests = snapshot.documents.compactMap { document -> FriendRequest? in
+//                    let data = document.data()
+//                    guard let fromUserID = data["from"] as? String,
+//                          let typeRawValue = data["type"] as? Int,
+//                          let type = FriendRequest.RequestType(rawValue: typeRawValue) else {
+//                        return nil
+//                    }
+//                    return FriendRequest(avatarImageName: "", name: "", type: type, fromUserID: fromUserID, user: nil)
+//                }
+//
+//                // Fetch corresponding user information for each friend request
+//                self.fetchUsers(for: friendRequests) { result in
+//                    switch result {
+//                    case .success(let friendRequestsWithUsers):
+//                        completion(.success(friendRequestsWithUsers))
+//                    case .failure(let error):
+//                        completion(.failure(error))
+//                    }
+//                }
+//        }
+//    }
+//    private func fetchUsers(for friendRequests: [FriendRequest], completion: @escaping (Result<[FriendRequest], Error>) -> Void) {
+//        var friendRequestsWithUsers: [FriendRequest] = []
+//        let dispatchGroup = DispatchGroup()
+//
+//        for var friendRequest in friendRequests {
+//            dispatchGroup.enter()
+//            Firestore.firestore().collection("users")
+//                .document(friendRequest.fromUserID)
+//                .getDocument { (document, error) in
+//                    defer { dispatchGroup.leave() }
+//                    if let error = error {
+//                        // Handle error appropriately
+//                        print("Error fetching user document: \(error.localizedDescription)")
+//                        return
+//                    }
+//                    guard let document = document, document.exists else {
+//                        print("User document does not exist for \(friendRequest.fromUserID)")
+//                        return
+//                    }
+//
+//                    // Print out the document data to inspect
+////                    debugPrint(document.data())
+//
+//                    let data = document.data()
+//                    let user = User(
+//                        email: data?["email"] as? String ?? "",
+//                        numberPhone: data?["numberPhone"] as? String ?? "",
+//                        uid: data?["uid"] as? String ?? "",
+//                        image: data?["image"] as? String ?? "",
+//                        birthday: data?["birthday"] as? String ?? "",
+//                        fullName: data?["fullName"] as? String ?? "",
+//                        password: data?["password"] as? String ?? "",
+//                        followers: data?["followers"] as? [String] ?? [],
+//                        following: data?["following"] as? [String] ?? []
+//                    )
+//                    friendRequest.user = user
+//                    friendRequestsWithUsers.append(friendRequest)
+//                }
+//        }
+//        
+//        dispatchGroup.notify(queue: .main) {
+//            completion(.success(friendRequestsWithUsers))
+//        }
+//    }
     // Save or Update user
     func saveUserToFirestore(_ user: User, completion: @escaping (Result<Void, Error>) -> Void) {
         let db = Firestore.firestore()

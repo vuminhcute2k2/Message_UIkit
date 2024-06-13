@@ -7,6 +7,7 @@
 
 import UIKit
 import FirebaseFirestore
+import FirebaseAuth
 class AllFriendsViewController: UIViewController {
     
     @IBOutlet weak var allFriendsTableView: UITableView!
@@ -71,6 +72,25 @@ class AllFriendsViewController: UIViewController {
             friendsByAlphabet[i].sort { $0.fullName < $1.fullName }
         }
     }
+    private func sendFriendRequest(to user: User) {
+        guard let currentUserID = Auth.auth().currentUser?.uid else {
+            print("No current user ID")
+            return
+        }
+        print("Gửi yêu cầu kết bạn từ \(currentUserID) đến \(user.uid)")
+        let friendRequest = [
+            "from": currentUserID,
+            "to": user.uid,
+            "timestamp": FieldValue.serverTimestamp()
+        ] as [String : Any]
+        Firestore.firestore().collection("requestFriends").addDocument(data: friendRequest) { error in
+            if let error = error {
+                print("Error sending friend request: \(error.localizedDescription)")
+            } else {
+                print("Friend request sent to \(user.fullName)")
+            }
+        }
+    }
 }
 extension AllFriendsViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -88,6 +108,9 @@ extension AllFriendsViewController: UITableViewDelegate, UITableViewDataSource {
         }
         let friend = friendsByAlphabet[indexPath.section][indexPath.row]
         cell.setData(user: friend)
+        cell.addFriendAction = { [weak self] user in
+            self?.sendFriendRequest(to: user)
+        }
         return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
