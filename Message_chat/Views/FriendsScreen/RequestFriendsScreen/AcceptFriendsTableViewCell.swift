@@ -14,13 +14,25 @@ class AcceptFriendsTableViewCell: UITableViewCell {
     @IBOutlet weak var acceptButton: UIButton!
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        avatarImage.makeCircular()
     }
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
-    func setData(friendsrequest:FriendRequest) {
-        avatarImage.image = UIImage(named: friendsrequest.avatarImageName)
-        nameLabel.text = friendsrequest.name
+    func setData(user: User) {
+        nameLabel.text = user.fullName
+        if !user.image.isEmpty, let imageURL = URL(string: user.image) {
+            DispatchQueue.global().async {
+                if let imageData = try? Data(contentsOf: imageURL) {
+                    DispatchQueue.main.async {
+                        self.avatarImage.image = UIImage(data: imageData)
+                    }
+                }
+            }
+        } else {
+            DispatchQueue.main.async {
+                self.avatarImage.image = UIImage(named: "image_avatar")
+            }
+        }
     }
 }

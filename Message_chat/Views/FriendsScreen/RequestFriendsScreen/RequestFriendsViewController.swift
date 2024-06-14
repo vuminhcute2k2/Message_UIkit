@@ -6,23 +6,24 @@
 //
 
 import UIKit
-
+import FirebaseAuth
+import FirebaseFirestore
 class RequestFriendsViewController: UIViewController{
 
     @IBOutlet weak var acceptFriendsTable: UITableView!
     @IBOutlet weak var cancelFriendsTable: UITableView!
-    var acceptFriendRequests: [FriendRequest] = []
-    var cancelFriendRequests: [FriendRequest] = []
+    var acceptFriendRequests: [User] = []
+    var cancelFriendRequests: [User] = []
     enum FriendRequestType: Int {
         case acceptFriend = 0
         case cancelFriend = 1
     }
-
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTableView()
-        acceptFriendRequests = friendRequests.filter { $0.type == .accept }
-        cancelFriendRequests = friendRequests.filter { $0.type == .cancel }
+        loadFriendRequests()
+        loadSentFriendRequests()
+        observeFriendRequests()
     }
     private func setupTableView() {
         let nib = UINib(nibName: "AcceptFriendsTableViewCell", bundle: nil)
@@ -36,12 +37,47 @@ class RequestFriendsViewController: UIViewController{
         cancelFriendsTable.delegate = self
         cancelFriendsTable.dataSource = self
     }
+    private func loadFriendRequests() {
+        guard let currentUserID = Auth.auth().currentUser?.uid else { return }
+        FirebaseService.shared.fetchFriendRequests(for: currentUserID) { result in
+            switch result {
+            case .success(let users):
+                self.acceptFriendRequests = users
+                self.acceptFriendsTable.reloadData()
+            case .failure(let error):
+                print("Error fetching friend requests: \(error)")
+            }
+        }
+    }
+    private func loadSentFriendRequests() {
+        guard let currentUserID = Auth.auth().currentUser?.uid else { return }
+        FirebaseService.shared.fetchSentFriendRequests(for: currentUserID) { result in
+            switch result {
+            case .success(let users):
+                self.cancelFriendRequests = users
+                self.cancelFriendsTable.reloadData()
+            case .failure(let error):
+                print("Error fetching sent friend requests: \(error)")
+            }
+        }
+    }
+    private func observeFriendRequests() {
+        guard let currentUserID = Auth.auth().currentUser?.uid else { return }
+        let cancelListener = FirebaseService.shared.observeSentFriendRequests(for: currentUserID) { [weak self] (cancelRequests) in
+            self?.cancelFriendRequests = cancelRequests
+            self?.cancelFriendsTable.reloadData()
+        }
+        let acceptListener = FirebaseService.shared.observeReceivedFriendRequests(for: currentUserID) { [weak self] (acceptRequests) in
+            self?.acceptFriendRequests = acceptRequests
+            self?.acceptFriendsTable.reloadData()
+        }
+    }
+
 }
 extension RequestFriendsViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
             return 1
         }
-        
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tableView.tag == FriendRequestType.acceptFriend.rawValue {
             return acceptFriendRequests.count
@@ -53,18 +89,18 @@ extension RequestFriendsViewController: UITableViewDelegate, UITableViewDataSour
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if tableView.tag == FriendRequestType.acceptFriend.rawValue {
-            let cell: AcceptFriendsTableViewCell = tableView.dequeueReusableCell(for: indexPath)
-            let requestRow = acceptFriendRequests[indexPath.row]
-            cell.setData(friendsrequest: requestRow)
-            return cell
-        } else if tableView.tag == FriendRequestType.cancelFriend.rawValue {
-            let cell: CancelFriendsTableViewCell = tableView.dequeueReusableCell(for: indexPath)
-            let cancelRow = cancelFriendRequests[indexPath.row]
-            cell.setData(friendsRequest: cancelRow)
-            return cell
-        } else {
-            return UITableViewCell()
-        }
+               let cell: AcceptFriendsTableViewCell = tableView.configureCell(for: indexPath, cellIdentifier: "AcceptFriendsTableViewCell", cellType: AcceptFriendsTableViewCell.self)
+               let user = acceptFriendRequests[indexPath.row]
+               cell.setData(user: user)
+               return cell
+           } else if tableView.tag == FriendRequestType.cancelFriend.rawValue {
+               let cell: CancelFriendsTableViewCell = tableView.configureCell(for: indexPath, cellIdentifier: "CancelFriendsTableViewCell", cellType: CancelFriendsTableViewCell.self)
+               let user = cancelFriendRequests[indexPath.row]
+               cell.setData(user: user)
+               return cell
+           } else {
+               return UITableViewCell()
+           }
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
@@ -77,7 +113,6 @@ extension RequestFriendsViewController: UITableViewDelegate, UITableViewDataSour
             }
         }
     }
-           
 }
 
 

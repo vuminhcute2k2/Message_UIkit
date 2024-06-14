@@ -18,9 +18,11 @@
                 <outlet property="backgroundImage" destination="vPK-Rk-MGu" id="pvW-Lk-LFI"/>
                 <outlet property="borderMessageTextField" destination="xfa-VG-xfv" id="Wdp-Sy-cUv"/>
                 <outlet property="editProfileButton" destination="G9w-5P-hw5" id="jMN-Aq-uYL"/>
+                <outlet property="emailLabel" destination="sDm-GH-9XB" id="GUw-TY-ev8"/>
                 <outlet property="homeBackgroundView" destination="E6H-UG-ZWT" id="5P9-VI-8wG"/>
                 <outlet property="languageIcon" destination="NBv-tD-Oao" id="vci-e5-aQ5"/>
                 <outlet property="languageView" destination="LM2-CE-82d" id="IUs-2W-vku"/>
+                <outlet property="nameLabel" destination="sdX-02-FuK" id="2iL-at-5SI"/>
                 <outlet property="notificationView" destination="FAB-Sg-uOT" id="zBc-Iv-cFc"/>
                 <outlet property="profileImage" destination="7h4-gt-ayx" id="gOh-DS-jpW"/>
                 <outlet property="profileView" destination="Mnl-g3-kTc" id="HJK-MQ-GLl"/>

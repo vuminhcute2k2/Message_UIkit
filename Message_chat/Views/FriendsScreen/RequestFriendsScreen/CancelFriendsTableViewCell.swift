@@ -14,13 +14,26 @@ class CancelFriendsTableViewCell: UITableViewCell {
     @IBOutlet weak var cancelButton: UIButton!
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        avatarImage.makeCircular()
     }
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
-    func setData(friendsRequest:FriendRequest) {
-        avatarImage.image = UIImage(named: friendsRequest.avatarImageName)
-        nameLabel.text = friendsRequest.name
+    func setData(user: User) {
+        nameLabel.text = user.fullName
+        if !user.image.isEmpty, let imageURL = URL(string: user.image) {
+            DispatchQueue.global().async {
+                if let imageData = try? Data(contentsOf: imageURL) {
+                    DispatchQueue.main.async {
+                        self.avatarImage.image = UIImage(data: imageData)
+                    }
+                }
+            }
+        } else {
+            DispatchQueue.main.async {
+                self.avatarImage.image = UIImage(named: "image_avatar")
+            }
+        }
     }
+    
 }

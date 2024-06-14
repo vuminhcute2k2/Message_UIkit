@@ -162,6 +162,7 @@ class EditAccountViewController: UIViewController,UIImagePickerControllerDelegat
             switch result {
             case .success:
                 print("User updated successfully")
+                AppRouters.homeTabBar.navigate(from: self)
             case .failure(let error):
                 print("Error updating user: \(error.localizedDescription)")
             }
