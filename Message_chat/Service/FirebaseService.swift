@@ -137,7 +137,7 @@ class FirebaseService {
             completion(.success(users))
         }
     }
-    //add friends
+    //display add friends
     func fetchFriendRequests(for currentUserID: String, completion: @escaping (Result<[User], Error>) -> Void) {
         friendRequestsCollection.whereField("to", isEqualTo: currentUserID).getDocuments { (snapshot, error) in
             if let error = error {
@@ -182,7 +182,7 @@ class FirebaseService {
             }
         }
     }
-    //cancel request friends
+    //display cancel request friends
     func fetchSentFriendRequests(for currentUserID: String, completion: @escaping (Result<[User], Error>) -> Void) {
         friendRequestsCollection.whereField("from", isEqualTo: currentUserID).getDocuments { (snapshot, error) in
             if let error = error {
@@ -226,6 +226,31 @@ class FirebaseService {
                 completion(.success(users))
             }
         }
+    }
+    // cancel request friends
+    func cancelFriendRequest(from currentUserID: String, to user: User, completion: @escaping (Result<Void, Error>) -> Void) {
+        Firestore.firestore().collection("requestFriends")
+            .whereField("from", isEqualTo: currentUserID)
+            .whereField("to", isEqualTo: user.uid)
+            .getDocuments { querySnapshot, error in
+                if let error = error {
+                    completion(.failure(error))
+                    return
+                }
+                guard let documents = querySnapshot?.documents else {
+                    completion(.failure(NSError(domain: "", code: 404, userInfo: [NSLocalizedDescriptionKey: "No friend request found"])))
+                    return
+                }
+                for document in documents {
+                    document.reference.delete { error in
+                        if let error = error {
+                            completion(.failure(error))
+                        } else {
+                            completion(.success(()))
+                        }
+                    }
+                }
+            }
     }
     //track changes send request
     func observeSentFriendRequests(for userID: String, completion: @escaping ([User]) -> Void) -> ListenerRegistration {

@@ -114,36 +114,21 @@ class AllFriendsViewController: UIViewController {
             print("No current user ID")
             return
         }
-        Firestore.firestore().collection("requestFriends")
-            .whereField("from", isEqualTo: currentUserID)
-            .whereField("to", isEqualTo: user.uid)
-            .getDocuments { [weak self] querySnapshot, error in
-                guard let self = self else { return }
-                if let error = error {
-                    print("Error fetching friend request: \(error.localizedDescription)")
-                    return
-                }
-                guard let documents = querySnapshot?.documents else {
-                    print("No friend request found")
-                    return
-                }
-                for document in documents {
-                    document.reference.delete { error in
-                        if let error = error {
-                            print("Error canceling friend request: \(error.localizedDescription)")
-                        } else {
-                            print("Friend request canceled for \(user.fullName)")
-                            // Update isFriendRequestSentList and reload table view
-                            if let indexPath = self.getIndexPath(for: user) {
-                                self.isFriendRequestSentList[indexPath.section][indexPath.row] = false
-                                DispatchQueue.main.async {
-                                    self.allFriendsTableView.reloadRows(at: [indexPath], with: .none)
-                                }
-                            }
-                        }
+        FirebaseService.shared.cancelFriendRequest(from: currentUserID, to: user) { [weak self] result in
+            switch result {
+            case .success:
+                print("Friend request canceled for \(user.fullName)")
+                // Update isFriendRequestSentList and reload table view
+                if let indexPath = self?.getIndexPath(for: user) {
+                    self?.isFriendRequestSentList[indexPath.section][indexPath.row] = false
+                    DispatchQueue.main.async {
+                        self?.allFriendsTableView.reloadRows(at: [indexPath], with: .none)
                     }
                 }
+            case .failure(let error):
+                print("Error canceling friend request: \(error.localizedDescription)")
             }
+        }
     }
     
     private func updateFriendRequestStatus(for user: User, isSent: Bool) {

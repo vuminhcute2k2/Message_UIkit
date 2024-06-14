@@ -89,15 +89,15 @@ extension RequestFriendsViewController: UITableViewDelegate, UITableViewDataSour
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if tableView.tag == FriendRequestType.acceptFriend.rawValue {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "AcceptFriendsTableViewCell", for: indexPath) as! AcceptFriendsTableViewCell
-            let user = acceptFriendRequests[indexPath.row]
-            cell.setData(user: user)
-            return cell
+            return tableView.configureCell(for: indexPath,
+                                           with: acceptFriendRequests,
+                                           cellIdentifier: "AcceptFriendsTableViewCell",
+                                           cellType: AcceptFriendsTableViewCell.self)
         } else if tableView.tag == FriendRequestType.cancelFriend.rawValue {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "CancelFriendsTableViewCell", for: indexPath) as! CancelFriendsTableViewCell
-            let user = cancelFriendRequests[indexPath.row]
-            cell.setData(user: user)
-            return cell
+            return tableView.configureCell(for: indexPath,
+                                           with: cancelFriendRequests,
+                                           cellIdentifier: "CancelFriendsTableViewCell",
+                                           cellType: CancelFriendsTableViewCell.self)
         } else {
             return UITableViewCell()
         }
