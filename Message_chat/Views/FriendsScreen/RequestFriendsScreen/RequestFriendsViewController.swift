@@ -88,20 +88,19 @@ extension RequestFriendsViewController: UITableViewDelegate, UITableViewDataSour
         }
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch tableView.tag {
-        case FriendRequestType.acceptFriend.rawValue:
-            let cell = tableView.configureCell(for: indexPath, cellIdentifier: AcceptFriendsTableViewCell.identifier, cellType: AcceptFriendsTableViewCell.self)
-            let user = acceptFriendRequests[indexPath.row]
-            cell.setData(user: user)
-            return cell
-        case FriendRequestType.cancelFriend.rawValue:
-            let cell = tableView.configureCell(for: indexPath, cellIdentifier: CancelFriendsTableViewCell.identifier, cellType: CancelFriendsTableViewCell.self)
-            let user = cancelFriendRequests[indexPath.row]
-            cell.setData(user: user)
-            return cell
-        default:
-            return UITableViewCell()
-        }
+        if tableView.tag == FriendRequestType.acceptFriend.rawValue {
+               let cell: AcceptFriendsTableViewCell = tableView.configureCell(for: indexPath, cellIdentifier: "AcceptFriendsTableViewCell", cellType: AcceptFriendsTableViewCell.self)
+               let user = acceptFriendRequests[indexPath.row]
+               cell.setData(user: user)
+               return cell
+           } else if tableView.tag == FriendRequestType.cancelFriend.rawValue {
+               let cell: CancelFriendsTableViewCell = tableView.configureCell(for: indexPath, cellIdentifier: "CancelFriendsTableViewCell", cellType: CancelFriendsTableViewCell.self)
+               let user = cancelFriendRequests[indexPath.row]
+               cell.setData(user: user)
+               return cell
+           } else {
+               return UITableViewCell()
+           }
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)

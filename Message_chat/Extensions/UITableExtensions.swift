@@ -14,10 +14,15 @@ extension UITableView {
         }
         return cell
     }
-    func configureCell<T: UITableViewCell>(for indexPath: IndexPath, cellIdentifier: String, cellType: T.Type) -> T {
-        let cell: T = self.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! T
+    func configureCell<T: UITableViewCell>(for indexPath: IndexPath,
+                                                 cellIdentifier: String,
+                                                 cellType: T.Type) -> T {
+        guard let cell = self.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? T else {
+            fatalError("Failed to dequeue cell with identifier: \(cellIdentifier)")
+        }
         return cell
     }
+    
 }
 // MARK: - UITableViewCell extension
 extension UITableViewCell {
