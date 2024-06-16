@@ -366,6 +366,25 @@ class FirebaseService {
                 completion(!documents.isEmpty)
             }
     }
+    func addFriend(currentUserID: String, friendUser: User, completion: @escaping (Error?) -> Void) {
+        let friendData: [String: Any] = [
+            "uid": friendUser.uid,
+            "name": friendUser.fullName,
+            "avatarURL": friendUser.image
+        ]
+        print("Preparing to add friend with data: \(friendData)")
+        db.collection("users").document(currentUserID).collection("friends").document(friendUser.uid).setData(friendData) { error in
+            if let error = error {
+                print("Error adding friend: \(error.localizedDescription)")
+                completion(error)
+            } else {
+                print("Friend added successfully!")
+                print("Current \(currentUserID)")
+                print("dataaaaa \(friendData)")
+            }
+            completion(error)
+        }
+    }
     // Save or Update user
     func saveUserToFirestore(_ user: User, completion: @escaping (Result<Void, Error>) -> Void) {
         let db = Firestore.firestore()

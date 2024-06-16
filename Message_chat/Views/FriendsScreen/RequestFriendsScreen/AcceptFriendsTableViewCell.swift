@@ -12,14 +12,21 @@ class AcceptFriendsTableViewCell: UITableViewCell {
     @IBOutlet weak var avatarImage: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var acceptButton: UIButton!
+    var acceptButtonTapped: (() -> Void)?
+    var user: User? 
     override func awakeFromNib() {
         super.awakeFromNib()
         avatarImage.makeCircular()
+        acceptButton.addTarget(self, action: #selector(handleAcceptButtonTapped), for: .touchUpInside)
     }
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
+    @IBAction func handleAcceptButtonTapped(_ sender: Any) {
+        acceptButtonTapped?()
+    }
     func setData(user: User) {
+        self.user = user
         nameLabel.text = user.fullName
         if !user.image.isEmpty, let imageURL = URL(string: user.image) {
             DispatchQueue.global().async {
