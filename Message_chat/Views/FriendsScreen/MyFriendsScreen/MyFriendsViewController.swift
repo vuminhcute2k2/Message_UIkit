@@ -6,16 +6,19 @@
 //
 
 import UIKit
-
+import FirebaseAuth
+import FirebaseFirestore
 class MyFriendsViewController: UIViewController {
     
     @IBOutlet weak var friendsTableView: UITableView!
-    var sortedFriends: [String: [Friends]] = [:]
+    var user: User?
+    var myFriends: [Friend] = []
+    var sortedFriends: [String: [Friend]] = [:]
     var sectionTitles: [String] = []
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTableView()
-        sortFriends()
+        fetchFriends()
     }
     private func setupTableView() {
         let nib = UINib(nibName: "MyFriendsTableViewCell", bundle: nil)
@@ -23,9 +26,28 @@ class MyFriendsViewController: UIViewController {
         friendsTableView.dataSource = self
         friendsTableView.delegate = self
     }
+    private func fetchFriends() {
+        guard let currentUserID = Auth.auth().currentUser?.uid else {
+            print("Current user ID is nil")
+            return
+        }
+
+        FirebaseService.shared.fetchFriends(forUserID: currentUserID) { result in
+            switch result {
+            case .success(let friends):
+                self.myFriends = friends
+                self.sortFriends()
+                DispatchQueue.main.async {
+                    self.friendsTableView.reloadData()
+                }
+            case .failure(let error):
+                print("Error fetching friends: \(error.localizedDescription)")
+            }
+        }
+    }
     private func sortFriends() {
         sortedFriends = Dictionary(grouping: myFriends) { friend in
-            return String(friend.name.prefix(1)).uppercased()
+            return String(friend.fullname.prefix(1)).uppercased()
         }
         sectionTitles = sortedFriends.keys.sorted()
     }
@@ -47,7 +69,7 @@ extension MyFriendsViewController: UITableViewDelegate, UITableViewDataSource {
         }
         let sectionKey = sectionTitles[indexPath.section]
         if let friend = sortedFriends[sectionKey]?[indexPath.row] {
-            cell.setData(myFriends: friend)
+            cell.setData(friend: friend)
         }
         return cell
     }
@@ -55,7 +77,7 @@ extension MyFriendsViewController: UITableViewDelegate, UITableViewDataSource {
         tableView.deselectRow(at: indexPath, animated: true)
         let sectionKey = sectionTitles[indexPath.section]
         if let friend = sortedFriends[sectionKey]?[indexPath.row] {
-            print("Selected friend: \(friend.name)")
+            print("Selected friend: \(friend.fullname)")
         }
     }
 }

@@ -13,6 +13,7 @@ class MyFriendsTableViewCell: UITableViewCell {
     @IBOutlet weak var nameLabel: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
+        avatarImage.makeCircular()
         // Initialization code
     }
 
@@ -20,9 +21,21 @@ class MyFriendsTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
         
     }
-    func setData(myFriends: Friends){
-        avatarImage.image = UIImage(named: myFriends.avatarImage)
-        nameLabel.text = myFriends.name
+    func setData(friend: Friend) {
+        nameLabel.text = friend.fullname
+        if !friend.image.isEmpty, let imageURL = URL(string: friend.image) {
+            DispatchQueue.global().async {
+                if let imageData = try? Data(contentsOf: imageURL) {
+                    DispatchQueue.main.async {
+                        self.avatarImage.image = UIImage(data: imageData)
+                    }
+                }
+            }
+        } else {
+            DispatchQueue.main.async {
+                self.avatarImage.image = UIImage(named: "image_avatar")
+            }
+        }
     }
     
 }

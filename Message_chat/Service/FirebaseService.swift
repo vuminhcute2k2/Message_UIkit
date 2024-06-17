@@ -14,6 +14,7 @@ class FirebaseService {
     static let shared = FirebaseService()
     let usersCollection = Firestore.firestore().collection("users")
     let friendRequestsCollection = Firestore.firestore().collection("requestFriends")
+    let userFriendsCollection = Firestore.firestore().collection("userFriends")
     private let db = Firestore.firestore()
     private init() {}
     //register
@@ -391,6 +392,37 @@ class FirebaseService {
                     completion(.failure(error))
                 } else {
                     completion(.success(()))
+                }
+            }
+        }
+    }
+    // Fetch friends 
+    func fetchFriends(forUserID userID: String,
+                      completion: @escaping (Result<[Friend], Error>) -> Void) {
+        db.collection("friends").document(userID).collection("userFriends").getDocuments { [self] snapshot, error in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            var friends: [Friend] = []
+            for document in snapshot?.documents ?? [] {
+                let friendUserID = document.documentID
+                self.db.collection("users").document(friendUserID).getDocument { userSnapshot, userError in
+                    if let userError = userError {
+                        completion(.failure(userError))
+                        return
+                    }
+                    if let userData = userSnapshot?.data(),
+                       let fullname = userData["fullName"] as? String,
+                       let image = userData["image"] as? String {
+                        let friend = Friend(uid: friendUserID, fullname: fullname, image: image)
+                        friends.append(friend)
+                        if friends.count == snapshot?.documents.count {
+                            completion(.success(friends))
+                        }
+                    } else {
+                        print("User data not found for userID: \(friendUserID)")
+                    }
                 }
             }
         }
