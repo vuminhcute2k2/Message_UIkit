@@ -366,23 +366,33 @@ class FirebaseService {
                 completion(!documents.isEmpty)
             }
     }
-    func addFriend(currentUserID: String, friendUser: User, completion: @escaping (Error?) -> Void) {
-        let friendData: [String: Any] = [
-            "uid": friendUser.uid,
-            "name": friendUser.fullName,
-            "avatarURL": friendUser.image
-        ]
-        print("Preparing to add friend with data: \(friendData)")
-        db.collection("users").document(currentUserID).collection("friends").document(friendUser.uid).setData(friendData) { error in
+    func acceptFriendRequest(currentUserID: String, requesterID: String, completion: @escaping (Result<Void, Error>) -> Void) {
+        let batch = db.batch()
+        // Add current user to request friends list
+        let requesterFriendRef = db.collection("friends").document(requesterID).collection("userFriends").document(currentUserID)
+        batch.setData(["status": "accepted"], forDocument: requesterFriendRef)
+        // Add request to current users friends list
+        let currentUserFriendRef = db.collection("friends").document(currentUserID).collection("userFriends").document(requesterID)
+        batch.setData(["status": "accepted"], forDocument: currentUserFriendRef)
+        // remove the friend request after acceptance
+        let requestRef = db.collection("requestFriends").whereField("from", isEqualTo: requesterID).whereField("to", isEqualTo: currentUserID)
+        requestRef.getDocuments { snapshot, error in
             if let error = error {
-                print("Error adding friend: \(error.localizedDescription)")
-                completion(error)
-            } else {
-                print("Friend added successfully!")
-                print("Current \(currentUserID)")
-                print("dataaaaa \(friendData)")
+                completion(.failure(error))
+                return
             }
-            completion(error)
+            if let documents = snapshot?.documents {
+                for document in documents {
+                    batch.deleteDocument(document.reference)
+                }
+            }
+            batch.commit { error in
+                if let error = error {
+                    completion(.failure(error))
+                } else {
+                    completion(.success(()))
+                }
+            }
         }
     }
     // Save or Update user

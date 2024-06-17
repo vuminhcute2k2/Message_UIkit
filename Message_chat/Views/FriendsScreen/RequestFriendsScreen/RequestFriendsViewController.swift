@@ -72,26 +72,22 @@ class RequestFriendsViewController: UIViewController{
             self?.acceptFriendsTable.reloadData()
         }
     }
-    private func configureCell(_ cell: AcceptFriendsTableViewCell, for indexPath: IndexPath) {
-        let user = acceptFriendRequests[indexPath.row]
-        cell.setData(user: user)
-        cell.acceptButtonTapped = {
-            self.addFriend(user: user)
+    private func acceptFriendFromRequest(from user: User) {
+        guard let currentUserID = Auth.auth().currentUser?.uid else {
+            print("Current user ID is nil")
+            return
         }
-    }
-    private func addFriend(user: User) {
-        guard let currentUserID = Auth.auth().currentUser?.uid else { return }
-        FirebaseService.shared.addFriend(currentUserID: currentUserID, friendUser: user) { error in
-            if let error = error {
-                print("Error adding friend: \(error.localizedDescription)")
-            } else {
-                print("Friend added successfully!")
+        FirebaseService.shared.acceptFriendRequest(currentUserID: currentUserID, requesterID: user.uid) { result in
+            switch result {
+            case .success:
+                print("Friend request accepted successfully!")
                 self.acceptFriendRequests.removeAll { $0.uid == user.uid }
                 self.acceptFriendsTable.reloadData()
+            case .failure(let error):
+                print("Error accepting friend request: \(error.localizedDescription)")
             }
         }
     }
-
 }
 extension RequestFriendsViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -112,7 +108,9 @@ extension RequestFriendsViewController: UITableViewDelegate, UITableViewDataSour
             let user = acceptFriendRequests[indexPath.row]
             cell.setData(user: user)
             cell.acceptButtonTapped = { [weak self] in
-                self?.addFriend(user: user)
+//                self?.addFriendFromRequest(user: user)
+                self?.acceptFriendFromRequest(from: user)
+                
             }
             return cell
         } else if tableView.tag == FriendRequestType.cancelFriend.rawValue {
