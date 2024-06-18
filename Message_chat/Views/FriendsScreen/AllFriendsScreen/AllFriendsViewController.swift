@@ -15,16 +15,34 @@ class AllFriendsViewController: UIViewController {
     var friendsByAlphabet: [[User]] = []
     var sectionTitles: [String] = []
     var isFriendRequestSentList: [[Bool]] = []
+    var currentUserFriendIDs: [String] = []
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTableView()
         loadAllUsers()
+        fetchCurrentUserFriends()
     }
     private func setupTableView() {
         let nib = UINib(nibName: "AllFriendsTableViewCell", bundle: nil)
         allFriendsTableView.register(nib, forCellReuseIdentifier: "AllFriendsTableViewCell")
         allFriendsTableView.dataSource = self
         allFriendsTableView.delegate = self
+    }
+    private func fetchCurrentUserFriends() {
+        guard let currentUserID = Auth.auth().currentUser?.uid else {
+            print("Current user ID is nil")
+            return
+        }
+
+        FirebaseService.shared.fetchFriendsIDs(forUserID: currentUserID) { [weak self] result in
+            switch result {
+            case .success(let friendIDs):
+                self?.currentUserFriendIDs = friendIDs
+                self?.loadAllUsers()
+            case .failure(let error):
+                print("Error fetching friends IDs: \(error.localizedDescription)")
+            }
+        }
     }
     private func loadAllUsers() {
         FirebaseService.shared.fetchAllUsers { [weak self] result in
@@ -33,7 +51,9 @@ class AllFriendsViewController: UIViewController {
             case .success(let users):
                 self.sortedFriends = users
                 self.sortFriends()
-                self.allFriendsTableView.reloadData()
+                DispatchQueue.main.async {
+                    self.allFriendsTableView.reloadData()
+                }
             case .failure(let error):
                 print("Error fetching users: \(error.localizedDescription)")
             }
@@ -163,8 +183,10 @@ extension AllFriendsViewController: UITableViewDelegate, UITableViewDataSource {
             return UITableViewCell()
         }
         let friend = friendsByAlphabet[indexPath.section][indexPath.row]
+        let isAlreadyFriend = currentUserFriendIDs.contains(friend.uid)
         cell.isFriendRequestSent = isFriendRequestSentList[indexPath.section][indexPath.row]
-        cell.setData(user: friend)
+        cell.setData(user: friend, isAlreadyFriend: isAlreadyFriend)
+        
         cell.addFriendAction = { [weak self] user in
             self?.sendFriendRequest(to: user)
         }

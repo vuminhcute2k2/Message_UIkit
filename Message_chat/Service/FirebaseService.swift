@@ -346,26 +346,24 @@ class FirebaseService {
             }
     }
     //Allfriends check Friends request add and delete
-    func checkFriendRequestStatus(for user: User, completion: @escaping (Bool) -> Void) {
+    func checkFriendRequestStatus(for user: User, completion: @escaping (Result<Bool, Error>) -> Void) {
         guard let currentUserID = Auth.auth().currentUser?.uid else {
-            completion(false)
+            completion(.failure(NSError(domain: "FirebaseService", code: 401, userInfo: [NSLocalizedDescriptionKey: "Current user ID is nil"])))
             return
         }
-        friendRequestsCollection
+        
+        let query = Firestore.firestore().collection("requestFriends")
             .whereField("from", isEqualTo: currentUserID)
             .whereField("to", isEqualTo: user.uid)
-            .getDocuments { querySnapshot, error in
-                if let error = error {
-                    print("Error checking friend request status: \(error.localizedDescription)")
-                    completion(false)
-                    return
-                }
-                guard let documents = querySnapshot?.documents else {
-                    completion(false)
-                    return
-                }
-                completion(!documents.isEmpty)
+        
+        query.getDocuments { snapshot, error in
+            if let error = error {
+                completion(.failure(error))
+            } else {
+                let isFriendRequestSent = !(snapshot?.documents.isEmpty ?? true)
+                completion(.success(isFriendRequestSent))
             }
+        }
     }
     func acceptFriendRequest(currentUserID: String, requesterID: String, completion: @escaping (Result<Void, Error>) -> Void) {
         let batch = db.batch()
@@ -424,6 +422,17 @@ class FirebaseService {
                         print("User data not found for userID: \(friendUserID)")
                     }
                 }
+            }
+        }
+    }
+    //check friends
+    func fetchFriendsIDs(forUserID userID: String, completion: @escaping (Result<[String], Error>) -> Void) {
+        Firestore.firestore().collection("friends").document(userID).collection("userFriends").getDocuments { snapshot, error in
+            if let error = error {
+                completion(.failure(error))
+            } else {
+                let friendIDs = snapshot?.documents.map { $0.documentID } ?? []
+                completion(.success(friendIDs))
             }
         }
     }

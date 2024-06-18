@@ -11,7 +11,6 @@ class AllFriendsTableViewCell: UITableViewCell {
 
     @IBOutlet weak var avatarImage: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
-    
     @IBOutlet weak var addFriendsButton: UIButton!
     var user: User?
     var addFriendAction: ((User) -> Void)?
@@ -25,12 +24,13 @@ class AllFriendsTableViewCell: UITableViewCell {
         super.awakeFromNib()
         avatarImage.makeCircular()
         addFriendsButton.titleLabel?.font = UIFont(name: "Palatino-BoldItalic", size: 16)
+        updateButtonVisibility()
 
     }
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
-    func setData(user: User) {
+    func setData(user: User, isAlreadyFriend: Bool) {
         self.user = user
         nameLabel.text = user.fullName
         if let imageURL = URL(string: user.image) {
@@ -44,9 +44,16 @@ class AllFriendsTableViewCell: UITableViewCell {
         } else {
             avatarImage.image = UIImage(named: "image_avatar")
         }
-        FirebaseService.shared.checkFriendRequestStatus(for: user) { [weak self] isSent in
-            DispatchQueue.main.async {
-                self?.isFriendRequestSent = isSent
+        FirebaseService.shared.checkFriendRequestStatus(for: user) { [weak self] result in
+            switch result {
+            case .success(let isSent):
+                DispatchQueue.main.async {
+                    self?.isFriendRequestSent = isSent
+                    self?.addFriendsButton.isHidden = isAlreadyFriend
+                }
+            case .failure(let error):
+                print("Error checking friend request status: \(error.localizedDescription)")
+                // Handle error if needed
             }
         }
     }
@@ -57,7 +64,9 @@ class AllFriendsTableViewCell: UITableViewCell {
             addFriendsButton.setTitle("Kết bạn", for: .normal)
         }
     }
-    
+    private func updateButtonVisibility() {
+        addFriendsButton.isHidden = isFriendRequestSent
+    }
     @IBAction func addFriendsTapped(_ sender: Any) {
         guard let user = user else { return }
         if isFriendRequestSent {

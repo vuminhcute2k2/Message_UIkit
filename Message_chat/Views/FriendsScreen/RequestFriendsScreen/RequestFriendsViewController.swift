@@ -88,6 +88,23 @@ class RequestFriendsViewController: UIViewController{
             }
         }
     }
+    private func cancelFriendRequest(to user: User) {
+        guard let currentUserID = Auth.auth().currentUser?.uid else {
+            print("No current user ID")
+            return
+        }
+        FirebaseService.shared.cancelFriendRequest(from: currentUserID, to: user) { [weak self] result in
+            switch result {
+            case .success:
+                print("Friend request canceled for \(user.fullName)")
+                self?.cancelFriendRequests.removeAll { $0.uid == user.uid }
+                self?.cancelFriendsTable.reloadData()
+            case .failure(let error):
+                print("Error canceling friend request: \(error.localizedDescription)")
+            }
+        }
+    }
+    
 }
 extension RequestFriendsViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -117,6 +134,9 @@ extension RequestFriendsViewController: UITableViewDelegate, UITableViewDataSour
             let cell: CancelFriendsTableViewCell = tableView.configureCell(for: indexPath, cellIdentifier: "CancelFriendsTableViewCell", cellType: CancelFriendsTableViewCell.self)
             let user = cancelFriendRequests[indexPath.row]
             cell.setData(user: user)
+            cell.cancelButtonTapped = { [weak self] in
+                self?.cancelFriendRequest(to: user)
+            }
             return cell
         } else {
             return UITableViewCell()
