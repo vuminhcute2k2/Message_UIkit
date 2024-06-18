@@ -97,6 +97,10 @@ class RequestFriendsViewController: UIViewController{
             switch result {
             case .success:
                 print("Friend request canceled for \(user.fullName)")
+                NotificationCenter.default.post(
+                    name: Notification.Name("FriendRequestAccepted"),
+                    object: nil,
+                    userInfo: ["user": user])
                 self?.cancelFriendRequests.removeAll { $0.uid == user.uid }
                 self?.cancelFriendsTable.reloadData()
             case .failure(let error):
@@ -125,9 +129,7 @@ extension RequestFriendsViewController: UITableViewDelegate, UITableViewDataSour
             let user = acceptFriendRequests[indexPath.row]
             cell.setData(user: user)
             cell.acceptButtonTapped = { [weak self] in
-//                self?.addFriendFromRequest(user: user)
                 self?.acceptFriendFromRequest(from: user)
-                
             }
             return cell
         } else if tableView.tag == FriendRequestType.cancelFriend.rawValue {

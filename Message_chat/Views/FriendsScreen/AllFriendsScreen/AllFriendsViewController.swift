@@ -21,12 +21,28 @@ class AllFriendsViewController: UIViewController {
         setupTableView()
         loadAllUsers()
         fetchCurrentUserFriends()
+        //update UI button add friends when handling request events cancel
+        NotificationCenter.default.addObserver(self, selector: #selector(handleFriendRequestAccepted(_:)), name: Notification.Name("FriendRequestAccepted"), object: nil)
+
     }
     private func setupTableView() {
         let nib = UINib(nibName: "AllFriendsTableViewCell", bundle: nil)
         allFriendsTableView.register(nib, forCellReuseIdentifier: "AllFriendsTableViewCell")
         allFriendsTableView.dataSource = self
         allFriendsTableView.delegate = self
+    }
+    
+    @objc private func handleFriendRequestAccepted(_ notification: Notification) {
+        if let userInfo = notification.userInfo,
+           let user = userInfo["user"] as? User {
+            // Update UI button "kết bạn"
+            if let indexPath = getIndexPath(for: user) {
+                isFriendRequestSentList[indexPath.section][indexPath.row] = true
+                DispatchQueue.main.async {
+                    self.allFriendsTableView.reloadRows(at: [indexPath], with: .none)
+                }
+            }
+        }
     }
     private func fetchCurrentUserFriends() {
         guard let currentUserID = Auth.auth().currentUser?.uid else {
