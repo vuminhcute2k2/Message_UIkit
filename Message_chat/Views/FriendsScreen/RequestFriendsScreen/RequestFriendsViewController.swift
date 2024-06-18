@@ -63,11 +63,15 @@ class RequestFriendsViewController: UIViewController{
     }
     private func observeFriendRequests() {
         guard let currentUserID = Auth.auth().currentUser?.uid else { return }
-        let cancelListener = FirebaseService.shared.observeSentFriendRequests(for: currentUserID) { [weak self] (cancelRequests) in
+        let cancelListener =
+        FirebaseService.shared.observeSentFriendRequests(for: currentUserID) {
+            [weak self] (cancelRequests) in
             self?.cancelFriendRequests = cancelRequests
             self?.cancelFriendsTable.reloadData()
         }
-        let acceptListener = FirebaseService.shared.observeReceivedFriendRequests(for: currentUserID) { [weak self] (acceptRequests) in
+        let acceptListener =
+        FirebaseService.shared.observeReceivedFriendRequests(for: currentUserID) {
+            [weak self] (acceptRequests) in
             self?.acceptFriendRequests = acceptRequests
             self?.acceptFriendsTable.reloadData()
         }
@@ -77,7 +81,9 @@ class RequestFriendsViewController: UIViewController{
             print("Current user ID is nil")
             return
         }
-        FirebaseService.shared.acceptFriendRequest(currentUserID: currentUserID, requesterID: user.uid) { result in
+        FirebaseService.shared.acceptFriendRequest(currentUserID: currentUserID,
+                                                   requesterID: user.uid)
+        { result in
             switch result {
             case .success:
                 print("Friend request accepted successfully!")
@@ -93,7 +99,8 @@ class RequestFriendsViewController: UIViewController{
             print("No current user ID")
             return
         }
-        FirebaseService.shared.cancelFriendRequest(from: currentUserID, to: user) { [weak self] result in
+        FirebaseService.shared.cancelFriendRequest(from: currentUserID, to: user) {
+            [weak self] result in
             switch result {
             case .success:
                 print("Friend request canceled for \(user.fullName)")
@@ -113,7 +120,7 @@ class RequestFriendsViewController: UIViewController{
 extension RequestFriendsViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
             return 1
-        }
+    }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tableView.tag == FriendRequestType.acceptFriend.rawValue {
             return acceptFriendRequests.count
@@ -125,7 +132,10 @@ extension RequestFriendsViewController: UITableViewDelegate, UITableViewDataSour
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if tableView.tag == FriendRequestType.acceptFriend.rawValue {
-            let cell: AcceptFriendsTableViewCell = tableView.configureCell(for: indexPath, cellIdentifier: "AcceptFriendsTableViewCell", cellType: AcceptFriendsTableViewCell.self)
+            let cell: AcceptFriendsTableViewCell = tableView.configureCell(
+                for: indexPath,
+                cellIdentifier: "AcceptFriendsTableViewCell",
+                cellType: AcceptFriendsTableViewCell.self)
             let user = acceptFriendRequests[indexPath.row]
             cell.setData(user: user)
             cell.acceptButtonTapped = { [weak self] in
@@ -133,7 +143,10 @@ extension RequestFriendsViewController: UITableViewDelegate, UITableViewDataSour
             }
             return cell
         } else if tableView.tag == FriendRequestType.cancelFriend.rawValue {
-            let cell: CancelFriendsTableViewCell = tableView.configureCell(for: indexPath, cellIdentifier: "CancelFriendsTableViewCell", cellType: CancelFriendsTableViewCell.self)
+            let cell: CancelFriendsTableViewCell = tableView.configureCell(
+                for: indexPath,
+                cellIdentifier: "CancelFriendsTableViewCell",
+                cellType: CancelFriendsTableViewCell.self)
             let user = cancelFriendRequests[indexPath.row]
             cell.setData(user: user)
             cell.cancelButtonTapped = { [weak self] in

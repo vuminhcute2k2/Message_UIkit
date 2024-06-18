@@ -25,7 +25,6 @@ class AllFriendsTableViewCell: UITableViewCell {
         avatarImage.makeCircular()
         addFriendsButton.titleLabel?.font = UIFont(name: "Palatino-BoldItalic", size: 16)
         updateButtonVisibility()
-
     }
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)

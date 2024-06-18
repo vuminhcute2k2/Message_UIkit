@@ -139,8 +139,10 @@ class FirebaseService {
         }
     }
     //display add friends
-    func fetchFriendRequests(for currentUserID: String, completion: @escaping (Result<[User], Error>) -> Void) {
-        friendRequestsCollection.whereField("to", isEqualTo: currentUserID).getDocuments { (snapshot, error) in
+    func fetchFriendRequests(for currentUserID: String,
+                             completion: @escaping (Result<[User], Error>) -> Void) {
+        friendRequestsCollection.whereField("to", isEqualTo: currentUserID).getDocuments {
+            (snapshot, error) in
             if let error = error {
                 completion(.failure(error))
                 return
@@ -184,8 +186,10 @@ class FirebaseService {
         }
     }
     //display cancel request friends
-    func fetchSentFriendRequests(for currentUserID: String, completion: @escaping (Result<[User], Error>) -> Void) {
-        friendRequestsCollection.whereField("from", isEqualTo: currentUserID).getDocuments { (snapshot, error) in
+    func fetchSentFriendRequests(for currentUserID: String,
+                                 completion: @escaping (Result<[User], Error>) -> Void) {
+        friendRequestsCollection.whereField("from", isEqualTo: currentUserID).getDocuments {
+            (snapshot, error) in
             if let error = error {
                 completion(.failure(error))
                 return
@@ -229,7 +233,9 @@ class FirebaseService {
         }
     }
     // cancel request friends
-    func cancelFriendRequest(from currentUserID: String, to user: User, completion: @escaping (Result<Void, Error>) -> Void) {
+    func cancelFriendRequest(from currentUserID: String,
+                             to user: User,
+                             completion: @escaping (Result<Void, Error>) -> Void) {
         Firestore.firestore().collection("requestFriends")
             .whereField("from", isEqualTo: currentUserID)
             .whereField("to", isEqualTo: user.uid)
@@ -239,7 +245,9 @@ class FirebaseService {
                     return
                 }
                 guard let documents = querySnapshot?.documents else {
-                    completion(.failure(NSError(domain: "", code: 404, userInfo: [NSLocalizedDescriptionKey: "No friend request found"])))
+                    completion(.failure(NSError(domain: "",
+                                                code: 404,
+                                                userInfo: [NSLocalizedDescriptionKey: "No friend request found"])))
                     return
                 }
                 for document in documents {
@@ -254,7 +262,9 @@ class FirebaseService {
             }
     }
     //track changes send request
-    func observeSentFriendRequests(for userID: String, completion: @escaping ([User]) -> Void) -> ListenerRegistration {
+    func observeSentFriendRequests(for userID: String,
+                                   completion: @escaping ([User]) -> Void)
+    -> ListenerRegistration {
         return db.collection("requestFriends")
             .whereField("from", isEqualTo: userID)
             .addSnapshotListener { (snapshot, error) in
@@ -269,16 +279,18 @@ class FirebaseService {
                     completion([])
                     return
                 }
-
                 var updatedCancelRequests: [User] = []
                 for document in snapshot.documents {
                     if let toUserID = document.data()["to"] as? String {
-                        self.db.collection("users").document(toUserID).getDocument { (userDoc, userError) in
+                        self.db.collection("users").document(toUserID).getDocument {
+                            (userDoc, userError) in
                             if let userError = userError {
                                 print("Error fetching user data: \(userError)")
                                 return
                             }
-                            guard let userDoc = userDoc, userDoc.exists, let userData = userDoc.data() else {
+                            guard let userDoc = userDoc,
+                                  userDoc.exists,
+                                  let userData = userDoc.data() else {
                                 print("User document does not exist for \(toUserID)")
                                 return
                             }
@@ -301,7 +313,9 @@ class FirebaseService {
             }
     }
     //track changes received request
-    func observeReceivedFriendRequests(for userID: String, completion: @escaping ([User]) -> Void) -> ListenerRegistration {
+    func observeReceivedFriendRequests(for userID: String,
+                                       completion: @escaping ([User]) -> Void)
+    -> ListenerRegistration {
         return db.collection("requestFriends")
             .whereField("to", isEqualTo: userID)
             .addSnapshotListener { (snapshot, error) in
@@ -323,7 +337,9 @@ class FirebaseService {
                                 print("Error fetching user data: \(userError)")
                                 return
                             }
-                            guard let userDoc = userDoc, userDoc.exists, let userData = userDoc.data() else {
+                            guard let userDoc = userDoc,
+                                  userDoc.exists,
+                                  let userData = userDoc.data() else {
                                 print("User document does not exist for \(fromUserID)")
                                 return
                             }
@@ -346,9 +362,12 @@ class FirebaseService {
             }
     }
     //Allfriends check Friends request add and delete
-    func checkFriendRequestStatus(for user: User, completion: @escaping (Result<Bool, Error>) -> Void) {
+    func checkFriendRequestStatus(for user: User,
+                                  completion: @escaping (Result<Bool, Error>) -> Void) {
         guard let currentUserID = Auth.auth().currentUser?.uid else {
-            completion(.failure(NSError(domain: "FirebaseService", code: 401, userInfo: [NSLocalizedDescriptionKey: "Current user ID is nil"])))
+            completion(.failure(NSError(domain: "FirebaseService",
+                                        code: 401,
+                                        userInfo: [NSLocalizedDescriptionKey: "Current user ID is nil"])))
             return
         }
         
@@ -365,16 +384,29 @@ class FirebaseService {
             }
         }
     }
-    func acceptFriendRequest(currentUserID: String, requesterID: String, completion: @escaping (Result<Void, Error>) -> Void) {
+    func acceptFriendRequest(currentUserID: String,
+                             requesterID: String,
+                             completion: @escaping (Result<Void, Error>) -> Void) {
         let batch = db.batch()
         // Add current user to request friends list
-        let requesterFriendRef = db.collection("friends").document(requesterID).collection("userFriends").document(currentUserID)
+        let requesterFriendRef =
+            db.collection("friends")
+            .document(requesterID)
+            .collection("userFriends")
+            .document(currentUserID)
         batch.setData(["status": "accepted"], forDocument: requesterFriendRef)
         // Add request to current users friends list
-        let currentUserFriendRef = db.collection("friends").document(currentUserID).collection("userFriends").document(requesterID)
+        let currentUserFriendRef =
+            db.collection("friends")
+            .document(currentUserID)
+            .collection("userFriends")
+            .document(requesterID)
         batch.setData(["status": "accepted"], forDocument: currentUserFriendRef)
         // remove the friend request after acceptance
-        let requestRef = db.collection("requestFriends").whereField("from", isEqualTo: requesterID).whereField("to", isEqualTo: currentUserID)
+        let requestRef =
+            db.collection("requestFriends")
+            .whereField("from", isEqualTo: requesterID)
+            .whereField("to", isEqualTo: currentUserID)
         requestRef.getDocuments { snapshot, error in
             if let error = error {
                 completion(.failure(error))
@@ -405,7 +437,8 @@ class FirebaseService {
             var friends: [Friend] = []
             for document in snapshot?.documents ?? [] {
                 let friendUserID = document.documentID
-                self.db.collection("users").document(friendUserID).getDocument { userSnapshot, userError in
+                self.db.collection("users").document(friendUserID).getDocument {
+                    userSnapshot, userError in
                     if let userError = userError {
                         completion(.failure(userError))
                         return
@@ -413,7 +446,9 @@ class FirebaseService {
                     if let userData = userSnapshot?.data(),
                        let fullname = userData["fullName"] as? String,
                        let image = userData["image"] as? String {
-                        let friend = Friend(uid: friendUserID, fullname: fullname, image: image)
+                        let friend = Friend(uid: friendUserID,
+                                            fullname: fullname,
+                                            image: image)
                         friends.append(friend)
                         if friends.count == snapshot?.documents.count {
                             completion(.success(friends))
@@ -426,8 +461,9 @@ class FirebaseService {
         }
     }
     //check friends
-    func fetchFriendsIDs(forUserID userID: String, completion: @escaping (Result<[String], Error>) -> Void) {
-        Firestore.firestore().collection("friends").document(userID).collection("userFriends").getDocuments { snapshot, error in
+    func fetchFriendsIDs(forUserID userID: String,
+                         completion: @escaping (Result<[String], Error>) -> Void) {
+        db.collection("friends").document(userID).collection("userFriends").getDocuments { snapshot, error in
             if let error = error {
                 completion(.failure(error))
             } else {
@@ -437,8 +473,8 @@ class FirebaseService {
         }
     }
     // Save or Update user
-    func saveUserToFirestore(_ user: User, completion: @escaping (Result<Void, Error>) -> Void) {
-        let db = Firestore.firestore()
+    func saveUserToFirestore(_ user: User, completion: @escaping (Result<Void, Error>) -> Void)
+    {
         db.collection("users").document(user.uid).setData(user.toJson()) { error in
             if let error = error {
                 completion(.failure(error))
@@ -449,7 +485,10 @@ class FirebaseService {
     }
 
     // Upload image and update user
-    func uploadImageAndUpdateUser(_ user: User, image: UIImage, completion: @escaping (Result<Void, Error>) -> Void) {
+    func uploadImageAndUpdateUser(_ user: User,
+                                  image: UIImage,
+                                  completion: @escaping (Result<Void, Error>) -> Void)
+    {
         uploadProfileImage(user.uid, image: image) { result in
             switch result {
             case .success(let imageURL):
@@ -468,9 +507,14 @@ class FirebaseService {
     }
 
     // Upload profile image
-    private func uploadProfileImage(_ uid: String, image: UIImage, completion: @escaping (Result<String, Error>) -> Void) {
+    private func uploadProfileImage(_ uid: String,
+                                    image: UIImage,
+                                    completion: @escaping (Result<String, Error>) -> Void)
+    {
         guard let imageData = image.jpegData(compressionQuality: 0.5) else {
-            completion(.failure(NSError(domain: "ImageError", code: -1, userInfo: [NSLocalizedDescriptionKey: "Unable to convert image to data"])))
+            completion(.failure(NSError(domain: "ImageError",
+                                        code: -1,
+                                        userInfo: [NSLocalizedDescriptionKey: "Unable to convert image to data"])))
             return
         }
         let storageRef = Storage.storage().reference().child("profile_images").child(uid)
@@ -484,7 +528,9 @@ class FirebaseService {
                     } else if let url = url {
                         completion(.success(url.absoluteString))
                     } else {
-                        completion(.failure(NSError(domain: "ImageError", code: -1, userInfo: [NSLocalizedDescriptionKey: "URL not found"])))
+                        completion(.failure(NSError(domain: "ImageError",
+                                                    code: -1,
+                                                    userInfo: [NSLocalizedDescriptionKey: "URL not found"])))
                     }
                 }
             }

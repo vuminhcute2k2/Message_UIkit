@@ -31,7 +31,6 @@ class MyFriendsViewController: UIViewController {
             print("Current user ID is nil")
             return
         }
-
         FirebaseService.shared.fetchFriends(forUserID: currentUserID) { result in
             switch result {
             case .success(let friends):

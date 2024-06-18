@@ -22,7 +22,12 @@ class AllFriendsViewController: UIViewController {
         loadAllUsers()
         fetchCurrentUserFriends()
         //update UI button add friends when handling request events cancel
-        NotificationCenter.default.addObserver(self, selector: #selector(handleFriendRequestAccepted(_:)), name: Notification.Name("FriendRequestAccepted"), object: nil)
+        NotificationCenter
+            .default
+            .addObserver(self,
+                         selector:#selector(handleFriendRequestAccepted(_:)),
+                         name: Notification.Name("FriendRequestAccepted"),
+                         object: nil)
 
     }
     private func setupTableView() {
@@ -50,7 +55,8 @@ class AllFriendsViewController: UIViewController {
             return
         }
 
-        FirebaseService.shared.fetchFriendsIDs(forUserID: currentUserID) { [weak self] result in
+        FirebaseService.shared.fetchFriendsIDs(forUserID: currentUserID) {
+            [weak self] result in
             switch result {
             case .success(let friendIDs):
                 self?.currentUserFriendIDs = friendIDs
@@ -150,7 +156,8 @@ class AllFriendsViewController: UIViewController {
             print("No current user ID")
             return
         }
-        FirebaseService.shared.cancelFriendRequest(from: currentUserID, to: user) { [weak self] result in
+        FirebaseService.shared.cancelFriendRequest(from: currentUserID, to: user) {
+            [weak self] result in
             switch result {
             case .success:
                 print("Friend request canceled for \(user.fullName)")
@@ -202,7 +209,6 @@ extension AllFriendsViewController: UITableViewDelegate, UITableViewDataSource {
         let isAlreadyFriend = currentUserFriendIDs.contains(friend.uid)
         cell.isFriendRequestSent = isFriendRequestSentList[indexPath.section][indexPath.row]
         cell.setData(user: friend, isAlreadyFriend: isAlreadyFriend)
-        
         cell.addFriendAction = { [weak self] user in
             self?.sendFriendRequest(to: user)
         }
