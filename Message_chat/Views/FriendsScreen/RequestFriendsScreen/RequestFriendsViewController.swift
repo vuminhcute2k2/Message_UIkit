@@ -89,6 +89,10 @@ class RequestFriendsViewController: UIViewController{
                 print("Friend request accepted successfully!")
                 self.acceptFriendRequests.removeAll { $0.uid == user.uid }
                 self.acceptFriendsTable.reloadData()
+                // Post notification to update AllFriendsViewController
+                NotificationCenter.default.post(name:Notification.Name("FriendRequestAccepted"),
+                                                object: nil,
+                                                userInfo: ["friend": user])
             case .failure(let error):
                 print("Error accepting friend request: \(error.localizedDescription)")
             }
@@ -105,9 +109,9 @@ class RequestFriendsViewController: UIViewController{
             case .success:
                 print("Friend request canceled for \(user.fullName)")
                 NotificationCenter.default.post(
-                    name: Notification.Name("FriendRequestAccepted"),
+                    name: Notification.Name("FriendRequestCanceled"),
                     object: nil,
-                    userInfo: ["user": user])
+                    userInfo: ["friend": user])
                 self?.cancelFriendRequests.removeAll { $0.uid == user.uid }
                 self?.cancelFriendsTable.reloadData()
             case .failure(let error):

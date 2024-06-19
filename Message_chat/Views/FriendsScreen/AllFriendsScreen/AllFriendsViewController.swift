@@ -22,12 +22,16 @@ class AllFriendsViewController: UIViewController {
         loadAllUsers()
         fetchCurrentUserFriends()
         //update UI button add friends when handling request events cancel
-        NotificationCenter
-            .default
-            .addObserver(self,
-                         selector:#selector(handleFriendRequestAccepted(_:)),
-                         name: Notification.Name("FriendRequestAccepted"),
-                         object: nil)
+        NotificationCenter.default.addObserver(
+            self,
+            selector:#selector(handleFriendRequestAccepted(_:)),
+            name: Notification.Name("FriendRequestAccepted"),
+            object: nil)
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(handleFriendRequestCanceled(_:)),
+            name: Notification.Name("FriendRequestCanceled"),
+            object: nil)
 
     }
     private func setupTableView() {
@@ -38,11 +42,24 @@ class AllFriendsViewController: UIViewController {
     }
     
     @objc private func handleFriendRequestAccepted(_ notification: Notification) {
+        print("Handling FriendRequestAccepted notification...")
         if let userInfo = notification.userInfo,
-           let user = userInfo["user"] as? User {
+            let friend = userInfo["friend"] as? User {
             // Update UI button "kết bạn"
-            if let indexPath = getIndexPath(for: user) {
+            if let indexPath = getIndexPath(for: friend) {
                 isFriendRequestSentList[indexPath.section][indexPath.row] = true
+                DispatchQueue.main.async {
+                    self.allFriendsTableView.reloadRows(at: [indexPath], with: .none)
+                }
+            }
+        }
+    }
+    @objc private func handleFriendRequestCanceled(_ notification: Notification) {
+        print("Handling FriendRequestCancel notification...")
+        if let userInfo = notification.userInfo,
+           let friend = userInfo["friend"] as? User {
+            if let indexPath = getIndexPath(for: friend) {
+                isFriendRequestSentList[indexPath.section][indexPath.row] = false
                 DispatchQueue.main.async {
                     self.allFriendsTableView.reloadRows(at: [indexPath], with: .none)
                 }
@@ -140,7 +157,8 @@ class AllFriendsViewController: UIViewController {
                 "timestamp": FieldValue.serverTimestamp()
             ] as [String: Any]
             
-            Firestore.firestore().collection("requestFriends").addDocument(data: friendRequest) { [weak self] error in
+            Firestore.firestore().collection("requestFriends").addDocument(data: friendRequest)
+            { [weak self] error in
                 if let error = error {
                     print("Error sending friend request: \(error.localizedDescription)")
                 } else {
@@ -161,13 +179,7 @@ class AllFriendsViewController: UIViewController {
             switch result {
             case .success:
                 print("Friend request canceled for \(user.fullName)")
-                // Update isFriendRequestSentList and reload table view
-                if let indexPath = self?.getIndexPath(for: user) {
-                    self?.isFriendRequestSentList[indexPath.section][indexPath.row] = false
-                    DispatchQueue.main.async {
-                        self?.allFriendsTableView.reloadRows(at: [indexPath], with: .none)
-                    }
-                }
+                self?.updateFriendRequestStatus(for: user, isSent: false)
             case .failure(let error):
                 print("Error canceling friend request: \(error.localizedDescription)")
             }
@@ -178,6 +190,17 @@ class AllFriendsViewController: UIViewController {
         if let indexPath = getIndexPath(for: user) {
             isFriendRequestSentList[indexPath.section][indexPath.row] = isSent
             allFriendsTableView.reloadRows(at: [indexPath], with: .none)
+        }
+        // If the request is accepted, also update MyFriendsViewController
+        if isSent {
+            NotificationCenter.default.post(name: Notification.Name("FriendRequestAccepted"),
+                                            object: nil,
+                                            userInfo: ["friend": user])
+        }
+        else {
+            NotificationCenter.default.post(name: Notification.Name("FriendRequestCanceled"),
+                                            object: nil,
+                                            userInfo: ["friend": user])
         }
     }
 

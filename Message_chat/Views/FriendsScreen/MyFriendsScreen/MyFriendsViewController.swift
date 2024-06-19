@@ -19,6 +19,23 @@ class MyFriendsViewController: UIViewController {
         super.viewDidLoad()
         setupTableView()
         fetchFriends()
+        // Add observer for friend request accepted event
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(handleFriendRequestAccepted(_:)),
+                                               name: Notification.Name("FriendRequestAccepted"),
+                                               object: nil)
+    }
+    //Update UI friends
+    @objc private func handleFriendRequestAccepted(_ notification: Notification) {
+        if let userInfo = notification.userInfo,
+           let user = userInfo["friend"] as? User {
+            let friend = Friend(uid: user.uid, fullname: user.fullName, image: user.image)
+            self.myFriends.append(friend)
+            self.sortFriends()
+            DispatchQueue.main.async {
+                self.friendsTableView.reloadData()
+            }
+        }
     }
     private func setupTableView() {
         let nib = UINib(nibName: "MyFriendsTableViewCell", bundle: nil)

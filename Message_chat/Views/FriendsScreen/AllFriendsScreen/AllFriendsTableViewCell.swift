@@ -20,6 +20,11 @@ class AllFriendsTableViewCell: UITableViewCell {
             updateButtonTitle()
         }
     }
+    var isAlreadyFriend: Bool = false {
+        didSet {
+            updateButtonVisibility()
+        }
+    }
     override func awakeFromNib() {
         super.awakeFromNib()
         avatarImage.makeCircular()
@@ -62,9 +67,10 @@ class AllFriendsTableViewCell: UITableViewCell {
         } else {
             addFriendsButton.setTitle("Kết bạn", for: .normal)
         }
+        updateButtonVisibility()
     }
     private func updateButtonVisibility() {
-        addFriendsButton.isHidden = isFriendRequestSent
+        addFriendsButton.isHidden = user == nil || isFriendRequestSent
     }
     @IBAction func addFriendsTapped(_ sender: Any) {
         guard let user = user else { return }
