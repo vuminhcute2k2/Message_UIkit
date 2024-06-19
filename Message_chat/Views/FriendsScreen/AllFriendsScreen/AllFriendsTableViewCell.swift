@@ -18,6 +18,7 @@ class AllFriendsTableViewCell: UITableViewCell {
     var isFriendRequestSent: Bool = false {
         didSet {
             updateButtonTitle()
+//            updateButtonVisibility()
         }
     }
     var isAlreadyFriend: Bool = false {
@@ -54,6 +55,7 @@ class AllFriendsTableViewCell: UITableViewCell {
                 DispatchQueue.main.async {
                     self?.isFriendRequestSent = isSent
                     self?.addFriendsButton.isHidden = isAlreadyFriend
+//                    self?.updateButtonVisibility()
                 }
             case .failure(let error):
                 print("Error checking friend request status: \(error.localizedDescription)")
@@ -71,6 +73,11 @@ class AllFriendsTableViewCell: UITableViewCell {
     }
     private func updateButtonVisibility() {
         addFriendsButton.isHidden = user == nil || isFriendRequestSent
+//        if isAlreadyFriend {
+//            addFriendsButton.isHidden = true
+//        } else {
+//            addFriendsButton.isHidden = false
+//        }
     }
     @IBAction func addFriendsTapped(_ sender: Any) {
         guard let user = user else { return }

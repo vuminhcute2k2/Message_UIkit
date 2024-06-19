@@ -19,11 +19,26 @@ class MyFriendsViewController: UIViewController {
         super.viewDidLoad()
         setupTableView()
         fetchFriends()
-        // Add observer for friend request accepted event
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(handleFriendRequestAccepted(_:)),
-                                               name: Notification.Name("FriendRequestAccepted"),
-                                               object: nil)
+        // Add observer for friend request accepted event and cancel friends
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(handleFriendRequestAccepted(_:)),
+            name: Notification.Name("FriendRequestAccepted"),
+            object: nil
+        )
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(handleFriendRequestCanceled(_:)),
+            name: Notification.Name("FriendRequestCanceled"),
+            object: nil
+        )
+    }
+    deinit {
+        NotificationCenter.default.removeObserver(
+            self,
+            name:Notification.Name("FriendRequestCanceled"),
+            object: nil
+        )
     }
     //Update UI friends
     @objc private func handleFriendRequestAccepted(_ notification: Notification) {
@@ -32,8 +47,19 @@ class MyFriendsViewController: UIViewController {
             let friend = Friend(uid: user.uid, fullname: user.fullName, image: user.image)
             self.myFriends.append(friend)
             self.sortFriends()
-            DispatchQueue.main.async {
-                self.friendsTableView.reloadData()
+            DispatchQueue.main.async { [weak self] in
+                self?.friendsTableView.reloadData()
+            }
+        }
+    }
+    // Update UI when friend request is canceled
+    @objc private func handleFriendRequestCanceled(_ notification: Notification) {
+        if let userInfo = notification.userInfo,
+           let user = userInfo["friend"] as? User {
+            self.myFriends.removeAll { $0.uid == user.uid }
+            self.sortFriends()
+            DispatchQueue.main.async { [weak self] in
+                self?.friendsTableView.reloadData()
             }
         }
     }

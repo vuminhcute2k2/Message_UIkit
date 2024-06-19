@@ -34,6 +34,14 @@ class AllFriendsViewController: UIViewController {
             object: nil)
 
     }
+    deinit {
+        // Loại bỏ đăng ký thông báo khi view controller bị deinit
+        NotificationCenter.default.removeObserver(
+            self,
+            name: Notification.Name("FriendRequestAccepted"),
+            object: nil
+        )
+    }
     private func setupTableView() {
         let nib = UINib(nibName: "AllFriendsTableViewCell", bundle: nil)
         allFriendsTableView.register(nib, forCellReuseIdentifier: "AllFriendsTableViewCell")
@@ -48,8 +56,8 @@ class AllFriendsViewController: UIViewController {
             // Update UI button "kết bạn"
             if let indexPath = getIndexPath(for: friend) {
                 isFriendRequestSentList[indexPath.section][indexPath.row] = true
-                DispatchQueue.main.async {
-                    self.allFriendsTableView.reloadRows(at: [indexPath], with: .none)
+                DispatchQueue.main.async { [weak self] in
+                    self?.allFriendsTableView.reloadRows(at: [indexPath], with: .none)
                 }
             }
         }
@@ -60,8 +68,8 @@ class AllFriendsViewController: UIViewController {
            let friend = userInfo["friend"] as? User {
             if let indexPath = getIndexPath(for: friend) {
                 isFriendRequestSentList[indexPath.section][indexPath.row] = false
-                DispatchQueue.main.async {
-                    self.allFriendsTableView.reloadRows(at: [indexPath], with: .none)
+                DispatchQueue.main.async { [weak self] in
+                    self?.allFriendsTableView.reloadRows(at: [indexPath], with: .none)
                 }
             }
         }
