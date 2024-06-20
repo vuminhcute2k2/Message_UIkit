@@ -34,8 +34,12 @@ class AllFriendsViewController: UIViewController {
             object: nil)
 
     }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        loadAllUsers()
+        fetchCurrentUserFriends()
+    }
     deinit {
-        // Loại bỏ đăng ký thông báo khi view controller bị deinit
         NotificationCenter.default.removeObserver(
             self,
             name: Notification.Name("FriendRequestAccepted"),
