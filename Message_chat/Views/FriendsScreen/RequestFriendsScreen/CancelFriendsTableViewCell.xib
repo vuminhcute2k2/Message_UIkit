@@ -39,6 +39,9 @@
                         <buttonConfiguration key="configuration" style="filled" title="Hủy">
                             <fontDescription key="titleFontDescription" name="Palatino-Roman" family="Palatino" pointSize="15"/>
                         </buttonConfiguration>
+                        <connections>
+                            <action selector="handleCancelButtonTapped:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="7bA-h2-p4X"/>
+                        </connections>
                     </button>
                 </subviews>
                 <constraints>

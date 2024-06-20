@@ -51,9 +51,8 @@ class FriendsViewController: UIViewController,LZViewPagerDelegate,LZViewPagerDat
         
         let vc1 = MyFriendsViewController(nibName: "MyFriendsViewController", bundle: nil)
         let vc2 =  AllFriendsViewController(nibName: "AllFriendsViewController", bundle: nil)
-        let vc3 =  RequestFriendsViewController(nibName: "RequestFriendsViewController", bundle: nil)
-
-
+        let vc3 =  RequestFriendsViewController(nibName: "RequestFriendsViewController",
+                                                bundle: nil)
         subController = [vc1,vc2,vc3]
         viewPager.reload()
         

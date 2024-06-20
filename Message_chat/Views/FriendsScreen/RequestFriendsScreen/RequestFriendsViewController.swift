@@ -63,21 +63,68 @@ class RequestFriendsViewController: UIViewController{
     }
     private func observeFriendRequests() {
         guard let currentUserID = Auth.auth().currentUser?.uid else { return }
-        let cancelListener = FirebaseService.shared.observeSentFriendRequests(for: currentUserID) { [weak self] (cancelRequests) in
+        let cancelListener =
+        FirebaseService.shared.observeSentFriendRequests(for: currentUserID) {
+            [weak self] (cancelRequests) in
             self?.cancelFriendRequests = cancelRequests
             self?.cancelFriendsTable.reloadData()
         }
-        let acceptListener = FirebaseService.shared.observeReceivedFriendRequests(for: currentUserID) { [weak self] (acceptRequests) in
+        let acceptListener =
+        FirebaseService.shared.observeReceivedFriendRequests(for: currentUserID) {
+            [weak self] (acceptRequests) in
             self?.acceptFriendRequests = acceptRequests
             self?.acceptFriendsTable.reloadData()
         }
     }
-
+    private func acceptFriendFromRequest(from user: User) {
+        guard let currentUserID = Auth.auth().currentUser?.uid else {
+            print("Current user ID is nil")
+            return
+        }
+        FirebaseService.shared.acceptFriendRequest(currentUserID: currentUserID,
+                                                   requesterID: user.uid)
+        { result in
+            switch result {
+            case .success:
+                print("Friend request accepted successfully!")
+                self.acceptFriendRequests.removeAll { $0.uid == user.uid }
+                self.acceptFriendsTable.reloadData()
+                // Post notification to update AllFriendsViewController
+                NotificationCenter.default.post(name:Notification.Name("FriendRequestAccepted"),
+                                                object: nil,
+                                                userInfo: ["friend": user])
+            case .failure(let error):
+                print("Error accepting friend request: \(error.localizedDescription)")
+            }
+        }
+    }
+    private func cancelFriendRequest(to user: User) {
+        guard let currentUserID = Auth.auth().currentUser?.uid else {
+            print("No current user ID")
+            return
+        }
+        FirebaseService.shared.cancelFriendRequest(from: currentUserID, to: user) {
+            [weak self] result in
+            switch result {
+            case .success:
+                print("Friend request canceled for \(user.fullName)")
+                NotificationCenter.default.post(
+                    name: Notification.Name("FriendRequestCanceled"),
+                    object: nil,
+                    userInfo: ["friend": user])
+                self?.cancelFriendRequests.removeAll { $0.uid == user.uid }
+                self?.cancelFriendsTable.reloadData()
+            case .failure(let error):
+                print("Error canceling friend request: \(error.localizedDescription)")
+            }
+        }
+    }
+    
 }
 extension RequestFriendsViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
             return 1
-        }
+    }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tableView.tag == FriendRequestType.acceptFriend.rawValue {
             return acceptFriendRequests.count
@@ -89,18 +136,30 @@ extension RequestFriendsViewController: UITableViewDelegate, UITableViewDataSour
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if tableView.tag == FriendRequestType.acceptFriend.rawValue {
-               let cell: AcceptFriendsTableViewCell = tableView.configureCell(for: indexPath, cellIdentifier: "AcceptFriendsTableViewCell", cellType: AcceptFriendsTableViewCell.self)
-               let user = acceptFriendRequests[indexPath.row]
-               cell.setData(user: user)
-               return cell
-           } else if tableView.tag == FriendRequestType.cancelFriend.rawValue {
-               let cell: CancelFriendsTableViewCell = tableView.configureCell(for: indexPath, cellIdentifier: "CancelFriendsTableViewCell", cellType: CancelFriendsTableViewCell.self)
-               let user = cancelFriendRequests[indexPath.row]
-               cell.setData(user: user)
-               return cell
-           } else {
-               return UITableViewCell()
-           }
+            let cell: AcceptFriendsTableViewCell = tableView.configureCell(
+                for: indexPath,
+                cellIdentifier: "AcceptFriendsTableViewCell",
+                cellType: AcceptFriendsTableViewCell.self)
+            let user = acceptFriendRequests[indexPath.row]
+            cell.setData(user: user)
+            cell.acceptButtonTapped = { [weak self] in
+                self?.acceptFriendFromRequest(from: user)
+            }
+            return cell
+        } else if tableView.tag == FriendRequestType.cancelFriend.rawValue {
+            let cell: CancelFriendsTableViewCell = tableView.configureCell(
+                for: indexPath,
+                cellIdentifier: "CancelFriendsTableViewCell",
+                cellType: CancelFriendsTableViewCell.self)
+            let user = cancelFriendRequests[indexPath.row]
+            cell.setData(user: user)
+            cell.cancelButtonTapped = { [weak self] in
+                self?.cancelFriendRequest(to: user)
+            }
+            return cell
+        } else {
+            return UITableViewCell()
+        }
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)

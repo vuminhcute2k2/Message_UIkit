@@ -12,6 +12,8 @@ class CancelFriendsTableViewCell: UITableViewCell {
     @IBOutlet weak var avatarImage: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var cancelButton: UIButton!
+    var cancelButtonTapped: (() -> Void)?
+    var user: User?
     override func awakeFromNib() {
         super.awakeFromNib()
         avatarImage.makeCircular()
@@ -20,6 +22,7 @@ class CancelFriendsTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
     func setData(user: User) {
+        self.user = user
         nameLabel.text = user.fullName
         if !user.image.isEmpty, let imageURL = URL(string: user.image) {
             DispatchQueue.global().async {
@@ -35,5 +38,7 @@ class CancelFriendsTableViewCell: UITableViewCell {
             }
         }
     }
-    
+    @IBAction func handleCancelButtonTapped(_ sender: Any) {
+        cancelButtonTapped?()
+    }
 }
