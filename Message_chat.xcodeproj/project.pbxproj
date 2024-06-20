@@ -49,6 +49,8 @@
 		C386230F2BF474B70086FC63 /* Message_chatUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C386230E2BF474B70086FC63 /* Message_chatUITests.swift */; };
 		C38623112BF474B70086FC63 /* Message_chatUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38623102BF474B70086FC63 /* Message_chatUITestsLaunchTests.swift */; };
 		C386231E2BF49F520086FC63 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C386231D2BF49F520086FC63 /* LoginViewController.swift */; };
+		C39A97062C24190200854FB5 /* ConversationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39A97042C24190200854FB5 /* ConversationsViewController.swift */; };
+		C39A97072C24190200854FB5 /* ConversationsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C39A97052C24190200854FB5 /* ConversationsViewController.xib */; };
 		C3A6040B2C110BD9003BA0CA /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = C3A6040A2C110BD9003BA0CA /* FirebaseFirestore */; };
 		C3B0D5302C070192000A980B /* MessagesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B0D52E2C070192000A980B /* MessagesTableViewCell.swift */; };
 		C3B0D5312C070192000A980B /* MessagesTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3B0D52F2C070192000A980B /* MessagesTableViewCell.xib */; };
@@ -67,6 +69,8 @@
 		C3E943DF2C09DA0F0065664D /* RequestFriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E943DD2C09DA0F0065664D /* RequestFriendsViewController.swift */; };
 		C3E943E02C09DA0F0065664D /* RequestFriendsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3E943DE2C09DA0F0065664D /* RequestFriendsViewController.xib */; };
 		C3ED8D6B2C19BA9700F26DE0 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = C3ED8D6A2C19BA9700F26DE0 /* FirebaseStorage */; };
+		C3F565E02C2423E600821415 /* TextMessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F565DE2C2423E600821415 /* TextMessageTableViewCell.swift */; };
+		C3F565E12C2423E600821415 /* TextMessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3F565DF2C2423E600821415 /* TextMessageTableViewCell.xib */; };
 		C3F8C4D82C0EF08B00730097 /* MyFriendsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F8C4D62C0EF08B00730097 /* MyFriendsTableViewCell.swift */; };
 		C3F8C4D92C0EF08B00730097 /* MyFriendsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3F8C4D72C0EF08B00730097 /* MyFriendsTableViewCell.xib */; };
 		C3FF822C2C0D91BC005B2496 /* UITableExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3FF822B2C0D91BC005B2496 /* UITableExtensions.swift */; };
@@ -137,6 +141,8 @@
 		C386230E2BF474B70086FC63 /* Message_chatUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message_chatUITests.swift; sourceTree = "<group>"; };
 		C38623102BF474B70086FC63 /* Message_chatUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message_chatUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		C386231D2BF49F520086FC63 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		C39A97042C24190200854FB5 /* ConversationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationsViewController.swift; sourceTree = "<group>"; };
+		C39A97052C24190200854FB5 /* ConversationsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConversationsViewController.xib; sourceTree = "<group>"; };
 		C3B0D52E2C070192000A980B /* MessagesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesTableViewCell.swift; sourceTree = "<group>"; };
 		C3B0D52F2C070192000A980B /* MessagesTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MessagesTableViewCell.xib; sourceTree = "<group>"; };
 		C3B0D5322C07AEEE000A980B /* UIviewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIviewExtensions.swift; sourceTree = "<group>"; };
@@ -153,6 +159,8 @@
 		C3E943DA2C09D8920065664D /* AllFriendsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AllFriendsViewController.xib; sourceTree = "<group>"; };
 		C3E943DD2C09DA0F0065664D /* RequestFriendsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestFriendsViewController.swift; sourceTree = "<group>"; };
 		C3E943DE2C09DA0F0065664D /* RequestFriendsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RequestFriendsViewController.xib; sourceTree = "<group>"; };
+		C3F565DE2C2423E600821415 /* TextMessageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextMessageTableViewCell.swift; sourceTree = "<group>"; };
+		C3F565DF2C2423E600821415 /* TextMessageTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TextMessageTableViewCell.xib; sourceTree = "<group>"; };
 		C3F8C4D62C0EF08B00730097 /* MyFriendsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFriendsTableViewCell.swift; sourceTree = "<group>"; };
 		C3F8C4D72C0EF08B00730097 /* MyFriendsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MyFriendsTableViewCell.xib; sourceTree = "<group>"; };
 		C3FF822B2C0D91BC005B2496 /* UITableExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableExtensions.swift; sourceTree = "<group>"; };
@@ -211,6 +219,7 @@
 			children = (
 				C3034CBD2C0EBA430070BCCC /* LoginScreen */,
 				C3034CBC2C0EBA0B0070BCCC /* ProfileScreen */,
+				C39A97032C24181200854FB5 /* MessageScreen */,
 				C3034CB82C0EB9360070BCCC /* FriendsScreen */,
 				C3034CB62C0EB9000070BCCC /* HomeTabBar */,
 				C3034CB42C0EB8C80070BCCC /* RegisterScreen */,
@@ -398,6 +407,17 @@
 			path = Message_chatUITests;
 			sourceTree = "<group>";
 		};
+		C39A97032C24181200854FB5 /* MessageScreen */ = {
+			isa = PBXGroup;
+			children = (
+				C39A97042C24190200854FB5 /* ConversationsViewController.swift */,
+				C39A97052C24190200854FB5 /* ConversationsViewController.xib */,
+				C3F565DE2C2423E600821415 /* TextMessageTableViewCell.swift */,
+				C3F565DF2C2423E600821415 /* TextMessageTableViewCell.xib */,
+			);
+			path = MessageScreen;
+			sourceTree = "<group>";
+		};
 		C3D2A72C2C18414900F31A4E /* Constants */ = {
 			isa = PBXGroup;
 			children = (
@@ -571,6 +591,7 @@
 				C3F8C4D92C0EF08B00730097 /* MyFriendsTableViewCell.xib in Resources */,
 				C38622FA2BF474B60086FC63 /* LaunchScreen.storyboard in Resources */,
 				C3E943E02C09DA0F0065664D /* RequestFriendsViewController.xib in Resources */,
+				C39A97072C24190200854FB5 /* ConversationsViewController.xib in Resources */,
 				C37F47C52C02ECF5008EDD7F /* RegisterAccountViewController.xib in Resources */,
 				C384A88E2C184CCB00E730CD /* EditAccountViewController.xib in Resources */,
 				C33DF5872C053AD7007C654E /* FriendsViewController.xib in Resources */,
@@ -579,6 +600,7 @@
 				C38622F52BF474B60086FC63 /* Main.storyboard in Resources */,
 				C3E943D82C09D87A0065664D /* MyFriendsViewController.xib in Resources */,
 				C3B0D5312C070192000A980B /* MessagesTableViewCell.xib in Resources */,
+				C3F565E12C2423E600821415 /* TextMessageTableViewCell.xib in Resources */,
 				C3E943DC2C09D8920065664D /* AllFriendsViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -723,11 +745,13 @@
 				C33DF5822C053929007C654E /* HomeMessageViewController.swift in Sources */,
 				C3F8C4D82C0EF08B00730097 /* MyFriendsTableViewCell.swift in Sources */,
 				C33DF57C2C053291007C654E /* HomeTabBarController.swift in Sources */,
+				C39A97062C24190200854FB5 /* ConversationsViewController.swift in Sources */,
 				C38622F22BF474B60086FC63 /* ViewController.swift in Sources */,
 				C33DF58A2C053AEC007C654E /* ProfileViewController.swift in Sources */,
 				C3644F1F2C11A1C90062B7C5 /* FirebaseService.swift in Sources */,
 				C3B0D5352C07B0E9000A980B /* UILabelExtensions.swift in Sources */,
 				C3E943DF2C09DA0F0065664D /* RequestFriendsViewController.swift in Sources */,
+				C3F565E02C2423E600821415 /* TextMessageTableViewCell.swift in Sources */,
 				C3B0D5392C07B1A9000A980B /* HomeMessageExtensions.swift in Sources */,
 				C3FF822C2C0D91BC005B2496 /* UITableExtensions.swift in Sources */,
 				C368C61E2C10DCE700322B82 /* AllFriendsTableViewCell.swift in Sources */,

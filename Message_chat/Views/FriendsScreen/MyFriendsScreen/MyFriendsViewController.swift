@@ -120,6 +120,7 @@ extension MyFriendsViewController: UITableViewDelegate, UITableViewDataSource {
         tableView.deselectRow(at: indexPath, animated: true)
         let friend = friendSections[indexPath.section].friends[indexPath.row]
         print("Selected friend: \(friend.fullname)")
+        AppRouters.conversation(friend: friend).navigate(from: self)
     }
 }
 struct FriendSection {
