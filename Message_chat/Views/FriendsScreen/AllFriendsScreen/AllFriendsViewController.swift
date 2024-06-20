@@ -21,18 +21,6 @@ class AllFriendsViewController: UIViewController {
         setupTableView()
         loadAllUsers()
         fetchCurrentUserFriends()
-        //update UI button add friends when handling request events cancel
-        NotificationCenter.default.addObserver(
-            self,
-            selector:#selector(handleFriendRequestAccepted(_:)),
-            name: Notification.Name("FriendRequestAccepted"),
-            object: nil)
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(handleFriendRequestCanceled(_:)),
-            name: Notification.Name("FriendRequestCanceled"),
-            object: nil)
-
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -202,17 +190,6 @@ class AllFriendsViewController: UIViewController {
         if let indexPath = getIndexPath(for: user) {
             isFriendRequestSentList[indexPath.section][indexPath.row] = isSent
             allFriendsTableView.reloadRows(at: [indexPath], with: .none)
-        }
-        // If the request is accepted, also update MyFriendsViewController
-        if isSent {
-            NotificationCenter.default.post(name: Notification.Name("FriendRequestAccepted"),
-                                            object: nil,
-                                            userInfo: ["friend": user])
-        }
-        else {
-            NotificationCenter.default.post(name: Notification.Name("FriendRequestCanceled"),
-                                            object: nil,
-                                            userInfo: ["friend": user])
         }
     }
 
