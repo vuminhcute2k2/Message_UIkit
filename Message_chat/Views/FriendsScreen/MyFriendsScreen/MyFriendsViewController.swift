@@ -13,7 +13,7 @@ class MyFriendsViewController: UIViewController {
     @IBOutlet weak var friendsTableView: UITableView!
     var user: User?
     var myFriends: [Friend] = []
-    var sortedFriends = SortedFriends(friendsBySection: [:])
+    var friendSections: [FriendSection] = []
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTableView()
@@ -88,44 +88,43 @@ class MyFriendsViewController: UIViewController {
     }
    
     private func sortFriends() {
-        sortedFriends.friendsBySection = Dictionary(grouping: myFriends) { friend in
+        let groupedFriends = Dictionary(grouping: myFriends) { friend in
             return String(friend.fullname.prefix(1)).uppercased()
         }
+        friendSections = groupedFriends.map { FriendSection(firstLetter: $0.key,
+                                                            friends: $0.value) }
+        friendSections.sort { $0.firstLetter < $1.firstLetter }
     }
 }
 extension MyFriendsViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return sortedFriends.friendsBySection.keys.count
+        return friendSections.count
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let sectionKey = sortedFriends.friendsBySection.keys.sorted()[section]
-        return sortedFriends.friendsBySection[sectionKey]?.count ?? 0
+        return friendSections[section].friends.count
     }
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return sortedFriends.friendsBySection.keys.sorted()[section]
+        return friendSections[section].firstLetter
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(
-            withIdentifier:"MyFriendsTableViewCell",
+            withIdentifier: "MyFriendsTableViewCell",
             for: indexPath) as? MyFriendsTableViewCell else {
             return UITableViewCell()
         }
-        let sectionKey = sortedFriends.friendsBySection.keys.sorted()[indexPath.section]
-        if let friend = sortedFriends.friendsBySection[sectionKey]?[indexPath.row] {
-            cell.setData(friend: friend)
-        }
+        let friend = friendSections[indexPath.section].friends[indexPath.row]
+        cell.setData(friend: friend)
         return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let sectionKey = sortedFriends.friendsBySection.keys.sorted()[indexPath.section]
-        if let friend = sortedFriends.friendsBySection[sectionKey]?[indexPath.row] {
-            print("Selected friend: \(friend.fullname)")
-        }
+        let friend = friendSections[indexPath.section].friends[indexPath.row]
+        print("Selected friend: \(friend.fullname)")
     }
 }
-struct SortedFriends {
-    var friendsBySection: [String: [Friend]]
+struct FriendSection {
+    let firstLetter: String
+    var friends: [Friend]
 }
 
 
