@@ -30,8 +30,7 @@ class ConversationsViewController: UIViewController{
         super.viewDidLoad()
         setupTableView()
         setupUI()
-        
-        // Do any additional setup after loading the view.
+        displayFriendInformation()
     }
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -59,6 +58,14 @@ class ConversationsViewController: UIViewController{
         messageTable.register(nib, forCellReuseIdentifier: "TextMessageTableViewCell")
         messageTable.delegate = self
         messageTable.dataSource = self
+    }
+    private func displayFriendInformation(){
+        if let friend = friend {
+            fullNameLabel.text = friend.fullname
+            if let imageUrl = URL(string: friend.image) {
+                avatarImage.loadImage(from: imageUrl)
+            }
+        }
     }
     private func setupPopImageGesture() {
         let tapGesture = UITapGestureRecognizer(target: self,
