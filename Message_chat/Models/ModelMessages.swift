@@ -24,3 +24,8 @@ var message: [Message] = [
     Message(avatarImageName: "image_avatar", name: "Hoàng", message: "Xin chào gọi là Shicalo", time: "12:11"),
     Message(avatarImageName: "image_avatar", name: "DeCao", message: "Mặc thì chất đấm thì ngất", time: "13:11"),
 ]
+struct Messages {
+    let senderID: String
+    let messageContent: String
+    let timestamp: Date
+}

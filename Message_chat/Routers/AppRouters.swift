@@ -13,7 +13,7 @@ enum AppRouters {
     case login
     case account
     case profile
-    case conversation(friend: Friend)
+    case conversation(friend: Friend, chatId: String?)
     var viewController: UIViewController {
         switch self {
             case .homeTabBar:
@@ -26,8 +26,8 @@ enum AppRouters {
                 return createEditAccountController()
             case .profile:
                 return createProfileController()
-            case .conversation(let friend):
-                return createConversationController(friend: friend)
+            case .conversation(let friend , let chatID):
+                return createConversationController(friend: friend, chatID: chatID)
         }
     }
     private func createHomeTabBarController() -> UIViewController {
@@ -50,14 +50,11 @@ enum AppRouters {
         profileController.modalPresentationStyle = .fullScreen
         return profileController
     }
-//    private func createConversationController() -> UIViewController {
-//        let conversationController = ConversationsViewController(nibName: "ConversationsViewController", bundle: nil)
-//        conversationController.modalPresentationStyle = .fullScreen
-//        return conversationController
-//    }
-    private func createConversationController(friend: Friend) -> UIViewController {
-        let conversationController = ConversationsViewController(nibName: "ConversationsViewController", bundle: nil)
+    private func createConversationController(friend: Friend, chatID: String?) -> UIViewController {
+        let conversationController =
+        ConversationsViewController(nibName: "ConversationsViewController", bundle: nil)
         conversationController.friend = friend
+        conversationController.chatID = chatID
         conversationController.modalPresentationStyle = .fullScreen
         return conversationController
     }

@@ -15,7 +15,7 @@ class FirebaseService {
     let usersCollection = Firestore.firestore().collection("users")
     let friendRequestsCollection = Firestore.firestore().collection("requestFriends")
     let userFriendsCollection = Firestore.firestore().collection("userFriends")
-    private let db = Firestore.firestore()
+    let db = Firestore.firestore()
     private init() {}
     //register
     func registerUser(email: String,
@@ -472,6 +472,144 @@ class FirebaseService {
             }
         }
     }
+    func getChatID(forUserID userID: String,
+                   completion: @escaping (Result<String, Error>) -> Void) {
+        guard let currentUserID = Auth.auth().currentUser?.uid else {
+            completion(.failure(FirebaseError.userNotAuthenticated))
+            return
+        }
+        print("Fetching chat ID for user: \(userID)")
+        let chatRef = db.collection("chats")
+            .whereField("participants", arrayContains: currentUserID)
+        chatRef.getDocuments { querySnapshot, error in
+            if let error = error {
+                print("Error getting documents: \(error.localizedDescription)")
+                completion(.failure(error))
+                return
+            }
+            guard let documents = querySnapshot?.documents else {
+                print("No documents found")
+                completion(.failure(FirebaseError.documentNotFound))
+                return
+            }
+            for document in documents {
+                let data = document.data()
+                if let participants = data["participants"] as? [String], participants.contains(userID) {
+                    print("Found chat ID: \(document.documentID)")
+                    completion(.success(document.documentID))
+                    return
+                }
+            }
+
+            print("Chat ID not found")
+            completion(.failure(FirebaseError.documentNotFound))
+        }
+    }
+    func sendMessage(chatID: String,
+                     senderID: String,
+                     receiverID: String,
+                     messageContent: String,
+                     completion: @escaping (Result<Void, Error>) -> Void) {
+        let timestamp = Timestamp(date: Date())
+        // Update or create chat document in the chats collection
+        let chatRef = db.collection("chats").document(chatID)
+        chatRef.setData([
+            "last_msg": messageContent,
+            "toId": receiverID,
+            "fromId": senderID,
+            "created_on": timestamp,
+        ], merge: true) { error in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            // Add message to the messages subcollection
+            let messageData: [String: Any] = [
+                "senderID": senderID,
+                "messageContent": messageContent,
+                "timestamp": timestamp
+            ]
+            chatRef.collection("messages").addDocument(data: messageData) { error in
+                if let error = error {
+                    completion(.failure(error))
+                } else {
+                    completion(.success(()))
+                }
+            }
+        }
+    }
+    func createNewChat(with friend: Friend,
+                       completion: @escaping (Result<String, Error>) -> Void) {
+        guard let currentUser = Auth.auth().currentUser else {
+            print("Error: User is not logged in")
+            return
+        }
+        let currentUserID = currentUser.uid
+        let userDocRef = db.collection("users").document(currentUserID)
+        userDocRef.getDocument { document, error in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            guard let document = document,
+                  document.exists,
+                  let userData = document.data() else {
+                let error = NSError(domain: "FirebaseService",
+                                    code: -1,
+                                    userInfo: [NSLocalizedDescriptionKey: "User data does not exist"])
+                completion(.failure(error))
+                return
+            }
+            let senderName = userData["fullName"] as? String ?? "Unknown Sender"
+            let senderImage = userData["image"] as? String ?? ""
+            let chatData: [String: Any] = [
+                "participants": [currentUserID, friend.uid],
+                "senderImage": senderImage,
+                "receiverImage": friend.image,
+                "senderName": senderName,
+                "receiverName": friend.fullname
+            ]
+            let newChatRef = self.db.collection("chats").document()
+            newChatRef.setData(chatData) { error in
+                if let error = error {
+                    completion(.failure(error))
+                } else {
+                    completion(.success(newChatRef.documentID))
+                }
+            }
+        }
+    }
+    func fetchMessages(chatID: String,
+                       completion: @escaping (Result<[Messages], Error>) -> Void) {
+        db.collection("chats")
+        .document(chatID)
+        .collection("messages")
+        .order(by: "timestamp", descending: false)
+        .getDocuments { snapshot, error in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            
+            guard let documents = snapshot?.documents else {
+                completion(.failure(NSError(domain: "FirebaseService", code: -1, userInfo: [NSLocalizedDescriptionKey: "No messages found"])))
+                return
+            }
+            
+            let messages = documents.compactMap { document -> Messages? in
+                let data = document.data()
+                guard let senderID = data["senderID"] as? String,
+                      let messageContent = data["messageContent"] as? String,
+                      let timestamp = data["timestamp"] as? Timestamp else {
+                    return nil
+                }
+                return Messages(senderID: senderID,
+                                messageContent: messageContent,
+                                timestamp: timestamp.dateValue())
+            }
+            completion(.success(messages))
+        }
+    }
     // Save or Update user
     func saveUserToFirestore(_ user: User, completion: @escaping (Result<Void, Error>) -> Void)
     {
@@ -570,5 +708,11 @@ class FirebaseService {
             print("User is not authenticated")
             completion(nil)
         }
+    }
+    //custom error types for Firebase errors
+    enum FirebaseError: Error {
+        case userNotAuthenticated
+        case documentNotFound
+        case unknownError
     }
 }

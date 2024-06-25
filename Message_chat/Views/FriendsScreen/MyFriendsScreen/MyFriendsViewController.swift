@@ -120,7 +120,31 @@ extension MyFriendsViewController: UITableViewDelegate, UITableViewDataSource {
         tableView.deselectRow(at: indexPath, animated: true)
         let friend = friendSections[indexPath.section].friends[indexPath.row]
         print("Selected friend: \(friend.fullname)")
-        AppRouters.conversation(friend: friend).navigate(from: self)
+        // Check if chatID already exists
+        FirebaseService.shared.getChatID(forUserID: friend.uid) { result in
+            switch result {
+            case .success(let chatID):
+                print("Navigating to conversation with chat ID: \(chatID)")
+                AppRouters.conversation(friend: friend, chatId: chatID).navigate(from: self)
+            case .failure(let error):
+                print("Error getting chatID: \(error.localizedDescription)")
+                if error as? FirebaseService.FirebaseError == .documentNotFound {
+                    print("Creating new chat for friend: \(friend.fullname)")
+                    self.createNewChat(for: friend)
+                }
+            }
+        }
+    }
+    private func createNewChat(for friend: Friend) {
+        FirebaseService.shared.createNewChat(with: friend) { result in
+            switch result {
+            case .success(let chatID):
+                print("Navigating to conversation with new chat ID: \(chatID)")
+                AppRouters.conversation(friend: friend, chatId: chatID).navigate(from: self)
+            case .failure(let error):
+                print("Error creating new chat: \(error.localizedDescription)")
+            }
+        }
     }
 }
 struct FriendSection {

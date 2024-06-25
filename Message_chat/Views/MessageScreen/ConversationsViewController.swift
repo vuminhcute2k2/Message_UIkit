@@ -6,7 +6,8 @@
 //
 
 import UIKit
-
+import FirebaseAuth
+import FirebaseFirestore
 class ConversationsViewController: UIViewController{
     
     @IBOutlet weak var messageTable: UITableView!
@@ -26,11 +27,19 @@ class ConversationsViewController: UIViewController{
     
     @IBOutlet weak var sendImage: UIImageView!
     var friend: Friend?
+    var messages: [Messages] = []
+    var chatID: String?
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTableView()
         setupUI()
         displayFriendInformation()
+        messageTable.separatorStyle = .none
+        // Ensure chatID is set before fetching messages
+        guard let chatID = chatID else {
+            fatalError("chatID must be set before fetching messages")
+        }
+        fetchMessages(chatID: chatID)
     }
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -46,6 +55,7 @@ class ConversationsViewController: UIViewController{
     private func setupUI() {
         makeCircularViews()
         setupPopImageGesture()
+        setupSendImageGesture()
     }
     private func makeCircularViews() {
         avatarImage.layer.cornerRadius = avatarImage.frame.width / 2
@@ -58,6 +68,9 @@ class ConversationsViewController: UIViewController{
         messageTable.register(nib, forCellReuseIdentifier: "TextMessageTableViewCell")
         messageTable.delegate = self
         messageTable.dataSource = self
+        // UITableViewAutomaticDimension
+        messageTable.estimatedRowHeight = 44.0
+        messageTable.rowHeight = UITableView.automaticDimension
     }
     private func displayFriendInformation(){
         if let friend = friend {
@@ -76,17 +89,78 @@ class ConversationsViewController: UIViewController{
     @objc private func handlePopImageTap() {
         AppRouters.homeTabBar.navigate(from: self)
     }
-   
+    private func setupSendImageGesture() {
+        let tapGesture = UITapGestureRecognizer(target: self,
+                                                action: #selector(handleSendImageTap))
+        sendImage.addGestureRecognizer(tapGesture)
+        sendImage.isUserInteractionEnabled = true
+    }
+    @objc private func handleSendImageTap() {
+        guard let text = messageTextField.text, !text.isEmpty else {
+            return
+        }
+        guard let currentUserID = Auth.auth().currentUser?.uid else {
+            return
+        }
+        guard let friendID = friend?.uid else {
+            return
+        }
+        // Prepare message data
+        let messageData: [String: Any] = [
+            "senderID": currentUserID,
+            "receiverID": friendID,
+            "messageContent": text,
+            "timestamp": Timestamp(date: Date())
+        ]
+
+        // Use FirebaseService to send message
+        FirebaseService.shared.sendMessage(chatID: chatID ?? "",
+                                           senderID: currentUserID,
+                                           receiverID: friendID,
+                                           messageContent: text) { [self] result in
+            switch result {
+                case .success:
+                    self.messageTextField.text = ""
+                    self.fetchMessages(chatID: chatID ?? "")
+                case .failure(let error):
+                    print("Failed to send message: \(error.localizedDescription)")
+            }
+        }
+        
+    }
+    private func fetchMessages(chatID: String) {
+        FirebaseService.shared.fetchMessages(chatID: chatID) { result in
+            switch result {
+            case .success(let messages):
+                print("Fetched messages: \(messages)")
+                self.messages = messages
+                DispatchQueue.main.async {
+                    self.messageTable.reloadData()
+                    self.scrollToBottom()
+                }
+            case .failure(let error):
+                print("Failed to fetch messages: \(error.localizedDescription)")
+            }
+        }
+    }
+    private func scrollToBottom() {
+        guard !messages.isEmpty else { return }
+        let indexPath = IndexPath(row: messages.count - 1, section: 0)
+        messageTable.scrollToRow(at: indexPath, at: .bottom, animated: true)
+    }
 }
 extension ConversationsViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
+        return messages.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "TextMessageTableViewCell", for: indexPath) as? TextMessageTableViewCell else {
             return UITableViewCell()
         }
+        let message = messages[indexPath.row]
+        cell.messageLabel.text = message.messageContent
         return cell
     }
+    
     
 }
