@@ -71,6 +71,7 @@ class ConversationsViewController: UIViewController{
         // UITableViewAutomaticDimension
         messageTable.estimatedRowHeight = 44.0
         messageTable.rowHeight = UITableView.automaticDimension
+        messageTable.separatorStyle = .none
     }
     private func displayFriendInformation(){
         if let friend = friend {
@@ -158,7 +159,8 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
             return UITableViewCell()
         }
         let message = messages[indexPath.row]
-        cell.messageLabel.text = message.messageContent
+        //cell.messageLabel.text = message.messageContent
+        cell.configure(with: message, currentUserID: Auth.auth().currentUser?.uid)
         return cell
     }
     
