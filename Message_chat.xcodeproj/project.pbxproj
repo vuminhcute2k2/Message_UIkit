@@ -51,6 +51,8 @@
 		C386231E2BF49F520086FC63 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C386231D2BF49F520086FC63 /* LoginViewController.swift */; };
 		C39A97062C24190200854FB5 /* ConversationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39A97042C24190200854FB5 /* ConversationsViewController.swift */; };
 		C39A97072C24190200854FB5 /* ConversationsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C39A97052C24190200854FB5 /* ConversationsViewController.xib */; };
+		C3A52AB42C2C9AD1003924FA /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = C3A52AB32C2C9AD1003924FA /* FirebaseDatabase */; };
+		C3A52AB62C2C9AD1003924FA /* FirebaseDatabaseSwift in Frameworks */ = {isa = PBXBuildFile; productRef = C3A52AB52C2C9AD1003924FA /* FirebaseDatabaseSwift */; };
 		C3A6040B2C110BD9003BA0CA /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = C3A6040A2C110BD9003BA0CA /* FirebaseFirestore */; };
 		C3A619A42C2BFDD100337A2A /* SentMessagesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A619A22C2BFDD100337A2A /* SentMessagesTableViewCell.swift */; };
 		C3A619A52C2BFDD100337A2A /* SentMessagesTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3A619A32C2BFDD100337A2A /* SentMessagesTableViewCell.xib */; };
@@ -181,9 +183,11 @@
 				C368C62A2C10E95B00322B82 /* FirebaseAnalyticsSwift in Frameworks */,
 				C368C6282C10E95B00322B82 /* FirebaseAnalytics in Frameworks */,
 				2C8FEADA568DEFDF15EF12BC /* Pods_Message_chat.framework in Frameworks */,
+				C3A52AB62C2C9AD1003924FA /* FirebaseDatabaseSwift in Frameworks */,
 				C3A619AB2C2C0F6B00337A2A /* FirebaseFirestoreSwift in Frameworks */,
 				C3A6040B2C110BD9003BA0CA /* FirebaseFirestore in Frameworks */,
 				C368C62C2C10E95B00322B82 /* FirebaseAuth in Frameworks */,
+				C3A52AB42C2C9AD1003924FA /* FirebaseDatabase in Frameworks */,
 				C3ED8D6B2C19BA9700F26DE0 /* FirebaseStorage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -496,6 +500,8 @@
 				C3A6040A2C110BD9003BA0CA /* FirebaseFirestore */,
 				C3ED8D6A2C19BA9700F26DE0 /* FirebaseStorage */,
 				C3A619AA2C2C0F6B00337A2A /* FirebaseFirestoreSwift */,
+				C3A52AB32C2C9AD1003924FA /* FirebaseDatabase */,
+				C3A52AB52C2C9AD1003924FA /* FirebaseDatabaseSwift */,
 			);
 			productName = Message_chat;
 			productReference = C38622EA2BF474B60086FC63 /* Message_chat.app */;
@@ -1125,8 +1131,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 9.0.0;
+				kind = exactVersion;
+				version = 10.0.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -1146,6 +1152,14 @@
 			isa = XCSwiftPackageProductDependency;
 			package = C368C6262C10E95B00322B82 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseAuth;
+		};
+		C3A52AB32C2C9AD1003924FA /* FirebaseDatabase */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = FirebaseDatabase;
+		};
+		C3A52AB52C2C9AD1003924FA /* FirebaseDatabaseSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = FirebaseDatabaseSwift;
 		};
 		C3A6040A2C110BD9003BA0CA /* FirebaseFirestore */ = {
 			isa = XCSwiftPackageProductDependency;
