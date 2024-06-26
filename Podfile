@@ -4,7 +4,6 @@
 target 'Message_chat' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
-	pod "SwiftSVG"
 	pod 'LZViewPager'
 
   # Pods for Message_chat
