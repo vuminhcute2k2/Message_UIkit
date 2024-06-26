@@ -19,9 +19,20 @@ class ReceivedMessagesTableViewCell: UITableViewCell {
         setupConstraints()
     }
     override func layoutSubviews() {
-        borderMessage.updateBorderView(corners: [.topRight, .topLeft, .bottomLeft, .bottomRight], radius: 25, borderColor: .clear, borderWidth: 1)
-       // setupConstraints()
+        setupBorder()
+        setupConstraints()
     }
+    private func setupBorder() {
+        borderMessage.layer.cornerRadius = 20
+        borderMessage.layer.borderWidth = 1
+        borderMessage.layer.borderColor = UIColor.clear.cgColor
+        borderMessage.layer.masksToBounds = true
+    }
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        messageLabel.text = nil
+    }
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
@@ -29,10 +40,9 @@ class ReceivedMessagesTableViewCell: UITableViewCell {
     }
     func configure(with message: Messages) {
         messageLabel.text = message.messageContent
+        self.layoutIfNeeded()
     }
     private func setupConstraints() {
-        messageLabel.translatesAutoresizingMaskIntoConstraints = false
-        borderMessage.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             messageLabel.widthAnchor.constraint(lessThanOrEqualTo: contentView.widthAnchor, multiplier: 0.6)
         ])

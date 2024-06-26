@@ -16,15 +16,18 @@ class SentMessagesTableViewCell: UITableViewCell {
         super.awakeFromNib()
         messageLabel.numberOfLines = 0
         messageLabel.lineBreakMode = .byWordWrapping
-        borderMessage.updateBorderView(corners: [.topRight, .topLeft, .bottomLeft, .bottomRight], radius: 25, borderColor: .clear, borderWidth: 1)
         setupConstraints()
     }
     override func layoutSubviews() {
         super.layoutSubviews()
-//        self.layoutIfNeeded()
-//        setupConstraints()
+       setupBorder()
     }
-    
+    private func setupBorder() {
+        borderMessage.layer.cornerRadius = 20
+        borderMessage.layer.borderWidth = 1
+        borderMessage.layer.borderColor = UIColor.clear.cgColor
+        borderMessage.layer.masksToBounds = true
+    }
     override func prepareForReuse() {
         super.prepareForReuse()
         messageLabel.text = nil
@@ -36,12 +39,8 @@ class SentMessagesTableViewCell: UITableViewCell {
     }
     func configure(with message: Messages) {
         messageLabel.text = message.messageContent
-        self.layoutIfNeeded()
     }
-    private func setupConstraints() {
-//        messageLabel.translatesAutoresizingMaskIntoConstraints = false
-//        borderMessage.translatesAutoresizingMaskIntoConstraints = false
-        
+    private func setupConstraints() {        
         NSLayoutConstraint.activate([
             messageLabel.widthAnchor.constraint(lessThanOrEqualTo: contentView.widthAnchor, multiplier: 0.6)
         ])

@@ -137,7 +137,6 @@ class ConversationsViewController: UIViewController{
             switch result {
             case .success(let messages):
                 print("Fetched messages: \(messages)")
-//                self.messages = messages
                 DispatchQueue.main.async {
                     self.messages = messages
                     self.messageTable.reloadData()
@@ -165,14 +164,12 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
         let message = messages[indexPath.row]
         let currentUserID = Auth.auth().currentUser?.uid
         if message.senderID == currentUserID {
-            // Tin nhắn gửi đi
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "SentMessageCell", for: indexPath) as? SentMessagesTableViewCell else {
                 return UITableViewCell()
             }
             cell.configure(with: message)
             return cell
         } else {
-            // Tin nhắn nhận được
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "ReceivedMessageCell", for: indexPath) as? ReceivedMessagesTableViewCell else {
                 return UITableViewCell()
             }
