@@ -610,6 +610,20 @@ class FirebaseService {
             completion(.success(messages))
         }
     }
+    func addMessagesListener(chatID: String, completion: @escaping (Result<[Messages], Error>) -> Void) -> ListenerRegistration {
+        let db = Firestore.firestore()
+        let listener = db.collection("chats").document(chatID).collection("messages").order(by: "timestamp").addSnapshotListener { snapshot, error in
+            if let error = error {
+                completion(.failure(error))
+            } else if let snapshot = snapshot {
+                let messages = snapshot.documents.compactMap { document -> Messages? in
+                    try? document.data(as: Messages.self)
+                }
+                completion(.success(messages))
+            }
+        }
+        return listener
+    }
     // Save or Update user
     func saveUserToFirestore(_ user: User, completion: @escaping (Result<Void, Error>) -> Void)
     {

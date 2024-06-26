@@ -29,6 +29,7 @@ class ConversationsViewController: UIViewController{
     var friend: Friend?
     var messages: [Messages] = []
     var chatID: String?
+    var messagesListener: ListenerRegistration?
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTableView()
@@ -64,8 +65,8 @@ class ConversationsViewController: UIViewController{
         borderPhotoView.layer.masksToBounds = true
     }
     private func setupTableView() {
-        let nib = UINib(nibName: "TextMessageTableViewCell", bundle: nil)
-        messageTable.register(nib, forCellReuseIdentifier: "TextMessageTableViewCell")
+        messageTable.register(UINib(nibName: "SentMessagesTableViewCell", bundle: nil), forCellReuseIdentifier: "SentMessageCell")
+        messageTable.register(UINib(nibName: "ReceivedMessagesTableViewCell", bundle: nil), forCellReuseIdentifier: "ReceivedMessageCell")
         messageTable.delegate = self
         messageTable.dataSource = self
         // UITableViewAutomaticDimension
@@ -130,12 +131,15 @@ class ConversationsViewController: UIViewController{
         
     }
     private func fetchMessages(chatID: String) {
-        FirebaseService.shared.fetchMessages(chatID: chatID) { result in
+        messagesListener = FirebaseService.shared.addMessagesListener(chatID: chatID) {
+            [weak self] result in
+            guard let self = self else { return }
             switch result {
             case .success(let messages):
                 print("Fetched messages: \(messages)")
-                self.messages = messages
+//                self.messages = messages
                 DispatchQueue.main.async {
+                    self.messages = messages
                     self.messageTable.reloadData()
                     self.scrollToBottom()
                 }
@@ -149,19 +153,32 @@ class ConversationsViewController: UIViewController{
         let indexPath = IndexPath(row: messages.count - 1, section: 0)
         messageTable.scrollToRow(at: indexPath, at: .bottom, animated: true)
     }
+    deinit {
+        messagesListener?.remove()
+    }
 }
 extension ConversationsViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return messages.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "TextMessageTableViewCell", for: indexPath) as? TextMessageTableViewCell else {
-            return UITableViewCell()
-        }
         let message = messages[indexPath.row]
-        //cell.messageLabel.text = message.messageContent
-        cell.configure(with: message, currentUserID: Auth.auth().currentUser?.uid)
-        return cell
+        let currentUserID = Auth.auth().currentUser?.uid
+        if message.senderID == currentUserID {
+            // Tin nhắn gửi đi
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "SentMessageCell", for: indexPath) as? SentMessagesTableViewCell else {
+                return UITableViewCell()
+            }
+            cell.configure(with: message)
+            return cell
+        } else {
+            // Tin nhắn nhận được
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "ReceivedMessageCell", for: indexPath) as? ReceivedMessagesTableViewCell else {
+                return UITableViewCell()
+            }
+            cell.configure(with: message)
+            return cell
+        }
     }
     
     
