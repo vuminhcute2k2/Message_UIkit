@@ -10,17 +10,17 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="87" id="KGk-i7-Jjw" customClass="TextMessageTableViewCell" customModule="Message_chat" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="355" height="87"/>
+            <rect key="frame" x="0.0" y="0.0" width="325" height="87"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="355" height="87"/>
+                <rect key="frame" x="0.0" y="0.0" width="325" height="87"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Eep-be-fAf">
-                        <rect key="frame" x="0.0" y="0.0" width="355" height="87"/>
+                        <rect key="frame" x="10" y="0.0" width="81.333333333333329" height="87"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iSe-lx-D0e">
-                                <rect key="frame" x="20" y="10" width="325" height="67"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iSe-lx-D0e">
+                                <rect key="frame" x="20" y="10" width="290" height="67"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -28,19 +28,18 @@
                         </subviews>
                         <color key="backgroundColor" red="0.4196078479" green="0.79215681550000006" blue="0.80000001190000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
-                            <constraint firstAttribute="bottom" secondItem="iSe-lx-D0e" secondAttribute="bottom" constant="10" id="PuG-3G-pf5"/>
-                            <constraint firstItem="iSe-lx-D0e" firstAttribute="leading" secondItem="Eep-be-fAf" secondAttribute="leading" constant="20" id="Xqa-aw-iHS"/>
-                            <constraint firstAttribute="trailing" secondItem="iSe-lx-D0e" secondAttribute="trailing" constant="10" id="dab-14-KQa"/>
-                            <constraint firstItem="iSe-lx-D0e" firstAttribute="top" secondItem="Eep-be-fAf" secondAttribute="top" constant="9.9999999999999982" id="dxF-g7-x95"/>
+                            <constraint firstAttribute="bottom" secondItem="iSe-lx-D0e" secondAttribute="bottom" constant="10" id="TG2-O1-9xq"/>
+                            <constraint firstAttribute="trailing" secondItem="iSe-lx-D0e" secondAttribute="trailing" constant="19.999999999999986" id="fId-84-g6J"/>
+                            <constraint firstItem="iSe-lx-D0e" firstAttribute="top" secondItem="Eep-be-fAf" secondAttribute="top" constant="10" id="jEV-eJ-1k1"/>
+                            <constraint firstItem="iSe-lx-D0e" firstAttribute="leading" secondItem="Eep-be-fAf" secondAttribute="leading" constant="20" id="vTd-ZA-Ihx"/>
                         </constraints>
                     </view>
                 </subviews>
                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
-                    <constraint firstItem="Eep-be-fAf" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="2Ci-RS-dYv"/>
-                    <constraint firstItem="Eep-be-fAf" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="HhO-rz-XF8"/>
-                    <constraint firstAttribute="bottom" secondItem="Eep-be-fAf" secondAttribute="bottom" id="ZvC-jB-tVt"/>
-                    <constraint firstAttribute="trailing" secondItem="Eep-be-fAf" secondAttribute="trailing" id="xEi-WV-NVk"/>
+                    <constraint firstItem="Eep-be-fAf" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" placeholder="YES" id="Mpz-Wv-ZWP"/>
+                    <constraint firstItem="Eep-be-fAf" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="RHr-Zx-ncx"/>
+                    <constraint firstAttribute="bottom" secondItem="Eep-be-fAf" secondAttribute="bottom" id="jj0-AS-Vcn"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
