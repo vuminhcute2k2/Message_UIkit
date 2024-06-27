@@ -8,6 +8,7 @@
 import UIKit
 import FirebaseAuth
 import FirebaseFirestore
+import FirebaseStorage
 class ConversationsViewController: UIViewController{
     
     @IBOutlet weak var messageTable: UITableView!
@@ -30,6 +31,7 @@ class ConversationsViewController: UIViewController{
     var messages: [Messages] = []
     var chatID: String?
     var messagesListener: ListenerRegistration?
+    var selectedImage: UIImage?
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTableView()
@@ -37,6 +39,7 @@ class ConversationsViewController: UIViewController{
         displayFriendInformation()
         messageTable.separatorStyle = .none
         // Ensure chatID is set before fetching messages
+        setupBorderPhotoViewGesture()
         guard let chatID = chatID else {
             fatalError("chatID must be set before fetching messages")
         }
@@ -66,7 +69,9 @@ class ConversationsViewController: UIViewController{
     }
     private func setupTableView() {
         messageTable.register(UINib(nibName: "SentMessagesTableViewCell", bundle: nil), forCellReuseIdentifier: "SentMessageCell")
+        messageTable.register(UINib(nibName: "SentImageMessageTableViewCell", bundle: nil), forCellReuseIdentifier: "SentImageMessageCell")
         messageTable.register(UINib(nibName: "ReceivedMessagesTableViewCell", bundle: nil), forCellReuseIdentifier: "ReceivedMessageCell")
+        messageTable.register(UINib(nibName: "ReceivedIsmagesTableViewCell", bundle: nil), forCellReuseIdentifier: "ReceivedImagesCell")
         messageTable.delegate = self
         messageTable.dataSource = self
         // UITableViewAutomaticDimension
@@ -93,42 +98,142 @@ class ConversationsViewController: UIViewController{
     }
     private func setupSendImageGesture() {
         let tapGesture = UITapGestureRecognizer(target: self,
-                                                action: #selector(handleSendImageTap))
+                                                action: #selector(handleSendTap))
         sendImage.addGestureRecognizer(tapGesture)
         sendImage.isUserInteractionEnabled = true
     }
-    @objc private func handleSendImageTap() {
-        guard let text = messageTextField.text, !text.isEmpty else {
-            return
-        }
+    private func setupBorderPhotoViewGesture() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleBorderPhotoViewTap))
+        borderPhotoView.addGestureRecognizer(tapGesture)
+        borderPhotoView.isUserInteractionEnabled = true
+    }
+
+    @objc private func handleBorderPhotoViewTap() {
+        presentImagePicker()
+    }
+
+    private func presentImagePicker() {
+        let imagePickerController = UIImagePickerController()
+        imagePickerController.delegate = self
+        imagePickerController.sourceType = .photoLibrary
+        present(imagePickerController, animated: true, completion: nil)
+    }
+    @objc private func handleSendTap() {
         guard let currentUserID = Auth.auth().currentUser?.uid else {
             return
         }
         guard let friendID = friend?.uid else {
             return
         }
-        // Prepare message data
+        let text = messageTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+        let hasText = !text.isEmpty
+        let hasImage = selectedImage != nil
+        
+        if hasImage {
+            sendImageMessage(selectedImage!, withText: hasText ? text : nil)
+        } else if hasText {
+            sendTextMessage(text)
+        }
+    }
+    private func sendTextMessage(_ text: String) {
+        guard let currentUserID = Auth.auth().currentUser?.uid else {
+            return
+        }
+        guard let friendID = friend?.uid else {
+            return
+        }
         let messageData: [String: Any] = [
             "senderID": currentUserID,
             "receiverID": friendID,
             "messageContent": text,
             "timestamp": Timestamp(date: Date())
         ]
-
-        // Use FirebaseService to send message
-        FirebaseService.shared.sendMessage(chatID: chatID ?? "",
+        
+        FirebaseService.shared.sendMessage(chatID: self.chatID ?? "",
                                            senderID: currentUserID,
                                            receiverID: friendID,
-                                           messageContent: text) { [self] result in
+                                           imageURL: "", messageContent: text) { result in
             switch result {
-                case .success:
+            case .success:
+                DispatchQueue.main.async {
                     self.messageTextField.text = ""
-                    self.fetchMessages(chatID: chatID ?? "")
-                case .failure(let error):
-                    print("Failed to send message: \(error.localizedDescription)")
+                    self.fetchMessages(chatID: self.chatID ?? "")
+                }
+            case .failure(let error):
+                print("Failed to send message: \(error.localizedDescription)")
             }
         }
-        
+    }
+    private func sendImageMessage(_ image: UIImage, withText text: String?) {
+        guard let currentUserID = Auth.auth().currentUser?.uid else {
+            return
+        }
+        guard let friendID = friend?.uid else {
+            return
+        }
+        uploadImageToStorage(image) { [weak self] result in
+            switch result {
+            case .success(let imageURL):
+                var messageData: [String: Any] = [
+                    "senderID": currentUserID,
+                    "receiverID": friendID,
+                    "imageURL": imageURL,
+                    "timestamp": Timestamp(date: Date())
+                ]
+                if let text = text {
+                    messageData["messageContent"] = text
+                }
+                
+                FirebaseService.shared.sendMessage(chatID: self?.chatID ?? "",
+                                                   senderID: currentUserID,
+                                                   receiverID: friendID,
+                                                   imageURL: imageURL,
+                                                   messageContent: text ?? "") { result in
+                    switch result {
+                    case .success:
+                        DispatchQueue.main.async {
+                            self?.messageTextField.text = ""
+                            self?.selectedImage = nil
+                            self?.sendImage.image = UIImage(named: "icon_send")
+                            self?.fetchMessages(chatID: self?.chatID ?? "")
+                        }
+                    case .failure(let error):
+                        print("Failed to send message: \(error.localizedDescription)")
+                    }
+                }
+                
+            case .failure(let error):
+                print("Failed to upload image: \(error.localizedDescription)")
+            }
+        }
+    }
+    private func uploadImageToStorage(_ image: UIImage, 
+                                      completion: @escaping (Result<String, Error>) -> Void) {
+        guard let imageData = image.jpegData(compressionQuality: 0.8) else {
+            completion(.failure(NSError(domain: "ImageConversion", code: 0, userInfo: [NSLocalizedDescriptionKey: "Failed to convert image to data"])))
+            return
+        }
+        let storageRef = Storage.storage().reference().child("images/\(UUID().uuidString).jpg")
+        storageRef.putData(imageData, metadata: nil) { metadata, error in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            
+            storageRef.downloadURL { url, error in
+                if let error = error {
+                    completion(.failure(error))
+                    return
+                }
+                
+                guard let downloadURL = url else {
+                    completion(.failure(NSError(domain: "URLFetch", code: 0, userInfo: [NSLocalizedDescriptionKey: "Failed to get download URL"])))
+                    return
+                }
+                
+                completion(.success(downloadURL.absoluteString))
+            }
+        }
     }
     private func fetchMessages(chatID: String) {
         messagesListener = FirebaseService.shared.addMessagesListener(chatID: chatID) {
@@ -156,7 +261,10 @@ class ConversationsViewController: UIViewController{
         messagesListener?.remove()
     }
 }
-extension ConversationsViewController: UITableViewDelegate, UITableViewDataSource{
+extension ConversationsViewController: UITableViewDelegate,
+                                       UITableViewDataSource,
+                                       UIImagePickerControllerDelegate,
+                                       UINavigationControllerDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return messages.count
     }
@@ -164,19 +272,46 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
         let message = messages[indexPath.row]
         let currentUserID = Auth.auth().currentUser?.uid
         if message.senderID == currentUserID {
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "SentMessageCell", for: indexPath) as? SentMessagesTableViewCell else {
-                return UITableViewCell()
+            if let imageUrl = message.imageURL, !imageUrl.isEmpty {
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: "SentImageMessageCell", for: indexPath) as? SentImageMessageTableViewCell else {
+                    return UITableViewCell()
+                }
+                cell.configure(with: message)
+                return cell
+            } else {
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: "SentMessageCell", for: indexPath) as? SentMessagesTableViewCell else {
+                    return UITableViewCell()
+                }
+                cell.configure(with: message)
+                return cell
             }
-            cell.configure(with: message)
-            return cell
         } else {
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "ReceivedMessageCell", for: indexPath) as? ReceivedMessagesTableViewCell else {
-                return UITableViewCell()
+            if let imageUrl = message.imageURL, !imageUrl.isEmpty {
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: "ReceivedImagesCell", for: indexPath) as? ReceivedIsmagesTableViewCell else {
+                    return UITableViewCell()
+                }
+                cell.configure(with: message)
+                return cell
+            } else {
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: "ReceivedMessageCell", for: indexPath) as? ReceivedMessagesTableViewCell else {
+                    return UITableViewCell()
+                }
+                cell.configure(with: message)
+                return cell
             }
-            cell.configure(with: message)
-            return cell
         }
     }
-    
-    
+
+    func imagePickerController(_ picker: UIImagePickerController, 
+                               didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        // Dismiss the picker view controller
+        picker.dismiss(animated: true, completion: nil)
+        if let selectedImage = info[.originalImage] as? UIImage {
+            sendImage.image = selectedImage
+            self.selectedImage = selectedImage
+        }
+    }
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
+    }
 }

@@ -27,5 +27,8 @@ var message: [Message] = [
 struct Messages: Codable {
     let senderID: String
     let messageContent: String
+    let imageURL: String?
     let timestamp: Date
+    
+   
 }

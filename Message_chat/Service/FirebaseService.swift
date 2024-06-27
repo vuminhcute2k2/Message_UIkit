@@ -508,6 +508,7 @@ class FirebaseService {
     func sendMessage(chatID: String,
                      senderID: String,
                      receiverID: String,
+                     imageURL: String,
                      messageContent: String,
                      completion: @escaping (Result<Void, Error>) -> Void) {
         let timestamp = Timestamp(date: Date())
@@ -527,6 +528,7 @@ class FirebaseService {
             let messageData: [String: Any] = [
                 "senderID": senderID,
                 "messageContent": messageContent,
+                "imageURL": imageURL, 
                 "timestamp": timestamp
             ]
             chatRef.collection("messages").addDocument(data: messageData) { error in
@@ -577,37 +579,6 @@ class FirebaseService {
                     completion(.success(newChatRef.documentID))
                 }
             }
-        }
-    }
-    func fetchMessages(chatID: String,
-                       completion: @escaping (Result<[Messages], Error>) -> Void) {
-        db.collection("chats")
-        .document(chatID)
-        .collection("messages")
-        .order(by: "timestamp", descending: false)
-        .getDocuments { snapshot, error in
-            if let error = error {
-                completion(.failure(error))
-                return
-            }
-            
-            guard let documents = snapshot?.documents else {
-                completion(.failure(NSError(domain: "FirebaseService", code: -1, userInfo: [NSLocalizedDescriptionKey: "No messages found"])))
-                return
-            }
-            
-            let messages = documents.compactMap { document -> Messages? in
-                let data = document.data()
-                guard let senderID = data["senderID"] as? String,
-                      let messageContent = data["messageContent"] as? String,
-                      let timestamp = data["timestamp"] as? Timestamp else {
-                    return nil
-                }
-                return Messages(senderID: senderID,
-                                messageContent: messageContent,
-                                timestamp: timestamp.dateValue())
-            }
-            completion(.success(messages))
         }
     }
     func addMessagesListener(chatID: String, completion: @escaping (Result<[Messages], Error>) -> Void) -> ListenerRegistration {

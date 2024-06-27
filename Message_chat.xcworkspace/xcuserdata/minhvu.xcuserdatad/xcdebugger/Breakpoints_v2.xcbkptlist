@@ -78,10 +78,10 @@
             filePath = "Message_chat/Views/MessageScreen/ConversationsViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "141"
-            endingLineNumber = "141"
-            landmarkName = "fetchMessages(chatID:)"
-            landmarkType = "7">
+            startingLineNumber = "260"
+            endingLineNumber = "260"
+            landmarkName = "ConversationsViewController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
