@@ -568,6 +568,8 @@ class FirebaseService {
                 "participants": [currentUserID, friend.uid],
                 "senderImage": senderImage,
                 "receiverImage": friend.image,
+                "receiverId": friend.uid,
+                "senderId": currentUserID,
                 "senderName": senderName,
                 "receiverName": friend.fullname
             ]
@@ -596,7 +598,12 @@ class FirebaseService {
         return listener
     }
     func fetchConversations(completion: @escaping (Result<[Conversation], Error>) -> Void) {
-        let currentUserID = Auth.auth().currentUser?.uid ?? ""
+        guard let currentUserID = Auth.auth().currentUser?.uid else {
+            completion(.failure(NSError(domain: "FirebaseService",
+                                        code: -1,
+                                        userInfo: [NSLocalizedDescriptionKey: "Current user not found"])))
+            return
+        }
         db.collection("chats")
             .whereField("participants", arrayContains: currentUserID)
             .getDocuments { (querySnapshot, error) in
@@ -604,22 +611,39 @@ class FirebaseService {
                     completion(.failure(error))
                     return
                 }
-
                 guard let documents = querySnapshot?.documents else {
                     completion(.success([]))
                     return
                 }
-
-                let conversations = documents.compactMap { document -> Conversation? in
+                var conversations = documents.compactMap {
+                    document -> Conversation? in
                     let data = document.data()
-                    let friendName = data["receiverName"] as? String ?? ""
-                    let friendImage = data["receiverImage"] as? String ?? ""
+                    let chatID = document.documentID
+                    let senderID = data["senderId"] as? String ?? ""
+                    let receiverID = data["receiverId"] as? String ?? ""
+                    let senderName = data["senderName"] as? String ?? ""
+                    let senderImage = data["senderImage"] as? String ?? ""
+                    let receiverName = data["receiverName"] as? String ?? ""
+                    let receiverImage = data["receiverImage"] as? String ?? ""
                     let lastMessage = data["last_msg"] as? String ?? ""
                     let timestamp = (data["created_on"] as? Timestamp)?.dateValue() ?? Date()
-
-                    return Conversation(friendImage: friendImage, friendName: friendName, lastMessage: lastMessage, timestamp: timestamp)
+                    if currentUserID == senderID {
+                        return Conversation(chatId: chatID ,
+                                            friendImage: receiverImage,
+                                            friendName: receiverName,
+                                            lastMessage: lastMessage,
+                                            timestamp: timestamp)
+                    } else if currentUserID == receiverID {
+                        return Conversation(chatId: chatID,
+                                            friendImage: senderImage,
+                                            friendName: senderName,
+                                            lastMessage: lastMessage,
+                                            timestamp: timestamp)
+                    } else {
+                        return nil
+                    }
                 }
-
+                conversations.sort { $0.timestamp > $1.timestamp }
                 completion(.success(conversations))
             }
     }
