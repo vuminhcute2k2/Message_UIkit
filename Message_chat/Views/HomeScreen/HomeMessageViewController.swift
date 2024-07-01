@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import FirebaseAuth
+import FirebaseFirestore
 
 class HomeMessageViewController: UIViewController {
     @IBOutlet weak var homeBackgroundView: UIView!
@@ -14,10 +16,12 @@ class HomeMessageViewController: UIViewController {
     @IBOutlet weak var buttonSearchMessage: UIButton!
     @IBOutlet weak var viewTableMessage: UIView!
     @IBOutlet weak var tableMessage: UITableView!
+    var conversations: [Conversation] = []
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
         setupTableView()
+        fetchConversations()
     }
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -95,5 +99,35 @@ class HomeMessageViewController: UIViewController {
         borderLayer.lineWidth = 1
         viewTableMessage.layer.addSublayer(borderLayer)
     }
+    private func fetchConversations() {
+        FirebaseService.shared.fetchConversations { result in
+            switch result {
+            case .success(let conversations):
+                self.conversations = conversations
+                self.tableMessage.reloadData()
+            case .failure(let error):
+                print("Failed to fetch conversations: \(error.localizedDescription)")
+            }
+        }
+    }
 }
+extension HomeMessageViewController: UITableViewDataSource, UITableViewDelegate {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return conversations.count
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MessagesTableViewCell", for: indexPath) as! MessagesTableViewCell
+                
+        let conversation = conversations[indexPath.row]
+        cell.configure(with: conversation)
+        return cell
+    }
+
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let selectedConversation = conversations[indexPath.row]
+    }
+}
+
 

@@ -38,6 +38,7 @@
 		C37F47C52C02ECF5008EDD7F /* RegisterAccountViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C37F47C32C02ECF5008EDD7F /* RegisterAccountViewController.xib */; };
 		C3839C9D2C2D681100B97BE3 /* ReceivedIsmagesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3839C9B2C2D681100B97BE3 /* ReceivedIsmagesTableViewCell.swift */; };
 		C3839C9E2C2D681100B97BE3 /* ReceivedIsmagesTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3839C9C2C2D681100B97BE3 /* ReceivedIsmagesTableViewCell.xib */; };
+		C3839CA02C32990F00B97BE3 /* ModelConversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3839C9F2C32990F00B97BE3 /* ModelConversation.swift */; };
 		C38436432C0EF18800AB5B2E /* ModelFriends.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38436422C0EF18800AB5B2E /* ModelFriends.swift */; };
 		C384A88D2C184CCB00E730CD /* EditAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C384A88B2C184CCB00E730CD /* EditAccountViewController.swift */; };
 		C384A88E2C184CCB00E730CD /* EditAccountViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C384A88C2C184CCB00E730CD /* EditAccountViewController.xib */; };
@@ -135,6 +136,7 @@
 		C37F47C32C02ECF5008EDD7F /* RegisterAccountViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RegisterAccountViewController.xib; sourceTree = "<group>"; };
 		C3839C9B2C2D681100B97BE3 /* ReceivedIsmagesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceivedIsmagesTableViewCell.swift; sourceTree = "<group>"; };
 		C3839C9C2C2D681100B97BE3 /* ReceivedIsmagesTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReceivedIsmagesTableViewCell.xib; sourceTree = "<group>"; };
+		C3839C9F2C32990F00B97BE3 /* ModelConversation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelConversation.swift; sourceTree = "<group>"; };
 		C38436422C0EF18800AB5B2E /* ModelFriends.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelFriends.swift; sourceTree = "<group>"; };
 		C384A88B2C184CCB00E730CD /* EditAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAccountViewController.swift; sourceTree = "<group>"; };
 		C384A88C2C184CCB00E730CD /* EditAccountViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EditAccountViewController.xib; sourceTree = "<group>"; };
@@ -457,6 +459,7 @@
 				C3B0D53A2C083EBD000A980B /* ModelMessages.swift */,
 				C38436422C0EF18800AB5B2E /* ModelFriends.swift */,
 				C368C62D2C1105F000322B82 /* ModelUsers.swift */,
+				C3839C9F2C32990F00B97BE3 /* ModelConversation.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -789,6 +792,7 @@
 				C3FF822C2C0D91BC005B2496 /* UITableExtensions.swift in Sources */,
 				C368C61E2C10DCE700322B82 /* AllFriendsTableViewCell.swift in Sources */,
 				C3B0D5302C070192000A980B /* MessagesTableViewCell.swift in Sources */,
+				C3839CA02C32990F00B97BE3 /* ModelConversation.swift in Sources */,
 				C38622EE2BF474B60086FC63 /* AppDelegate.swift in Sources */,
 				C3E943D72C09D87A0065664D /* MyFriendsViewController.swift in Sources */,
 				C384A88D2C184CCB00E730CD /* EditAccountViewController.swift in Sources */,

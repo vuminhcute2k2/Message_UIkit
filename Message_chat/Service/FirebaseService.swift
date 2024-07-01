@@ -595,6 +595,34 @@ class FirebaseService {
         }
         return listener
     }
+    func fetchConversations(completion: @escaping (Result<[Conversation], Error>) -> Void) {
+        let currentUserID = Auth.auth().currentUser?.uid ?? ""
+        db.collection("chats")
+            .whereField("participants", arrayContains: currentUserID)
+            .getDocuments { (querySnapshot, error) in
+                if let error = error {
+                    completion(.failure(error))
+                    return
+                }
+
+                guard let documents = querySnapshot?.documents else {
+                    completion(.success([]))
+                    return
+                }
+
+                let conversations = documents.compactMap { document -> Conversation? in
+                    let data = document.data()
+                    let friendName = data["receiverName"] as? String ?? ""
+                    let friendImage = data["receiverImage"] as? String ?? ""
+                    let lastMessage = data["last_msg"] as? String ?? ""
+                    let timestamp = (data["created_on"] as? Timestamp)?.dateValue() ?? Date()
+
+                    return Conversation(friendImage: friendImage, friendName: friendName, lastMessage: lastMessage, timestamp: timestamp)
+                }
+
+                completion(.success(conversations))
+            }
+    }
     // Save or Update user
     func saveUserToFirestore(_ user: User, completion: @escaping (Result<Void, Error>) -> Void)
     {
