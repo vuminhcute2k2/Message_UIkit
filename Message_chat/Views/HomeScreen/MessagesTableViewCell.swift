@@ -15,14 +15,29 @@ class MessagesTableViewCell: UITableViewCell {
     @IBOutlet weak var texttime: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
+        makeCircularViews()
     }
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
-    func setData(message: Message) {
-        imageAvatar.image = UIImage(named: message.avatarImageName)
-        textname.text = message.name
-        textmessage.text = message.message
-        texttime.text = message.time
+    private func makeCircularViews() {
+        imageAvatar.layer.cornerRadius = imageAvatar.frame.width / 4
+        imageAvatar.layer.masksToBounds = true
+
     }
+    func configure(with conversation: Conversation) {
+        if let url = URL(string: conversation.friendImage) {
+            imageAvatar.loadImage(from: url)
+        }
+        textname.text = conversation.friendName
+        textmessage.text = conversation.lastMessage
+        texttime.text = formatTimestamp(conversation.timestamp)
+    }
+
+    private func formatTimestamp(_ date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "hh:mm a"
+        return dateFormatter.string(from: date)
+    }
+
 }

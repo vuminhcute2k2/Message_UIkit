@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import SwiftSVG
 import UserNotifications
 import FirebaseAuth
 class ViewController: UIViewController {

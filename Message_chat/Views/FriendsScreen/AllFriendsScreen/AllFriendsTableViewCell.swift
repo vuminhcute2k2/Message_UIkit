@@ -63,9 +63,9 @@ class AllFriendsTableViewCell: UITableViewCell {
     }
     private func updateButtonTitle() {
         if isFriendRequestSent {
-            addFriendsButton.setTitle("Hủy", for: .normal)
+            addFriendsButton.setTitle("Cancel", for: .normal)
         } else {
-            addFriendsButton.setTitle("Kết bạn", for: .normal)
+            addFriendsButton.setTitle("Add", for: .normal)
         }
         updateButtonVisibility()
     }
