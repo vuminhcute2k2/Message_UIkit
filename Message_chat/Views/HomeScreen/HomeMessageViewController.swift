@@ -124,9 +124,23 @@ extension HomeMessageViewController: UITableViewDataSource, UITableViewDelegate 
         return cell
     }
 
-
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let selectedConversation = conversations[indexPath.row]
+        let conversation = conversations[indexPath.row]
+        FirebaseService.shared.getChatID(forUserID: conversation.friendId) {
+            result in
+            switch result {
+            case .success(let chatID):
+                DispatchQueue.main.async {
+                    let router =
+                    AppRouters.conversation(friend: Friend(uid: conversation.friendId,
+                                                           fullname: conversation.friendName,
+                                                           image: conversation.friendImage), chatId: chatID)
+                    router.navigate(from: self)
+                }
+            case .failure(let error):
+                print("Error getting chatID: \(error.localizedDescription)")
+            }
+        }
     }
 }
 

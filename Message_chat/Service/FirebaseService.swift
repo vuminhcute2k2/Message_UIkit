@@ -628,13 +628,15 @@ class FirebaseService {
                     let lastMessage = data["last_msg"] as? String ?? ""
                     let timestamp = (data["created_on"] as? Timestamp)?.dateValue() ?? Date()
                     if currentUserID == senderID {
-                        return Conversation(chatId: chatID ,
+                        return Conversation(chatId: chatID,
+                                            friendId: receiverID ,
                                             friendImage: receiverImage,
                                             friendName: receiverName,
                                             lastMessage: lastMessage,
                                             timestamp: timestamp)
                     } else if currentUserID == receiverID {
                         return Conversation(chatId: chatID,
+                                            friendId: receiverID,
                                             friendImage: senderImage,
                                             friendName: senderName,
                                             lastMessage: lastMessage,
@@ -647,6 +649,34 @@ class FirebaseService {
                 completion(.success(conversations))
             }
     }
+    func getChatConversation(forSenderID senderID: String, receiverID: String, completion: @escaping (Result<String, Error>) -> Void) {
+        let chatRef = db.collection("chats")
+            .whereField("participants", arrayContains: senderID)
+
+        chatRef.getDocuments { querySnapshot, error in
+            if let error = error {
+                print("Error getting documents: \(error.localizedDescription)")
+                completion(.failure(error))
+                return
+            }
+            guard let documents = querySnapshot?.documents else {
+                print("No documents found")
+                completion(.failure(FirebaseError.documentNotFound))
+                return
+            }
+            for document in documents {
+                let data = document.data()
+                if let participants = data["participants"] as? [String], participants.contains(receiverID) {
+                    print("Found chat document ID: \(document.documentID)")
+                    completion(.success(document.documentID))
+                    return
+                }
+            }
+            print("Chat document ID not found")
+            completion(.failure(FirebaseError.documentNotFound))
+        }
+    }
+
     // Save or Update user
     func saveUserToFirestore(_ user: User, completion: @escaping (Result<Void, Error>) -> Void)
     {

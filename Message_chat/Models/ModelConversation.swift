@@ -9,6 +9,7 @@ import Foundation
 
 struct Conversation {
     let chatId: String
+    let friendId: String
     let friendImage: String
     let friendName: String
     let lastMessage: String
